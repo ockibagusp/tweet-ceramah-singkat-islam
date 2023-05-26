@@ -163,7 +163,7 @@ export default {
     <h2 style="margin-top: 2px;">Tweet Ceramah Singkat Islam</h2>
     <h3 style="margin-top: -10px; margin-bottom: 5px;">Youtube Video Link:</h3>
     <textarea v-model="ceramahSingkatIslam" style="width: 500px;"
-      placeholder="https://www.youtube.com/shorts/peUj47yc1xo" cols="38" ref="ceramahSingkatIslam" data-test="ceramahSingkatIslam"></textarea>
+      placeholder="https://www.youtube.com/shorts/peUj47yc1xo" cols="38" ref="ceramahSingkatIslam" data-test="ceramah-singkat-islam"></textarea>
     <br>
     <button style="margin-top: 4px;" @click="btnReset" data-test="btn-reset">Reset</button>
     <br>
