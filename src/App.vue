@@ -55,12 +55,14 @@ export default {
       // textarea hasil: loading...
       this.results = 'Loading...'
 
+      let newCeramahSingkat = this.ceramahSingkatIslam
+        .replace('https://www.youtube.com', '')
+        .replace('https://youtu.be', '')
       try {
-        let ceramahSingkatIslam = REDIRCETURL + '/shorts/peUj47yc1xo'
-        
+        let ceramahSingkatIslam = REDIRCETURL + newCeramahSingkat
         const res = await axios.get(ceramahSingkatIslam)
         
-        const regex = /<meta name="title" content="(.+)"><meta name="description" content=/gm
+        const regex = /<title>(.+)<\/title>/gm
         // Alternative syntax using RegExp constructor
         // const regex = new RegExp('<title>(.+)<\\/title>', 'gm')
 
@@ -122,7 +124,9 @@ export default {
 
       //   this.count = 280
       // }
-      this.results = this.youtubeVideoHtml
+      this.results = `${this.youtubeVideoHtml.replace(' - YouTube', '')}
+
+${this.ceramahSingkatIslam}`
     },
     // button: reset, copy dan tweet
     btnReset() {
@@ -172,8 +176,7 @@ export default {
     <textarea style="width: 500px;height: 50px;" v-model="results"
       placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA #ceramahsingkat
 
-https://www.youtube.com/shorts/peUj47yc1xo
-      " cols="50" rows="3" ref="results" data-test="results"></textarea>
+https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
     <br>
     <button @click="btnCopy" :disabled="isCopy" data-test="btn-copy">Copy</button>
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>

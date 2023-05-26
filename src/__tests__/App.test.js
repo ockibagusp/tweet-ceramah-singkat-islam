@@ -1,7 +1,9 @@
-import { describe, it, assert, expect } from 'vitest'
+import { describe, it, assert, expect, vi } from 'vitest'
 
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import App from '../App.vue'
+
+import axios from 'axios'
 
 describe('App js: init', () => {
   assert.exists(App)
@@ -31,15 +33,32 @@ describe('App js: init', () => {
   })
 })
 
+// test html: https://youtube.com/
+const mockYoutubeVideo = { 
+  data: '<title>DOSA - Ustadz Dr. Firanda Andirja, MA - YouTube</title><'
+}
+
+// GET
+vi.spyOn(axios, 'get').mockResolvedValueOnce(mockYoutubeVideo)
+
 describe('App js: delete tweet youtube video', async() => {
+  const wrapper = mount(App)
+  
   // textarea: ceramahSingkatIslam dan hasil
-  const ceramahSingkatIslam = mount(App, {
-    props: { } 
-  }).find('[data-test="ceramah-singkat-islam"]')
+  const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
   
   ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
 
   await ceramahSingkatIslam.trigger('change')
 
-  assert.equal(ceramahSingkatIslam.element.value, '/shorts/peUj47yc1xo')
+  expect(axios.get).toHaveBeenCalledTimes(1)
+  expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
+
+  // Wait until the DOM updates.
+  await flushPromises()
+
+  const results = wrapper.find('[data-test="results"]')
+
+  // // textarea hasil: test youtube.com
+  expect(results.element.value).toContainEqual('DOSA - Ustadz Dr. Firanda Andirja, MA')
 })
