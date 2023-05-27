@@ -35,7 +35,7 @@ describe('App js: init', () => {
 
 // test html: https://youtube.com/
 const mockYoutubeVideo = { 
-  data: '<title>DOSA - Ustadz Dr. Firanda Andirja, MA - YouTube</title><'
+  data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content='
 }
 
 // GET
@@ -68,30 +68,18 @@ describe('App js: reset tweet youtube video', async() => {
   
   // textarea: ceramahSingkatIslam dan hasil
   const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
-  
-  ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
-
-  await ceramahSingkatIslam.trigger('change')
-
-  expect(axios.get).toHaveBeenCalledTimes(1)
-  expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
-
-  // Wait until the DOM updates.
-  await flushPromises()
-
   const results = wrapper.find('[data-test="results"]')
-  // button: btnReset
   const btnReset = wrapper.find('[data-test="btn-reset"]') 
 
-  // 2. textarea: hasil = 'Tidak ada hasil'
   // 1. textarea: ceramahSingkatIslam = '-'
-  results.setValue('Tidak ada hasil')
   ceramahSingkatIslam.setValue('-')
+  // 2. textarea: hasil = 'Tidak ada hasil'
+  results.setValue('Tidak ada hasil')
   
   assert.equal(ceramahSingkatIslam.element.value, '-')
-    assert.equal(results.element.value, 'Tidak ada hasil')
-
-    await btnReset.trigger('click')
-    assert.equal(ceramahSingkatIslam.element.value, '')
-    assert.equal(results.element.value, '')
+  assert.equal(results.element.value, 'Tidak ada hasil')
+  
+  await btnReset.trigger('click')
+  assert.equal(ceramahSingkatIslam.element.value, '')
+  assert.equal(results.element.value, '')
 })

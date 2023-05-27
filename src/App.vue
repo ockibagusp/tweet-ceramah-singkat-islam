@@ -39,80 +39,75 @@ export default {
   watch: {
     // textarea: ceramahSingkatIslam
     ceramahSingkatIslam() {
-      this.beMade()
+      // textarea hasil: loading...
+      this.results = 'Loading...'
+
+      // vue methods: memuat
+      this.carry()
     }
   },
   methods: {
     // dibuat: dari textarea ceramahSingkatIslam ini
-    async beMade() {
+    async carry() {
       let youtubeVideoHtml = ''
-      
-      this.selectResults = false
-      this.selectSubmit = false
-      this.selectCopy = false
-      this.selectTweet = false
-      this.count = 280
-
-      // textarea hasil: loading...
-      this.results = 'Loading...'
 
       let newCeramahSingkat = this.ceramahSingkatIslam
         .replace('https://www.youtube.com', '')
         .replace('https://youtu.be', '')
+      
+      let ceramahSingkatIslam = REDIRCETURL + newCeramahSingkat
+      
       try {
-        let ceramahSingkatIslam = REDIRCETURL + newCeramahSingkat
         const res = await axios.get(ceramahSingkatIslam)
-        
+      
         const regex = /<meta name="title" content="(.+)"><meta name="description" content=/gm
         // Alternative syntax using RegExp constructor
         // const regex = new RegExp('<title>(.+)<\\/title>', 'gm')
-
         const str = res.data
         let m
-
         while ((m = regex.exec(str)) !== null) {
-            // This is necessary to avoid infinite loops with zero-width matches
-            if (m.index === regex.lastIndex) {
-                regex.lastIndex++
+          // This is necessary to avoid infinite loops with zero-width matches
+          if (m.index === regex.lastIndex) {
+              regex.lastIndex++
+          }
+          // The result can be accessed through the `m`-variable.
+          m.forEach((match, groupIndex) => {
+            if (groupIndex === 1) {
+              if (match !== undefined) {
+                youtubeVideoHtml = match
+                return
+              }
             }
-            // The result can be accessed through the `m`-variable.
-            m.forEach((match, groupIndex) => {
-              if (groupIndex === 1) {
-                if (match !== undefined)
-                  youtubeVideoHtml = match
-                  return
-                }
-            })
+          })
         }
-      } catch (error) {
-        youtubeVideoHtml = ''
-        this.ceramahSingkatIslam = ''
+        if (youtubeVideoHtml != '') {
+          youtubeVideoHtml = `${youtubeVideoHtml} 
+
+${this  .ceramahSingkatIslam}`
+          this.selectResults = true
+          this.selectCopy = true
+          this.selectTweet = true
+          this.count = 280 - youtubeVideoHtml.length
+        } 
+
+        if (str != '' && youtubeVideoHtml == '') {          
+          youtubeVideoHtml = ''
+          this.selectResults = false
+          this.selectCopy = false
+          this.selectTweet = false
+
+          this.count = 280
+        }
+        this.results = youtubeVideoHtml
+
+        this.isCopyAndCountTweet()
+      } catch {
+        this.results = 'Tidak ada hasil'
         this.selectResults = false
         this.selectSubmit = false
         this.selectCopy = false
         this.selectTweet = false
-        alert(error)
       }
-
-      if (youtubeVideoHtml != '') {
-        this.selectResults = true
-        this.selectCopy = true
-        this.selectTweet = true
-
-        this.count = 280 - youtubeVideoHtml.length
-      } else if (str != '' && youtubeVideoHtml == '') {
-        youtubeVideoHtml = 'Tidak ada hasil'
-        this.selectResults = false
-        this.selectCopy = false
-        this.selectTweet = false
-
-        this.count = 280
-
-        return
-      }
-      this.results = `${youtubeVideoHtml}
-
-${this.ceramahSingkatIslam}`
     },
     // button: reset, copy dan tweet
     btnReset() {
@@ -144,6 +139,19 @@ ${this.ceramahSingkatIslam}`
       const UTF8_hash = this.results.replaceAll("#", "%23")
       window.open("https://twitter.com/intent/tweet?text="+UTF8_hash, "_blank")
     },
+
+    // sama dengan :isCountTweet()
+    // adalah textarea hitungan dan tombol tweet
+    isCopyAndCountTweet() {
+      if (this.results === '' || this.results === 'Tidak ada hasil' 
+        || this.results.length > 280) { 
+        this.selectCopy = false
+        this.selectTweet = false
+      } else {
+        this.selectCopy = true
+        this.selectTweet = true
+      }
+    }
   }
 }
 </script>
