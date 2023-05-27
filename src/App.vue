@@ -8,9 +8,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      // textarea: ceramahSingkatIslam dan ceramahSingkatIslam
+      // textarea: ceramahSingkatIslam
       ceramahSingkatIslam: '',
-      youtubeVideoHtml: '',
       // textarea: hasil
       results: '',
       // tweet dihasil maks. 280 karakter
@@ -46,6 +45,8 @@ export default {
   methods: {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async beMade() {
+      let youtubeVideoHtml = ''
+      
       this.selectResults = false
       this.selectSubmit = false
       this.selectCopy = false
@@ -62,7 +63,7 @@ export default {
         let ceramahSingkatIslam = REDIRCETURL + newCeramahSingkat
         const res = await axios.get(ceramahSingkatIslam)
         
-        const regex = /<title>(.+)<\/title>/gm
+        const regex = /<meta name="title" content="(.+)"><meta name="description" content=/gm
         // Alternative syntax using RegExp constructor
         // const regex = new RegExp('<title>(.+)<\\/title>', 'gm')
 
@@ -74,17 +75,17 @@ export default {
             if (m.index === regex.lastIndex) {
                 regex.lastIndex++
             }
-
             // The result can be accessed through the `m`-variable.
             m.forEach((match, groupIndex) => {
               if (groupIndex === 1) {
                 if (match !== undefined)
-                  this.youtubeVideoHtml = match
+                  youtubeVideoHtml = match
                   return
                 }
             })
         }
       } catch (error) {
+        youtubeVideoHtml = ''
         this.ceramahSingkatIslam = ''
         this.selectResults = false
         this.selectSubmit = false
@@ -93,38 +94,23 @@ export default {
         alert(error)
       }
 
-      // if (trends != '') {
-      //   trends = TAGS + trends.substring(0, trends.length-2)
-      //   this.selectResults = true
-      //   this.selectCopy = true
-      //   this.selectTweet = true
+      if (youtubeVideoHtml != '') {
+        this.selectResults = true
+        this.selectCopy = true
+        this.selectTweet = true
 
-      //   this.count = 280 - trends.length
-      // } if (str != '' && trends == '') {
-      //   trends = 'Tidak ada hasil'
-      //   this.selectResults = false
-      //   this.selectCopy = false
-      //   this.selectTweet = false
+        this.count = 280 - youtubeVideoHtml.length
+      } else if (str != '' && youtubeVideoHtml == '') {
+        youtubeVideoHtml = 'Tidak ada hasil'
+        this.selectResults = false
+        this.selectCopy = false
+        this.selectTweet = false
 
-      //   this.count = 280
-      // }
+        this.count = 280
 
-      // if (profile != '' && status != '') {
-      //   newceramahSingkatIslam = `https://twitter.com/${profile}/status/${status}/video/1`
-      //   this.selectResults = true
-      //   this.selectCopy = true
-      //   this.selectTweet = true
-
-      //   this.count = 280 - newceramahSingkatIslam.length
-      // } else {
-      //   newceramahSingkatIslam = this.ceramahSingkatIslam
-      //   this.selectResults = false
-      //   this.selectCopy = false
-      //   this.selectTweet = false
-
-      //   this.count = 280
-      // }
-      this.results = `${this.youtubeVideoHtml.replace(' - YouTube', '')}
+        return
+      }
+      this.results = `${youtubeVideoHtml}
 
 ${this.ceramahSingkatIslam}`
     },
@@ -166,8 +152,8 @@ ${this.ceramahSingkatIslam}`
   <main>
     <h2 style="margin-top: 2px;">Tweet Ceramah Singkat Islam</h2>
     <h3 style="margin-top: -10px; margin-bottom: 5px;">Youtube Video Link:</h3>
-    <textarea v-model="ceramahSingkatIslam" style="width: 500px;"
-      placeholder="https://www.youtube.com/shorts/peUj47yc1xo" cols="38" ref="ceramahSingkatIslam" data-test="ceramah-singkat-islam"></textarea>
+    <input v-model="ceramahSingkatIslam" style="width: 500px;"
+      placeholder="https://www.youtube.com/shorts/peUj47yc1xo" cols="38" ref="ceramahSingkatIslam" data-test="ceramah-singkat-islam">
     <br>
     <button style="margin-top: 4px;" @click="btnReset" data-test="btn-reset">Reset</button>
     <br>
