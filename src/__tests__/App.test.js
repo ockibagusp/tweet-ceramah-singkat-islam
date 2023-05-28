@@ -5,22 +5,22 @@ import App from '../App.vue'
 
 import axios from 'axios'
 
+const wrapper = mount(App, {
+  props: { } 
+})
+ // textarea: ceramahSingkatIslam dan hasil
+const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
+const results = wrapper.find('[data-test="results"]')
+
+// button: btnReset dan btnCopy
+const btnReset = wrapper.find('[data-test="btn-reset"]') 
+const btnCopy = wrapper.find('[data-test="btn-copy"]')
+
+// button: btnTweet
+const btnTweet = wrapper.find('[data-test="btn-tweet"]')
+
 describe('App js: init', () => {
   assert.exists(App)
-  const wrapper = mount(App, {
-    props: { } 
-  })
-
-  // textarea: ceramahSingkatIslam dan hasil
-  const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
-  const results = wrapper.find('[data-test="results"]')
-
-  // button: btnReset dan btnCopy
-  const btnReset = wrapper.find('[data-test="btn-reset"]') 
-  const btnCopy = wrapper.find('[data-test="btn-copy"]')
-
-  // button: btnTweet
-  const btnTweet = wrapper.find('[data-test="btn-tweet"]')
 
   it('init', () => {
     assert.isEmpty(ceramahSingkatIslam.element.value)
@@ -41,45 +41,37 @@ const mockYoutubeVideo = {
 // GET
 vi.spyOn(axios, 'get').mockResolvedValueOnce(mockYoutubeVideo)
 
-// describe('App js: delete tweet youtube video', async() => {
-//   const wrapper = mount(App)
+describe('App js: delete tweet youtube video', () => {
+  it('delete tweet youtube video', async() => {
+    ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
+
+    await ceramahSingkatIslam.trigger('change')
   
-//   // textarea: ceramahSingkatIslam dan hasil
-//   const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
+    expect(axios.get).toHaveBeenCalledTimes(1)
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
   
-//   ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
+    // Wait until the DOM updates.
+    await flushPromises()
+  
+    // textarea hasil: test youtube.com
+    expect(results.element.value).toBe(`DOSA - Ustadz Dr. Firanda Andirja, MA 
 
-//   await ceramahSingkatIslam.trigger('change')
-
-//   expect(axios.get).toHaveBeenCalledTimes(1)
-//   expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
-
-//   // Wait until the DOM updates.
-//   await flushPromises()
-
-//   const results = wrapper.find('[data-test="results"]')
-
-//   // textarea hasil: test youtube.com
-//   expect(results.element.value).toContainEqual('DOSA - Ustadz Dr. Firanda Andirja, MA')
-// })
+https://www.youtube.com/shorts/peUj47yc1xo`)
+  })
+})
 
 describe('App js: reset tweet youtube video', async() => {
-  const wrapper = mount(App)
+  it('reset tweet youtube video', async() => {
+    // 1. textarea: ceramahSingkatIslam = '-'
+    ceramahSingkatIslam.setValue('-')
+    // 2. textarea: hasil = 'Tidak ada hasil'
+    results.setValue('Tidak ada hasil')
   
-  // textarea: ceramahSingkatIslam dan hasil
-  const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
-  const results = wrapper.find('[data-test="results"]')
-  const btnReset = wrapper.find('[data-test="btn-reset"]') 
-
-  // 1. textarea: ceramahSingkatIslam = '-'
-  ceramahSingkatIslam.setValue('-')
-  // 2. textarea: hasil = 'Tidak ada hasil'
-  results.setValue('Tidak ada hasil')
+    assert.equal(ceramahSingkatIslam.element.value, '-')
+    assert.equal(results.element.value, 'Tidak ada hasil')
   
-  assert.equal(ceramahSingkatIslam.element.value, '-')
-  assert.equal(results.element.value, 'Tidak ada hasil')
-  
-  await btnReset.trigger('click')
-  assert.equal(ceramahSingkatIslam.element.value, '')
-  assert.equal(results.element.value, '')
+    await btnReset.trigger('click')
+    assert.equal(ceramahSingkatIslam.element.value, '')
+    assert.equal(results.element.value, '')
+  })
 })
