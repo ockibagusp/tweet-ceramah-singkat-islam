@@ -75,3 +75,41 @@ describe('App js: reset tweet youtube video', async() => {
     assert.equal(results.element.value, '')
   })
 })
+
+// results: 'Loading...' to `DOSA - Ustadz Dr. Firanda Andirja, MA ...`?
+describe('App js: tweet youtube video all', () => {
+  it('tweet youtube video all', async() => {
+    // test cases
+    const testCases = [
+      {
+        name: `youtube 'shorts' success: id=1`,
+        youtubeLink: 'https://www.youtube.com/shorts/peUj47yc1xo',
+        axiosGetTimes: 2,
+        axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
+        results: 'Loading...'
+      },
+      {
+        name: `youtube 'shorts' failure: id=2'`,
+        youtubeLink: 'https://www.youtube.com/shorts',
+        axiosGetTimes: 3,
+        axiosGetWith: 'http://localhost:3000/video/shorts',
+        results: 'Tidak ada hasil'
+      },
+    ]
+
+    for (let test of testCases) {
+      console.debug('ke-', test.name)
+      ceramahSingkatIslam.setValue(test.youtubeLink)
+
+      await ceramahSingkatIslam.trigger('change')
+      
+      expect(axios.get).toHaveBeenCalledTimes(test.axiosGetTimes)
+      expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
+      
+      // Wait until the DOM updates.
+      await flushPromises()
+      
+      expect(results.element.value).toBe(test.results)
+    }
+  })
+})
