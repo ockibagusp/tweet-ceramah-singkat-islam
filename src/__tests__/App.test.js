@@ -89,10 +89,17 @@ describe('App js: tweet youtube video all', () => {
         results: 'Loading...'
       },
       {
-        name: `youtube 'shorts' failure: id=2'`,
-        youtubeLink: 'https://www.youtube.com/shorts',
+        name: `youtube 'watch' success: id=2'`,
+        youtubeLink: 'https://youtu.be/vTeIKc2JjCU',
         axiosGetTimes: 3,
-        axiosGetWith: 'http://localhost:3000/video/shorts',
+        axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
+        results: 'Loading...'
+      },
+      {
+        name: `youtube 'shorts' failure: id=2'`,
+        youtubeLink: 'https://www.youtube.com/shorts/',
+        axiosGetTimes: 4,
+        axiosGetWith: 'http://localhost:3000/video/shorts/',
         results: 'Tidak ada hasil'
       },
     ]

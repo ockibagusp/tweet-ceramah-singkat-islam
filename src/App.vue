@@ -3,6 +3,20 @@
 
 <script>
 const REDIRCETURL = 'http://localhost:3000/video'
+const YOUTUBEVIDURLS = [
+  'https://www.youtube.com',
+  'www.youtube.com',
+  'youtube.com',
+  'https://youtu.be',
+  'youtu.be'
+]
+const SHORTSANDWATCH= [
+  '/watch?v=',
+  '/shorts/',
+  '/watch',
+  '/shorts'
+]
+
 import axios from 'axios'
 
 export default {
@@ -39,9 +53,6 @@ export default {
   watch: {
     // textarea: ceramahSingkatIslam
     ceramahSingkatIslam() {
-      // textarea hasil: loading...
-      this.results = 'Loading...'
-
       // vue methods: memuat
       this.carry()
     }
@@ -50,15 +61,72 @@ export default {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async carry() {
       let youtubeVideoHtml = ''
+      if (this.ceramahSingkatIslam == '') {
+        this.results = ''
+        return
+      }
 
-      let newCeramahSingkat = this.ceramahSingkatIslam
-        .replace('https://www.youtube.com', '')
-        .replace('https://youtu.be', '')
+      const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)(\S+)?/gm
+
+      // Alternative syntax using RegExp constructor
+      // const regex = new RegExp('(https:\\/\\/)?(www\\.|m\\.)?(youtube\\.com|youtu\\.be)\\/(watch\\?v=|shorts\\/)?([\\w\\-]+)(\\S+)?', 'gm')
+
+      const str = this.ceramahSingkatIslam
+      let m
+
+      let quit = false
+      while ((m = regex.exec(str)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === regex.lastIndex) {
+            regex.lastIndex++
+        }
+        
+        // The result can be accessed through the `m`-variable.
+        m.forEach((match, groupIndex) => {
+          // console.log(`Found match, group ${groupIndex}: ${match}`)
+          if (groupIndex === 0) {
+              if (match !== undefined) {
+                youtubeVideoHtml = match
+                quit = true
+              }
+            }
+        })
+      }
+
+      if (!quit)
+        this.results = 'Tidak ada hasil'
+
+      // memotong pada youtube atau youtu ke '': misalnya,
+      //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
+      let ceramahSingkatSlice = this.ceramahSingkatIslam
+      .replace(YOUTUBEVIDURLS[0], '')
+      .replace(YOUTUBEVIDURLS[1], '')
+      .replace(YOUTUBEVIDURLS[2], '')
+      .replace(YOUTUBEVIDURLS[3], '')
+      .replace(YOUTUBEVIDURLS[4], '')
+
+      // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
+      //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
+      if (ceramahSingkatSlice.search('/watch?v=') === -1 && ceramahSingkatSlice.search('/shorts') === -1) {
+        ceramahSingkatSlice = '/watch?v=' + ceramahSingkatSlice.replace('/', '')
+      }
+
+      let ceramahSingkatIslam = REDIRCETURL + ceramahSingkatSlice
       
-      let ceramahSingkatIslam = REDIRCETURL + newCeramahSingkat
-      
+      // textarea hasil: loading...
+      this.results = 'Loading...'
+
       try {
         const res = await axios.get(ceramahSingkatIslam)
+
+        console.log(res.status);
+        if (res.status == 200 ) {
+          // ?
+          console.log(res.status)
+        } else if (res.status == 404) {
+          this.results = 'Tidak ada hasil'
+          return
+        }
       
         const regex = /<meta name="title" content="(.+)"><meta name="description" content=/gm
         // Alternative syntax using RegExp constructor
