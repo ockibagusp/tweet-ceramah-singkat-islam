@@ -33,18 +33,15 @@ describe('App js: init', () => {
   })
 })
 
-// test html: https://youtube.com/
-const mockYoutubeVideo = { 
-  data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content='
-}
-
-// GET
-vi.spyOn(axios, 'get').mockResolvedValueOnce(mockYoutubeVideo)
-
 describe('App js: delete tweet youtube video', () => {
   it('delete tweet youtube video', async() => {
-    ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
+    // GET
+    vi.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+      status: 200
+    })
 
+    ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
     await ceramahSingkatIslam.trigger('change')
   
     expect(axios.get).toHaveBeenCalledTimes(1)
@@ -54,7 +51,7 @@ describe('App js: delete tweet youtube video', () => {
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toBe(`DOSA - Ustadz Dr. Firanda Andirja, MA 
+    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA 
 
 https://www.youtube.com/shorts/peUj47yc1xo`)
   })
@@ -84,39 +81,99 @@ describe('App js: tweet youtube video all', () => {
       {
         name: `youtube 'shorts' success: id=1`,
         youtubeLink: 'https://www.youtube.com/shorts/peUj47yc1xo',
-        axiosGetTimes: 2,
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetTimes: 1,
         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: 'Loading...'
+        results: `DOSA - Ustadz Dr. Firanda Andirja, MA 
+
+https://www.youtube.com/shorts/peUj47yc1xo`
       },
       {
         name: `youtube 'watch' success: id=2'`,
         youtubeLink: 'https://youtu.be/vTeIKc2JjCU',
-        axiosGetTimes: 3,
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetTimes: 1,
         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: 'Loading...'
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA 
+
+https://youtu.be/vTeIKc2JjCU`
       },
       {
-        name: `youtube 'shorts' failure: id=2'`,
+        name: `youtube 'shorts' failure: id=3'`,
+        youtubeLink: 'https://www.youtube.com/shorts/failure',
+        axiosGetValueOnce: {
+          data: '',
+          status: 404
+        },
+        axiosGetWith: 'http://localhost:3000/video/shorts/failure',
+        results: 'Tidak ada hasil'
+      },
+      {
+        name: `youtube 'shorts' failure: id=4'`,
+        // response status: 200
         youtubeLink: 'https://www.youtube.com/shorts/',
-        axiosGetTimes: 4,
+        axiosGetValueOnce: {
+          data: '',
+          status: 200
+        },
         axiosGetWith: 'http://localhost:3000/video/shorts/',
+        results: 'Tidak ada hasil'
+      },
+      {
+        name: `youtube 'shorts' failure: id=5'`,
+        // response status: 200
+        youtubeLink: 'https://www.youtube.com/shorts',
+        axiosGetValueOnce: {
+          data: '',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/shorts',
+        results: 'Tidak ada hasil'
+      },
+      {
+        name: `youtube failure: id=6'`,
+        // response status: 200
+        youtubeLink: 'https://www.youtube.com/',
+        axiosGetValueOnce: {
+          data: '',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=',
+        results: 'Tidak ada hasil'
+      },
+      {
+        name: `youtube failure: id=7'`,
+        youtubeLink: 'https://www.youtube.com',
+        axiosGetValueOnce: {
+          data: '',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=',
         results: 'Tidak ada hasil'
       },
     ]
 
     for (let test of testCases) {
       console.debug('ke-', test.name)
-      ceramahSingkatIslam.setValue(test.youtubeLink)
+      // GET
+      vi.spyOn(axios, 'get').mockResolvedValueOnce(test.axiosGetValueOnce)
 
+      ceramahSingkatIslam.setValue(test.youtubeLink)
       await ceramahSingkatIslam.trigger('change')
       
-      expect(axios.get).toHaveBeenCalledTimes(test.axiosGetTimes)
+      expect(axios.get).toHaveBeenCalledTimes(1)
       expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
       
       // Wait until the DOM updates.
       await flushPromises()
       
-      expect(results.element.value).toBe(test.results)
+      expect(results.element.value).toEqual(test.results)
     }
   })
 })
