@@ -157,10 +157,24 @@ https://youtu.be/vTeIKc2JjCU`
         axiosGetWith: 'http://localhost:3000/video/watch?v=',
         results: 'Tidak ada hasil'
       },
+      // // // Response.data => This video isn't available anymore
+      // // // => http://localhost:3000/video/watch?v=watch?v=failure
+      // // //                                         ------- x
+      // {
+      //   name: `youtube 'watch' failure: id=8'`,
+      //   youtubeLink: 'https://www.youtube.com/watch?v=failure',
+      //   axiosGetValueOnce: {
+      //     data: '',
+      //     status: 200
+      //   },
+      //   axiosGetTimes: 1,
+      //   axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
+      //   results: 'Tidak ada hasil'
+      // },
     ]
 
     for (let test of testCases) {
-      console.debug('ke-', test.name)
+      console.debug('name:', test.name)
       // GET
       vi.spyOn(axios, 'get').mockResolvedValueOnce(test.axiosGetValueOnce)
 

@@ -80,16 +80,22 @@ export default {
         if (m.index === regex.lastIndex) {
             regex.lastIndex++
         }
-        
+
         // The result can be accessed through the `m`-variable.
         m.forEach((match, groupIndex) => {
-          // console.log(`Found match, group ${groupIndex}: ${match}`)
           if (groupIndex === 0) {
-              if (match !== undefined) {
-                youtubeVideoHtml = match
+            if (match !== undefined) {
+              youtubeVideoHtml = match
+            }
+          }
+
+          if (groupIndex === 5) {
+            if (match !== undefined) {
+              if (match.search('watch') === -1 && match.search('shorts') === -1) {
                 quit = true
               }
             }
+          }
         })
       }
 
@@ -118,12 +124,13 @@ export default {
 
       try {
         const res = await axios.get(ceramahSingkatIslam)
-
-        console.log(res.status);
-        if (res.status == 200 ) {
-          // ?
-          console.log(res.status)
+        if (res.status == 200 && (ceramahSingkatSlice == '/shorts/' || ceramahSingkatSlice == '/shorts' || ceramahSingkatSlice == '/watch?v=')) {
+          this.results = 'Tidak ada hasil'
+          return
         } else if (res.status == 404) {
+          this.results = 'Tidak ada hasil'
+          return
+        } else if (res.data.search(`This video isn't available anymore`) !== -1) {
           this.results = 'Tidak ada hasil'
           return
         }
