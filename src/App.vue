@@ -10,12 +10,6 @@ const YOUTUBEVIDURLS = [
   'https://youtu.be',
   'youtu.be'
 ]
-const SHORTSANDWATCH= [
-  '/watch?v=',
-  '/shorts/',
-  '/watch',
-  '/shorts'
-]
 
 import axios from 'axios'
 
@@ -243,7 +237,7 @@ ${this  .ceramahSingkatIslam}`
     <h3 style="margin-top: 10px; margin-bottom: -15px;">Hasil:</h3>
     <br>
     <textarea style="width: 500px;height: 50px;" v-model="results"
-      placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA #ceramahsingkat
+      placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA
 
 https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
     <br>
