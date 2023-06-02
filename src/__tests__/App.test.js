@@ -189,3 +189,19 @@ https://youtu.be/vTeIKc2JjCU`
     }
   })
 })
+
+describe('App js: button reset', () => {
+  it('button reset', async() => {
+    // 1. textarea: ceramahSingkatIslam = '-'
+    // 2. textarea: hasil = 'Tidak ada hasil'
+    ceramahSingkatIslam.setValue('-')
+    results.setValue('Tidak ada hasil')
+
+    assert.equal(ceramahSingkatIslam.element.value, '-')
+    assert.equal(results.element.value, 'Tidak ada hasil')
+    await btnReset.trigger('click')
+    
+    assert.equal(ceramahSingkatIslam.element.value, '')
+    assert.equal(results.element.value, '')
+  })
+})
