@@ -88,7 +88,8 @@ describe('App js: tweet youtube video all', () => {
         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
         results: `DOSA - Ustadz Dr. Firanda Andirja, MA 
 
-https://www.youtube.com/shorts/peUj47yc1xo`
+https://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 198'
       },
       {
         name: `youtube 'watch' success: id=2'`,
@@ -101,7 +102,8 @@ https://www.youtube.com/shorts/peUj47yc1xo`
         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA 
 
-https://youtu.be/vTeIKc2JjCU`
+https://youtu.be/vTeIKc2JjCU`,
+        tweetIs: 'Tweet is: + 197'
       },
       {
         name: `youtube 'shorts' failure: id=3'`,
@@ -111,7 +113,8 @@ https://youtu.be/vTeIKc2JjCU`
           status: 404
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/failure',
-        results: 'Tidak ada hasil'
+        results: 'Tidak ada hasil',
+        tweetIs: 'Tweet is: + 280'
       },
       {
         name: `youtube 'shorts' failure: id=4'`,
@@ -122,7 +125,8 @@ https://youtu.be/vTeIKc2JjCU`
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/',
-        results: 'Tidak ada hasil'
+        results: 'Tidak ada hasil',
+        tweetIs: 'Tweet is: + 280'
       },
       {
         name: `youtube 'shorts' failure: id=5'`,
@@ -133,7 +137,8 @@ https://youtu.be/vTeIKc2JjCU`
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts',
-        results: 'Tidak ada hasil'
+        results: 'Tidak ada hasil',
+        tweetIs: 'Tweet is: + 280'
       },
       {
         name: `youtube failure: id=6'`,
@@ -144,7 +149,8 @@ https://youtu.be/vTeIKc2JjCU`
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=',
-        results: 'Tidak ada hasil'
+        results: 'Tidak ada hasil',
+        tweetIs: 'Tweet is: + 280'
       },
       {
         name: `youtube failure: id=7'`,
@@ -154,7 +160,8 @@ https://youtu.be/vTeIKc2JjCU`
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=',
-        results: 'Tidak ada hasil'
+        results: 'Tidak ada hasil',
+        tweetIs: 'Tweet is: + 280'
       },
       // // // Response.data => This video isn't available anymore
       // // // => http://localhost:3000/video/watch?v=watch?v=failure
@@ -167,7 +174,8 @@ https://youtu.be/vTeIKc2JjCU`
       //     status: 200
       //   },
       //   axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
-      //   results: 'Tidak ada hasil'
+      //   results: 'Tidak ada hasil',
+      //   tweetIs: 'Tweet is: + 280'
       // },
     ]
 
@@ -186,6 +194,7 @@ https://youtu.be/vTeIKc2JjCU`
       await flushPromises()
       
       expect(results.element.value).toEqual(test.results)
+      assert.equal(btnTweet.text(), test.tweetIs)
     }
   })
 })
@@ -200,7 +209,7 @@ describe('App js: button reset', () => {
     assert.equal(ceramahSingkatIslam.element.value, '-')
     assert.equal(results.element.value, 'Tidak ada hasil')
     await btnReset.trigger('click')
-    
+
     assert.equal(ceramahSingkatIslam.element.value, '')
     assert.equal(results.element.value, '')
   })

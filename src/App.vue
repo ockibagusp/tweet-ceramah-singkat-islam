@@ -57,6 +57,9 @@ export default {
       let youtubeVideoHtml = ''
       if (this.ceramahSingkatIslam == '') {
         this.results = ''
+        this.count = 280
+        this.selectCopy = false
+        this.selectTweet = false
         return
       }
 
@@ -94,7 +97,7 @@ export default {
       }
 
       if (!quit)
-        this.results = 'Tidak ada hasil'
+        this.isResultsError()
 
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
@@ -119,13 +122,13 @@ export default {
       try {
         const res = await axios.get(ceramahSingkatIslam)
         if (res.status == 200 && (ceramahSingkatSlice == '/shorts/' || ceramahSingkatSlice == '/shorts' || ceramahSingkatSlice == '/watch?v=')) {
-          this.results = 'Tidak ada hasil'
+          this.isResultsError()
           return
         } else if (res.status == 404) {
-          this.results = 'Tidak ada hasil'
+          this.isResultsError()
           return
         } else if (res.data.search(`This video isn't available anymore`) !== -1) {
-          this.results = 'Tidak ada hasil'
+          this.isResultsError()
           return
         }
       
@@ -220,6 +223,12 @@ ${this  .ceramahSingkatIslam}`
         this.selectCopy = true
         this.selectTweet = true
       }
+    },
+    isResultsError() {
+      this.results = 'Tidak ada hasil'
+      this.count = 280
+      this.selectCopy = false
+      this.selectTweet = false
     }
   }
 }
