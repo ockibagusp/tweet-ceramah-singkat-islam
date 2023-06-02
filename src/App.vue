@@ -334,41 +334,43 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     </button>    
     </h4>
     
-    <p  v-if="results !== ''" style="margin-top: -20px; margin-bottom: 5px;" data-test="all-checkboxes-enabled">
+    <p  v-if="results !== ''" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ results !== '' ? '📌' : '' }}
-    <h4>Singkat Islam</h4>
-    <div
-      v-for="(ceramahSI, index) in arrayCeramahSI"
-      :key="ceramahSI.name"
-      data-test="array-ceramahSI"
-      :class="[ceramahSI.completed ? 'completed' : '']"
-      @change="trendsChanged($event, index)"
-    >
-      <input
-        type="checkbox"
-        v-model="ceramahSI.completed"
-        data-test="ceramahSI-checkbox"
-      />
-      <a>{{ ceramahSI.name }}</a>
-    </div>
-
-    <h4>Ustadz</h4>
-    <div
-      v-for="(ustadz, index) in arrayUstadz"
-      :key="ustadz.name"
-      data-test="array-ustadz"
-      :class="[ustadz.completed ? 'completed' : '']"
-      @change="trendsChanged($event, index)"
-    >
-      <input
-        type="checkbox"
-        v-model="ustadz.completed"
-        data-test="ustadz-checkbox"
-      />
-      <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
+    <div v-if="results !== ''">
+      <h4 style="margin-top: 0px;margin-bottom: 5px;">Singkat Islam</h4>
+      <div
+        v-for="(ceramahSI, index) in arrayCeramahSI"
+        :key="ceramahSI.name"
+        data-test="array-ceramahSI"
+        :class="[ceramahSI.completed ? 'completed' : '']"
+        @change="trendsChanged($event, index)"
+      >
+        <input
+          type="checkbox"
+          v-model="ceramahSI.completed"
+          data-test="ceramahSI-checkbox"
+        />
+        <a>{{ ceramahSI.name }}</a>
+      </div>
+  
+      <h4 style="margin-top: 10px;margin-bottom: 5px;">Ustadz</h4>
+      <div
+        v-for="(ustadz, index) in arrayUstadz"
+        :key="ustadz.name"
+        data-test="array-ustadz"
+        :class="[ustadz.completed ? 'completed' : '']"
+        @change="trendsChanged($event, index)"
+      >
+        <input
+          type="checkbox"
+          v-model="ustadz.completed"
+          data-test="ustadz-checkbox"
+        />
+        <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
+      </div>
     </div>
   </main>
 </template>
