@@ -51,7 +51,7 @@ describe('App js: delete tweet youtube video', () => {
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA 
+    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA
 
 https://www.youtube.com/shorts/peUj47yc1xo`)
   })
@@ -86,10 +86,10 @@ describe('App js: tweet youtube video all', () => {
         },
         axiosGetTimes: 1,
         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: `DOSA - Ustadz Dr. Firanda Andirja, MA 
+        results: `DOSA - Ustadz Dr. Firanda Andirja, MA
 
 https://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 198'
+        tweetIs: 'Tweet is: + 199'
       },
       {
         name: `youtube 'watch' success: id=2'`,
@@ -100,10 +100,10 @@ https://www.youtube.com/shorts/peUj47yc1xo`,
         },
         axiosGetTimes: 1,
         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA 
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA
 
 https://youtu.be/vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 197'
+        tweetIs: 'Tweet is: + 198'
       },
       {
         name: `youtube 'shorts' failure: id=3'`,
@@ -214,3 +214,92 @@ describe('App js: button reset', () => {
     assert.equal(results.element.value, '')
   })
 })
+
+// describe('App js: textarea `hasil` untuk array untuk ceramah, Ustadz atau Ustadzah', () => {
+//   const wrapper = mount(App, {
+//     data() {
+//       return {
+//         arrayCeramahSingkatIslam: [
+//           {
+//             name: "#TimnasIndonesia",
+//             tweetVolume: '200k Tweets',
+//             completed: true
+//           },
+//           {
+//             name: "Test 1",
+//             tweetVolume: '1k Tweets',
+//             completed: true
+//           },
+//           {
+//             name: "#Test2",
+//             tweetVolume: '2k Tweets',
+//             completed: true
+//           },
+//           {
+//             name: "Test 3",
+//             tweetVolume: 0,
+//             completed: true
+//           }
+//         ],
+//       }
+//     }
+//   })
+
+//   it('App js: textarea `hasil` untuk array untuk ceramah, Ustadz atau Ustadzah: tidak dicentang', async() => {
+//     // test cases
+//     const testCases = [
+//       {
+//         name: '#TimnasIndonesia',
+//         index: 0,
+//         listBool: [false, true, true, true],
+//         results: 'Tags: Test 1, #Test2, Test 3',
+//         tweetIs: 'Tweet is: + 252',
+//         // `semua kotak centang` diaktifkan
+//         allCheckboxesEnabled: 'diaktifkan: 3'
+//       },
+//       {
+//         name: 'Test 1',
+//         index: 1,
+//         listBool: [false, false, true, true],
+//         results: 'Tags: #Test2, Test 3',
+//         tweetIs: 'Tweet is: + 260',
+//         allCheckboxesEnabled: 'diaktifkan: 2'
+//       },
+//       {
+//         name: '#Test2',
+//         index: 2,
+//         listBool: [false, false, false, true],
+//         results: 'Tags: Test 3',
+//         tweetIs: 'Tweet is: + 268',
+//         allCheckboxesEnabled: 'diaktifkan: 1'
+//       },
+//       {
+//         name: 'Test 3',
+//         index: 3,
+//         listBool: [false, false, false, false],
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280',
+//         allCheckboxesEnabled: 'diaktifkan: 0'
+//       }
+//     ]
+
+//     for (let test of testCases) {
+//       console.debug('unchecked ke-', test.name)
+//       await checkboxTrends.at(test.index).setValue(false)
+      
+//       for (let i = 0; i < test.listBool.length; i++) {
+//         if (test.listBool[i]) {
+//           expect(arrayTrends.at(i).classes()).toContain('completed')
+//         } else {
+//           // same: assert.deepEqual(arrayTrends.at(...).classes(), [])
+//           expect(arrayTrends.at(i).classes()).to.deep.equal([])
+//         }
+//       }
+
+//       assert.equal(results.element.value, test.results)
+//       assert.equal(btnTweet.text(), test.tweetIs)
+//       // `semua kotak centang` diaktifkan
+//       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
+//     }
+//   })
+// })

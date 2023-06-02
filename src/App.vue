@@ -215,7 +215,14 @@ export default {
           })
         }
         if (youtubeVideoHtml != '') {
-          youtubeVideoHtml = `${youtubeVideoHtml} ${ceramahSIText} ${ustadzTest}
+          if (this.ceramahSIText !== '' && this.ustadzTest)
+            youtubeVideoHtml = `${youtubeVideoHtml} ${this.ceramahSIText} ${this.ustadzTest}`
+          else if (this.ceramahSIText !== '')
+            youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
+          else if (this.ustadzTest !== '')
+            youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ustadzTest
+
+          youtubeVideoHtml = `${youtubeVideoHtml}
 
 ${this.ceramahSingkatIslam}`
           this.selectResults = true
