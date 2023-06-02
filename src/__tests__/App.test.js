@@ -73,7 +73,6 @@ describe('App js: reset tweet youtube video', async() => {
   })
 })
 
-// results: 'Loading...' to `DOSA - Ustadz Dr. Firanda Andirja, MA ...`?
 describe('App js: tweet youtube video all', () => {
   it('tweet youtube video all', async() => {
     // test cases
@@ -167,7 +166,6 @@ https://youtu.be/vTeIKc2JjCU`
       //     data: '',
       //     status: 200
       //   },
-      //   axiosGetTimes: 1,
       //   axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
       //   results: 'Tidak ada hasil'
       // },
