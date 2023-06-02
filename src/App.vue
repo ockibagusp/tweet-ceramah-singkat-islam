@@ -22,11 +22,69 @@ export default {
       results: '',
       // tweet dihasil maks. 280 karakter
       count: 280,
+      // array: ceramah singkat Islam
+      arrayCeramahSI: [
+        {
+          name: 'Singkat',
+          completed: false
+        },
+        {
+          name: 'RIBA',
+          completed: false
+        },
+        {
+          name: 'Azab',
+          completed: false
+        }
+      ],
+      // array: Ustadz
+      arrayUstadz: [
+        {
+          name: 'Dr. Firanda Andirja Abidin, Lc., M.A.',
+          url: 'https://id.wikipedia.org/wiki/Firanda_Andirja',
+          completed: false
+        },
+        {
+          name: 'Dr. Khalid Zeed Abdullah Basalamah, Lc., M.A.',
+          url: 'https://id.wikipedia.org/wiki/Khalid_Basalamah',
+          completed: false
+        },
+        {
+          name: 'Dr. Syafiq Riza Hasan Basalamah, Lc., M.A.',
+          url: 'https://id.wikipedia.org/wiki/Syafiq_Riza_Basalamah',
+          completed: false
+        },
+        {
+          name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
+          url: 'https://id.wikipedia.org/wiki/Adi_Hidayat',
+          completed: false
+        },
+        {
+          name: 'Prof. Abdul Somad Batubara, Lc., D.E.S.A., Ph.D.',
+          url: 'https://id.wikipedia.org/wiki/Abdul_Somad',
+          completed: false
+        },
+        {
+          name: '(Abu Yahya) Badrusalam, Lc',
+          url: 'https://id.wikipedia.org/wiki/Badrusalam',
+          completed: false
+        },
+      ],
+
+      // array: ceramah singkat Islam dan Ustadz
+      ceramahSIText: '',
+      ustadzTest: '',
       
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
       selectCopy: false,
-      selectTweet: false
+      selectTweet: false,
+
+      // pilih `semua kotak centang`: true atau false
+      selectCheckBoxAll: false,
+
+      // `semua kotak centang` diaktifkan
+      allCheckboxesEnabled: 0
     }
   },
   mounted() {
@@ -42,7 +100,11 @@ export default {
     },
     isTweet: function() {
       return !this.selectTweet
-    }
+    },
+    // adalah button `semua kotak centang`: true atau false
+    isCheckBoxAll: function() {
+      return !this.selectCheckBoxAll
+    },
   },
   watch: {
     // textarea: ceramahSingkatIslam
@@ -153,9 +215,9 @@ export default {
           })
         }
         if (youtubeVideoHtml != '') {
-          youtubeVideoHtml = `${youtubeVideoHtml} 
+          youtubeVideoHtml = `${youtubeVideoHtml} ${ceramahSIText} ${ustadzTest}
 
-${this  .ceramahSingkatIslam}`
+${this.ceramahSingkatIslam}`
           this.selectResults = true
           this.selectCopy = true
           this.selectTweet = true
@@ -212,6 +274,11 @@ ${this  .ceramahSingkatIslam}`
       window.open("https://twitter.com/intent/tweet?text="+UTF8_hash, "_blank")
     },
 
+    // #KajianIslam #Hikmah #Pengajian #CeramahPendek #Ngaji #Sunnah #Shorts #Video #YouTube #Islam #Muslim
+    btnCheckBoxAll() {
+
+    },
+
     // sama dengan :isCountTweet()
     // adalah textarea hitungan dan tombol tweet
     isCopyAndCountTweet() {
@@ -253,5 +320,48 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <button @click="btnCopy" :disabled="isCopy" data-test="btn-copy">Copy</button>
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
+
+    <h4 v-if="results !== ''">Kotak Centang: 
+    <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
+      {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
+    </button>    
+    </h4>
+    
+    <p  v-if="results !== ''" style="margin-top: -20px; margin-bottom: 5px;" data-test="all-checkboxes-enabled">
+      diaktifkan: {{ allCheckboxesEnabled }}
+    </p>
+    
+    {{ results !== '' ? '📌' : '' }}
+    <h4>Singkat Islam</h4>
+    <div
+      v-for="(ceramahSI, index) in arrayCeramahSI"
+      :key="ceramahSI.name"
+      data-test="array-ceramahSI"
+      :class="[ceramahSI.completed ? 'completed' : '']"
+      @change="trendsChanged($event, index)"
+    >
+      <input
+        type="checkbox"
+        v-model="ceramahSI.completed"
+        data-test="ceramahSI-checkbox"
+      />
+      <a>{{ ceramahSI.name }}</a>
+    </div>
+
+    <h4>Ustadz</h4>
+    <div
+      v-for="(ustadz, index) in arrayUstadz"
+      :key="ustadz.name"
+      data-test="array-ustadz"
+      :class="[ustadz.completed ? 'completed' : '']"
+      @change="trendsChanged($event, index)"
+    >
+      <input
+        type="checkbox"
+        v-model="ustadz.completed"
+        data-test="ustadz-checkbox"
+      />
+      <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
+    </div>
   </main>
 </template>
