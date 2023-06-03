@@ -398,6 +398,9 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
           data-test="ceramahSI-checkbox"
         />
         <a>{{ ceramahSI.name }}</a>
+        <div style="margin-left: 20px;">
+          <small>{{ ceramahSI.tweets }}</small>
+        </div>
       </div>
   
       <h4 style="margin-top: 10px;margin-bottom: 5px;">Ustadz:</h4>
