@@ -130,6 +130,8 @@ export default {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async carry() {
       let youtubeVideoHtml = ''
+      this.allCheckboxesEnabled = 0
+
       if (this.ceramahSingkatIslam == '') {
         this.results = ''
         this.count = 280
@@ -137,8 +139,6 @@ export default {
         this.selectTweet = false
         return
       }
-
-      this.allCheckboxesEnabled = 0
 
       const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)(\S+)?/gm
 
@@ -235,13 +235,8 @@ export default {
         }
         if (youtubeVideoHtml != '') {
           this.ceramahSIText = this.arrayCeramahSI[0].tweets
-          if (this.ceramahSIText !== '' && this.ustadzTest)
-            youtubeVideoHtml = `${youtubeVideoHtml} ${this.ceramahSIText} ${this.ustadzTest}`
-          else if (this.ceramahSIText !== '')
-            youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
-          else if (this.ustadzTest !== '')
-            youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ustadzTest
-
+          youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
+          
           youtubeVideoHtml = `${youtubeVideoHtml}
 
 ${this.ceramahSingkatIslam}`
@@ -256,6 +251,7 @@ ${this.ceramahSingkatIslam}`
           this.selectResults = false
           this.selectCopy = false
           this.selectTweet = false
+          this.allCheckboxesEnabled = 0
 
           this.count = 280
         }
@@ -268,6 +264,7 @@ ${this.ceramahSingkatIslam}`
         this.selectSubmit = false
         this.selectCopy = false
         this.selectTweet = false
+        this.allCheckboxesEnabled = 0
       }
     },
     // button: reset, copy dan tweet
@@ -354,6 +351,8 @@ ${this.ceramahSingkatIslam}`
       this.count = 280
       this.selectCopy = false
       this.selectTweet = false
+      // this.c = []
+      this.allCheckboxesEnabled = 0
     }
   }
 }
@@ -371,7 +370,7 @@ ${this.ceramahSingkatIslam}`
     <h3 style="margin-top: 10px; margin-bottom: -15px;">Hasil:</h3>
     <br>
     <textarea style="width: 500px;height: 80px;" v-model="results"
-      placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA
+      placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
 https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
     <br>
@@ -379,18 +378,18 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <h4 v-if="results !== ''">Kotak Centang: 
+    <h4 v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'">Kotak Centang: 
     <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
       {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
     </button>    
     </h4>
     
-    <p  v-if="results !== ''" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p  v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
-    {{ results !== '' ? '📌' : '' }}
-    <div v-if="results !== ''">
+    {{ results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...' ? '📌' : '' }}
+    <div v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'">
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"

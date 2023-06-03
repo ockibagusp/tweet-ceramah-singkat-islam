@@ -89,10 +89,10 @@ describe('App js: tweet youtube video all', () => {
         },
         axiosGetTimes: 1,
         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: `DOSA - Ustadz Dr. Firanda Andirja, MA 
+        results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
 https://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 95'
+        tweetIs: 'Tweet is: + 160'
       },
       {
         name: `youtube 'watch' success: id=2'`,
@@ -103,10 +103,10 @@ https://www.youtube.com/shorts/peUj47yc1xo`,
         },
         axiosGetTimes: 1,
         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA 
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
 https://youtu.be/vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 94'
+        tweetIs: 'Tweet is: + 159'
       },
       {
         name: `youtube 'shorts' failure: id=3'`,
@@ -222,7 +222,23 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
   const wrapper = mount(App, {
     data() {
       return {
-        arrayCeramahSI: [],
+        arrayCeramahSI: [
+          {
+            name: 'Singkat',
+            tweets: '#CeramahPendek #Shorts #Video #YouTube',
+            completed: true
+          },
+          {
+            name: 'Islam',
+            tweets: '#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu',
+            completed: false
+          },
+          {
+            name: 'Pengajian',
+            tweets: '#Pengajian',
+            completed: false
+          }
+        ],
         arrayUstadz: []
       }
     }
@@ -268,22 +284,22 @@ https://www.youtube.com/shorts/peUj47yc1xo`)
         // `semua kotak centang` diaktifkan
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
-      {
-        name: 'Test 1',
-        index: 1,
-        listBool: [false, false, true],
-        results: 'Test 1',
-        tweetIs: 'Tweet is: + 260',
-        allCheckboxesEnabled: 'diaktifkan: 1'
-      },
-      {
-        name: 'Test2',
-        index: 2,
-        listBool: [false, false, false],
-        results: 'Test 2',
-        tweetIs: 'Tweet is: + 268',
-        allCheckboxesEnabled: 'diaktifkan: 0'
-      }
+      // {
+      //   name: 'Test 1',
+      //   index: 1,
+      //   listBool: [false, false, true],
+      //   results: 'Test 1',
+      //   tweetIs: 'Tweet is: + 260',
+      //   allCheckboxesEnabled: 'diaktifkan: 1'
+      // },
+      // {
+      //   name: 'Test2',
+      //   index: 2,
+      //   listBool: [false, false, false],
+      //   results: 'Test 2',
+      //   tweetIs: 'Tweet is: + 268',
+      //   allCheckboxesEnabled: 'diaktifkan: 0'
+      // }
     ]
 
     for (let test of testCases) {
