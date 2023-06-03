@@ -26,14 +26,27 @@ export default {
       arrayCeramahSI: [
         {
           name: 'Singkat',
+          tweets: '#CeramahPendek #Shorts #Video #YouTube',
+          completed: true
+        },
+        {
+          name: 'Islam',
+          tweets: '#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu',
+          completed: false
+        },
+        {
+          name: 'Pengajian',
+          tweets: '#Pengajian',
           completed: false
         },
         {
           name: 'RIBA',
+          tweets: '#RIBA',
           completed: false
         },
         {
           name: 'Azab',
+          tweets: '#Azab',
           completed: false
         }
       ],
@@ -125,6 +138,8 @@ export default {
         return
       }
 
+      this.allCheckboxesEnabled = 0
+
       const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)(\S+)?/gm
 
       // Alternative syntax using RegExp constructor
@@ -132,6 +147,7 @@ export default {
 
       const str = this.ceramahSingkatIslam
       let m
+      let i = 0
 
       let quit = false
       while ((m = regex.exec(str)) !== null) {
@@ -156,6 +172,9 @@ export default {
             }
           }
         })
+
+        this.allCheckboxesEnabled++
+        i++
       }
 
       if (!quit)
@@ -215,6 +234,7 @@ export default {
           })
         }
         if (youtubeVideoHtml != '') {
+          this.ceramahSIText = this.arrayCeramahSI[0].tweets
           if (this.ceramahSIText !== '' && this.ustadzTest)
             youtubeVideoHtml = `${youtubeVideoHtml} ${this.ceramahSIText} ${this.ustadzTest}`
           else if (this.ceramahSIText !== '')
@@ -283,7 +303,38 @@ ${this.ceramahSingkatIslam}`
 
     // #KajianIslam #Hikmah #Pengajian #CeramahPendek #Ngaji #Sunnah #Shorts #Video #YouTube #Islam #Muslim
     btnCheckBoxAll() {
+      if (this.selectCheckBoxAll === true) {
+        let newArrayCeramahSIName = ''
+        this.allCheckboxesEnabled = 0
 
+        for (let i = 0; i < this.arrayCeramahSI.length; i++) {
+          this.arrayCeramahSI[i].completed = true
+          newArrayCeramahSIName += `${this.arrayCeramahSI[i].name}, `
+          this.allCheckboxesEnabled++
+        }
+        this.selectResults = true
+        this.selectCopy = true
+        this.selectTweet = true
+
+        this.selectCheckBoxAll = false
+        
+        this.results = TAGS + newArrayCeramahSIName.substring(0, newArrayCeramahSIName.length-2)
+        this.count = 280 - this.results.length
+        this.isCopyAndCountTweet()
+      } else {
+        this.arrayCeramahSI.forEach((val, index) => {
+          this.arrayCeramahSI[index].completed = false
+        })
+        this.count = 280
+        this.results = 'Tidak ada hasil'
+        this.isCopyAndCountTweet()
+        this.allCheckboxesEnabled = 0
+        
+        this.selectResults = false
+        this.selectCopy = false
+        this.selectTweet = false        
+        this.selectCheckBoxAll = true
+      }
     },
 
     // sama dengan :isCountTweet()
@@ -319,7 +370,7 @@ ${this.ceramahSingkatIslam}`
     <br>
     <h3 style="margin-top: 10px; margin-bottom: -15px;">Hasil:</h3>
     <br>
-    <textarea style="width: 500px;height: 50px;" v-model="results"
+    <textarea style="width: 500px;height: 80px;" v-model="results"
       placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA
 
 https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
@@ -340,7 +391,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     
     {{ results !== '' ? '📌' : '' }}
     <div v-if="results !== ''">
-      <h4 style="margin-top: 0px;margin-bottom: 5px;">Singkat Islam</h4>
+      <h4 style="margin-top: 0px;margin-bottom: 5px;">Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
         :key="ceramahSI.name"
@@ -356,7 +407,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         <a>{{ ceramahSI.name }}</a>
       </div>
   
-      <h4 style="margin-top: 10px;margin-bottom: 5px;">Ustadz</h4>
+      <h4 style="margin-top: 10px;margin-bottom: 5px;">Ustadz:</h4>
       <div
         v-for="(ustadz, index) in arrayUstadz"
         :key="ustadz.name"
