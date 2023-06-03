@@ -133,10 +133,7 @@ export default {
       this.allCheckboxesEnabled = 0
 
       if (this.ceramahSingkatIslam == '') {
-        this.results = ''
-        this.count = 280
-        this.selectCopy = false
-        this.selectTweet = false
+        this.isResultsDefault()
         return
       }
 
@@ -240,31 +237,18 @@ export default {
           youtubeVideoHtml = `${youtubeVideoHtml}
 
 ${this.ceramahSingkatIslam}`
-          this.selectResults = true
-          this.selectCopy = true
-          this.selectTweet = true
-          this.count = 280 - youtubeVideoHtml.length
+          this.isResultsSuccess(youtubeVideoHtml.length)
         } 
 
         if (str != '' && youtubeVideoHtml == '') {          
           youtubeVideoHtml = ''
-          this.selectResults = false
-          this.selectCopy = false
-          this.selectTweet = false
-          this.allCheckboxesEnabled = 0
-
-          this.count = 280
+          this.isResultsDefault()
         }
         this.results = youtubeVideoHtml
 
         this.isCopyAndCountTweet()
       } catch {
-        this.results = 'Tidak ada hasil'
-        this.selectResults = false
-        this.selectSubmit = false
-        this.selectCopy = false
-        this.selectTweet = false
-        this.allCheckboxesEnabled = 0
+        this.isResultsError()
       }
     },
     // button: reset, copy dan tweet
@@ -272,10 +256,7 @@ ${this.ceramahSingkatIslam}`
       this.ceramahSingkatIslam = ''
       // autofocus
       this.$refs.ceramahSingkatIslam.focus()
-      this.results = ''
-      this.selectCopy = false
-      this.selectTweet = false
-      this.count = 280
+      this.isNotResults()
     },
     btnCopy() {
       if (this.results == '') {
@@ -346,12 +327,25 @@ ${this.ceramahSingkatIslam}`
         this.selectTweet = true
       }
     },
+    isNotResults() {
+      this.results = ''
+      this.isResultsDefault()
+    },
     isResultsError() {
       this.results = 'Tidak ada hasil'
+      this.isResultsDefault()
+    },
+    isResultsDefault() {
       this.count = 280
       this.selectCopy = false
       this.selectTweet = false
-      // this.c = []
+      this.allCheckboxesEnabled = 0
+    },
+    isResultsSuccess(videoLength) {
+      this.selectResults = true
+      this.selectCopy = true
+      this.selectTweet = true
+      this.count = 280 - videoLength
       this.allCheckboxesEnabled = 0
     }
   }
