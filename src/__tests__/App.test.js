@@ -8,9 +8,6 @@ import axios from 'axios'
 const wrapper = mount(App, {
   props: { } 
 })
-// array dan checkbox untuk ceramahSI
-const arrayCeramahSI = wrapper.findAll('[data-test="array-ceramahSI"]')
-const checkboxCeramahSI = wrapper.findAll('[data-test="ceramahSI-checkbox"]')
 // textarea: ceramahSingkatIslam dan hasil
 const ceramahSingkatIslam = wrapper.find('[data-test="ceramah-singkat-islam"]')
 const results = wrapper.find('[data-test="results"]')
@@ -180,20 +177,17 @@ https://youtu.be/vTeIKc2JjCU`,
         results: 'Tidak ada hasil',
         tweetIs: 'Tweet is: + 280'
       },
-      // // // Response.data => This video isn't available anymore
-      // // // => http://localhost:3000/video/watch?v=watch?v=failure
-      // // //                                         ------- x
-      // {
-      //   name: `youtube 'watch' failure: id=8'`,
-      //   youtubeLink: 'https://www.youtube.com/watch?v=failure',
-      //   axiosGetValueOnce: {
-      //     data: '',
-      //     status: 200
-      //   },
-      //   axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
-      //   results: 'Tidak ada hasil',
-      //   tweetIs: 'Tweet is: + 280'
-      // },
+      {
+        name: `youtube 'watch' failure: id=9'`,
+        youtubeLink: 'https://www.youtube.com/watch?v=failure',
+        axiosGetValueOnce: {
+          data: `This video isn't available anymore`,
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
+        results: 'Tidak ada hasil',
+        tweetIs: 'Tweet is: + 280'
+      },
     ]
 
     for (let test of testCases) {
@@ -257,6 +251,8 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       }
     }
   })
+
+  console.log(wrapper.$data);
 
   // array dan checkbox untuk ceramahSI
   const arrayCeramahSI = wrapper.findAll('[data-test="array-ceramahSI"]')
