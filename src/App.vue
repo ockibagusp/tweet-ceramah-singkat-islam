@@ -445,7 +445,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     
     {{ results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...' ? '📌' : '' }}
     <div v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'">
-      <h4 style="margin-top: 0px;margin-bottom: 5px;">Singkat Islam:</h4>
+      <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
         :key="ceramahSI.name"
@@ -464,7 +464,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         </div>
       </div>
   
-      <h4 style="margin-top: 10px;margin-bottom: 5px;">Ustadz:</h4>
+      <h4 style="margin-top: 10px;margin-bottom: 5px;">Tag Ustadz:</h4>
       <div
         v-for="(ustadz, index) in arrayUstadz"
         :key="ustadz.name"
