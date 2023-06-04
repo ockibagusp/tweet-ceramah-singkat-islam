@@ -96,6 +96,20 @@ https://www.youtube.com/shorts/peUj47yc1xo`,
       },
       {
         name: `youtube 'watch' success: id=2'`,
+        youtubeLink: 'https://www.youtube.com/watch?v=vTeIKc2JjCU',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetTimes: 1,
+        axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+
+https://www.youtube.com/watch?v=vTeIKc2JjCU`,
+        tweetIs: 'Tweet is: + 144'
+      },
+      {
+        name: `youtube 'watch' success: id=3'`,
         youtubeLink: 'https://youtu.be/vTeIKc2JjCU',
         axiosGetValueOnce: {
           data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
@@ -109,7 +123,7 @@ https://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 159'
       },
       {
-        name: `youtube 'shorts' failure: id=3'`,
+        name: `youtube 'shorts' failure: id=4'`,
         youtubeLink: 'https://www.youtube.com/shorts/failure',
         axiosGetValueOnce: {
           data: '',
@@ -120,7 +134,7 @@ https://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 280'
       },
       {
-        name: `youtube 'shorts' failure: id=4'`,
+        name: `youtube 'shorts' failure: id=5'`,
         // response status: 200
         youtubeLink: 'https://www.youtube.com/shorts/',
         axiosGetValueOnce: {
@@ -132,7 +146,7 @@ https://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 280'
       },
       {
-        name: `youtube 'shorts' failure: id=5'`,
+        name: `youtube 'shorts' failure: id=6'`,
         // response status: 200
         youtubeLink: 'https://www.youtube.com/shorts',
         axiosGetValueOnce: {
@@ -144,7 +158,7 @@ https://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 280'
       },
       {
-        name: `youtube failure: id=6'`,
+        name: `youtube failure: id=7'`,
         // response status: 200
         youtubeLink: 'https://www.youtube.com/',
         axiosGetValueOnce: {
@@ -156,7 +170,7 @@ https://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 280'
       },
       {
-        name: `youtube failure: id=7'`,
+        name: `youtube failure: id=8'`,
         youtubeLink: 'https://www.youtube.com',
         axiosGetValueOnce: {
           data: '',
@@ -226,7 +240,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
           {
             name: 'Singkat',
             tweets: '#CeramahPendek #Shorts #Video #YouTube',
-            completed: true
+            completed: false
           },
           {
             name: 'Islam',
@@ -305,6 +319,7 @@ https://www.youtube.com/shorts/peUj47yc1xo`)
     for (let test of testCases) {
       console.debug('unchecked ke-', test.name)
       console.log(arrayCeramahSI);
+      console.log(checkboxCeramahSI);
       await checkboxCeramahSI.at(test.index).setValue(false)
       
       for (let i = 0; i < test.listBool.length; i++) {

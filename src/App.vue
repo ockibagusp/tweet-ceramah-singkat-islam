@@ -188,7 +188,7 @@ export default {
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
       //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
-      if (ceramahSingkatSlice.search('/watch?v=') === -1 && ceramahSingkatSlice.search('/shorts') === -1) {
+      if (ceramahSingkatSlice.search('/watch') === -1 && ceramahSingkatSlice.search('/shorts') === -1) {
         ceramahSingkatSlice = '/watch?v=' + ceramahSingkatSlice.replace('/', '')
       }
 
@@ -279,7 +279,6 @@ ${this.ceramahSingkatIslam}`
       window.open("https://twitter.com/intent/tweet?text="+UTF8_hash, "_blank")
     },
 
-    // #KajianIslam #Hikmah #Pengajian #CeramahPendek #Ngaji #Sunnah #Shorts #Video #YouTube #Islam #Muslim
     btnCheckBoxAll() {
       if (this.selectCheckBoxAll === true) {
         let newArrayCeramahSIName = ''
@@ -312,6 +311,68 @@ ${this.ceramahSingkatIslam}`
         this.selectCopy = false
         this.selectTweet = false        
         this.selectCheckBoxAll = true
+      }
+    },
+
+    // html: Singkat Islam
+    // berubah dalam array untuk ceramahSI
+    ceramahSIChanged(event, index) {
+      const name = this.arraytrends[index].name
+      
+      if (event.target.checked) {
+        if (this.results === 'Tidak ada hasil') {
+          this.results =  TAGS + name
+          // pilih hasil, button copy dan button tweet: true
+          this.selectResults = true
+          this.selectCopy = true
+          this.selectTweet = true
+          
+          this.allCheckboxesEnabled = 1
+        } else {
+          let newArrayTrendsName = ''
+          for (let i = 0; i < this.arraytrends.length; i++) {
+            if (this.arraytrends[i].completed !== false) {
+              newArrayTrendsName += `${this.arraytrends[i].name}, `
+            }
+          }
+
+          this.results = TAGS + newArrayTrendsName.substring(0, newArrayTrendsName.length-2)
+          this.isCopyAndCountTweet()
+          
+          this.allCheckboxesEnabled++
+        }
+
+        this.count = 280 - this.results.length
+      } else {
+        const rightComma = `${name}, `
+        const leftComma = `, ${name}`
+        const bothComma = `, ${name}, `
+        
+        let release = ''
+        if (this.results.includes(rightComma)) {
+          release = rightComma
+        } else if (this.results.includes(leftComma)) {
+          release = leftComma
+        } else if (this.results.includes(bothComma)) {
+          release = bothComma
+        } else {
+          // melepas = text 
+          this.results = 'Tidak ada hasil'
+          // pilih hasil, button copy dan button tweet: false
+          this.selectResults = false
+          this.selectCopy = false
+          this.selectTweet = false
+          this.count = 280
+          
+          this.allCheckboxesEnabled = 0
+          return
+        }
+        this.results = this.results.replace(release, '')
+        
+        this.count = 280 - this.results.length
+        this.isCopyAndCountTweet()
+        
+        this.allCheckboxesEnabled--
       }
     },
 
@@ -390,7 +451,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         :key="ceramahSI.name"
         data-test="array-ceramahSI"
         :class="[ceramahSI.completed ? 'completed' : '']"
-        @change="trendsChanged($event, index)"
+        @change="ceramahSIChanged($event, index)"
       >
         <input
           type="checkbox"
@@ -409,7 +470,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         :key="ustadz.name"
         data-test="array-ustadz"
         :class="[ustadz.completed ? 'completed' : '']"
-        @change="trendsChanged($event, index)"
+        @change="ceramahSIChanged($event, index)"
       >
         <input
           type="checkbox"
