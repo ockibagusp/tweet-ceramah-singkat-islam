@@ -1,0 +1,36 @@
+App js: textarea `hasil` untuk array untuk ceramah dan Ustadz
+
+- ceramahSingkatIslam: 'https://www.youtube.com/shorts/peUj47yc1xo'
+- trigger 'change'
+- results.element.value: `Tidak ada hasil'
+    `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube␊
+    - ␊
+    - https://www.youtube.com/shorts/peUj47yc1xo`
+    + `Tidak ada hasil
+
+❯ src/__tests__/App.test.js (6)
+   ✓ App js: init (1)
+   ✓ App js: delete tweet youtube video (1)
+   ✓ App js: reset tweet youtube video (1)
+   ✓ App js: tweet youtube video all (1)
+   ✓ App js: button reset (1)
+   ❯ App js: textarea `hasil` untuk array untuk ceramah dan Ustadz (1)
+     × App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang
+
+ FAIL  src/__tests__/App.test.js > App js: textarea `hasil` untuk array untuk ceramah dan Ustadz > App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang
+AssertionError: expected 'Tidak ada hasil' to deeply equal 'DOSA - Ustadz Dr. Firanda Andirja, MA…'
+ ❯ src/__tests__/App.test.js:279:35
+    277|     console.log('results value:', results.element.value);
+    278|     // textarea hasil: test youtube.com
+    279|     expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+       |                                   ^
+    280| 
+    281| https://www.youtube.com/shorts/peUj47yc1xo`)
+
+  - Expected  - 0
+  + Received  + 3
+
+  - `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube␊
+  - ␊
+  - https://www.youtube.com/shorts/peUj47yc1xo`
+  + `Tidak ada hasil

@@ -35,6 +35,11 @@ export default {
           completed: false
         },
         {
+          name: 'Mualaf',
+          tweets: '#Mualaf',
+          completed: false
+        },
+        {
           name: 'Pengajian',
           tweets: '#Pengajian',
           completed: false
@@ -53,17 +58,19 @@ export default {
       // array: Ustadz
       arrayUstadz: [
         {
-          name: 'Dr. Firanda Andirja Abidin, Lc., M.A.',
+          name: 'Dr. Firanda Andirja, Lc., M.A.',
+          tweets: '#FirandaAndirja',
           url: 'https://id.wikipedia.org/wiki/Firanda_Andirja',
           completed: false
         },
         {
-          name: 'Dr. Khalid Zeed Abdullah Basalamah, Lc., M.A.',
+          name: 'Dr. Khalid Basalamah, Lc., M.A.',
+          tweets: '#ustadzkhalidbasalamah #FirandaAndirja',
           url: 'https://id.wikipedia.org/wiki/Khalid_Basalamah',
           completed: false
         },
         {
-          name: 'Dr. Syafiq Riza Hasan Basalamah, Lc., M.A.',
+          name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
           url: 'https://id.wikipedia.org/wiki/Syafiq_Riza_Basalamah',
           completed: false
         },
@@ -73,7 +80,7 @@ export default {
           completed: false
         },
         {
-          name: 'Prof. Abdul Somad Batubara, Lc., D.E.S.A., Ph.D.',
+          name: 'Prof. Abdul Somad, Lc., D.E.S.A., Ph.D.',
           url: 'https://id.wikipedia.org/wiki/Abdul_Somad',
           completed: false
         },
@@ -97,7 +104,7 @@ export default {
       selectCheckBoxAll: false,
 
       // `semua kotak centang` diaktifkan
-      allCheckboxesEnabled: 0
+      allCheckboxesEnabled: 1
     }
   },
   mounted() {
@@ -130,7 +137,7 @@ export default {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async carry() {
       let youtubeVideoHtml = ''
-      this.allCheckboxesEnabled = 0
+      this.allCheckboxesEnabled = 1
 
       if (this.ceramahSingkatIslam == '') {
         this.isResultsDefault()
@@ -144,7 +151,6 @@ export default {
 
       const str = this.ceramahSingkatIslam
       let m
-      let i = 0
 
       let quit = false
       while ((m = regex.exec(str)) !== null) {
@@ -169,9 +175,6 @@ export default {
             }
           }
         })
-
-        this.allCheckboxesEnabled++
-        i++
       }
 
       if (!quit)
@@ -240,12 +243,13 @@ ${this.ceramahSingkatIslam}`
           this.isResultsSuccess(youtubeVideoHtml.length)
         } 
 
-        if (str != '' && youtubeVideoHtml == '') {          
+        if (str != '' && youtubeVideoHtml == '') {  
           youtubeVideoHtml = ''
           this.isResultsDefault()
         }
         this.results = youtubeVideoHtml
 
+        this.allCheckboxesEnabled = 1
         this.isCopyAndCountTweet()
       } catch {
         this.isResultsError()
@@ -282,13 +286,18 @@ ${this.ceramahSingkatIslam}`
     btnCheckBoxAll() {
       if (this.selectCheckBoxAll === true) {
         let newArrayCeramahSIName = ''
-        this.allCheckboxesEnabled = 0
 
-        for (let i = 0; i < this.arrayCeramahSI.length; i++) {
-          this.arrayCeramahSI[i].completed = true
-          newArrayCeramahSIName += `${this.arrayCeramahSI[i].name}, `
-          this.allCheckboxesEnabled++
-        }
+        // Singkat
+        this.arrayCeramahSI[0].completed = true
+        this.ceramahSIText = this.arrayCeramahSI[0].tweets
+          youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
+          
+          this.results = `${youtubeVideoHtml}
+
+${this.ceramahSingkatIslam}`
+          this.isResultsSuccess(youtubeVideoHtml.length)
+        this.allCheckboxesEnabled = 1
+        
         this.selectResults = true
         this.selectCopy = true
         this.selectTweet = true
@@ -303,7 +312,7 @@ ${this.ceramahSingkatIslam}`
           this.arrayCeramahSI[index].completed = false
         })
         this.count = 280
-        this.results = 'Tidak ada hasil'
+        this.results = '....'
         this.isCopyAndCountTweet()
         this.allCheckboxesEnabled = 0
         
@@ -317,7 +326,7 @@ ${this.ceramahSingkatIslam}`
     // html: Singkat Islam
     // berubah dalam array untuk ceramahSI
     ceramahSIChanged(event, index) {
-      const name = this.arraytrends[index].name
+      const name = this.arrayCeramahSI[index].name
       
       if (event.target.checked) {
         if (this.results === 'Tidak ada hasil') {
@@ -329,14 +338,17 @@ ${this.ceramahSingkatIslam}`
           
           this.allCheckboxesEnabled = 1
         } else {
-          let newArrayTrendsName = ''
-          for (let i = 0; i < this.arraytrends.length; i++) {
-            if (this.arraytrends[i].completed !== false) {
-              newArrayTrendsName += `${this.arraytrends[i].name}, `
+          let newArrayCeramahSITweets = ''
+          for (let i = 0; i < this.arrayCeramahSI.length; i++) {
+            if (this.arrayCeramahSI[i].completed !== false) {
+              newArrayCeramahSITweets += `${this.arrayCeramahSI[i].tweets} `
             }
           }
 
-          this.results = TAGS + newArrayTrendsName.substring(0, newArrayTrendsName.length-2)
+          // ?
+
+
+          this.results = newArrayCeramahSITweets.substring(0, newArrayCeramahSITweets.length-2)
           this.isCopyAndCountTweet()
           
           this.allCheckboxesEnabled++
