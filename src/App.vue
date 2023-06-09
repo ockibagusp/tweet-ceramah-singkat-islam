@@ -91,7 +91,8 @@ export default {
         },
       ],
 
-      // array: ceramah singkat Islam dan Ustadz
+      // array: Youtube video,  ceramah singkat Islam dan Ustadz
+      youtubeVideo: '',
       ceramahSIText: '',
       ustadzTest: '',
       
@@ -234,6 +235,8 @@ export default {
           })
         }
         if (youtubeVideoHtml != '') {
+          // ?
+          this.youtubeVideo = youtubeVideoHtml
           this.ceramahSIText = this.arrayCeramahSI[0].tweets
           youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
           
@@ -329,14 +332,17 @@ ${this.ceramahSingkatIslam}`
       const name = this.arrayCeramahSI[index].name
       
       if (event.target.checked) {
-        if (this.results === 'Tidak ada hasil') {
-          this.results =  TAGS + name
+        if (this.ceramahSIText === '') {
+          this.ceramahSIText = name
+          this.results = `${this.youtubeVideo} ${this.ceramahSIText}
+          
+${this.ceramahSingkatIslam}`
           // pilih hasil, button copy dan button tweet: true
           this.selectResults = true
           this.selectCopy = true
           this.selectTweet = true
           
-          this.allCheckboxesEnabled = 1
+          this.allCheckboxesEnabled++
         } else {
           let newArrayCeramahSITweets = ''
           for (let i = 0; i < this.arrayCeramahSI.length; i++) {
@@ -345,10 +351,9 @@ ${this.ceramahSingkatIslam}`
             }
           }
 
-          // ?
+          this.results =  `${this.youtubeVideo} ${newArrayCeramahSITweets.substring(0, newArrayCeramahSITweets.length-1)}
 
-
-          this.results = newArrayCeramahSITweets.substring(0, newArrayCeramahSITweets.length-2)
+${this.ceramahSingkatIslam}`
           this.isCopyAndCountTweet()
           
           this.allCheckboxesEnabled++
@@ -451,12 +456,13 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     </button>    
     </h4>
     
-    <p  v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <!-- <p  v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
+    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...' ? '📌' : '' }}
-    <div v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'">
+    <!-- <div v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
@@ -491,6 +497,6 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         />
         <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
       </div>
-    </div>
+    <!-- </div> -->
   </main>
 </template>

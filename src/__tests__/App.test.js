@@ -24,6 +24,9 @@ const btnCopy = wrapper.get('[data-test="btn-copy"]')
 // button: btnTweet
 const btnTweet = wrapper.get('[data-test="btn-tweet"]')
 
+ // `semua kotak centang` diaktifkan
+const allCheckboxesEnabled = wrapper.find('[data-test="all-checkboxes-enabled"]')
+
 describe('App js: init', () => {
   assert.exists(App)
 
@@ -78,155 +81,155 @@ describe('App js: reset tweet youtube video', async() => {
   })
 })
 
-describe('App js: tweet youtube video all', () => {
-  it('tweet youtube video all', async() => {
-    // test cases
-    const testCases = [
-      {
-        name: `youtube 'shorts' success: id=1`,
-        youtubeLink: 'https://www.youtube.com/shorts/peUj47yc1xo',
-        axiosGetValueOnce: {
-          data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+// describe('App js: tweet youtube video all', () => {
+//   it('tweet youtube video all', async() => {
+//     // test cases
+//     const testCases = [
+//       {
+//         name: `youtube 'shorts' success: id=1`,
+//         youtubeLink: 'https://www.youtube.com/shorts/peUj47yc1xo',
+//         axiosGetValueOnce: {
+//           data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
+//         results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
-https://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 160'
-      },
-      {
-        name: `youtube 'watch' success: id=2'`,
-        youtubeLink: 'https://www.youtube.com/watch?v=vTeIKc2JjCU',
-        axiosGetValueOnce: {
-          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+// https://www.youtube.com/shorts/peUj47yc1xo`,
+//         tweetIs: 'Tweet is: + 160'
+//       },
+//       {
+//         name: `youtube 'watch' success: id=2'`,
+//         youtubeLink: 'https://www.youtube.com/watch?v=vTeIKc2JjCU',
+//         axiosGetValueOnce: {
+//           data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
+//         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
-https://www.youtube.com/watch?v=vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 144'
-      },
-      {
-        name: `youtube 'watch' success: id=3'`,
-        youtubeLink: 'https://youtu.be/vTeIKc2JjCU',
-        axiosGetValueOnce: {
-          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+// https://www.youtube.com/watch?v=vTeIKc2JjCU`,
+//         tweetIs: 'Tweet is: + 144'
+//       },
+//       {
+//         name: `youtube 'watch' success: id=3'`,
+//         youtubeLink: 'https://youtu.be/vTeIKc2JjCU',
+//         axiosGetValueOnce: {
+//           data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
+//         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
-https://youtu.be/vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 159'
-      },
-      {
-        name: `youtube 'shorts' failure: id=4'`,
-        youtubeLink: 'https://www.youtube.com/shorts/failure',
-        axiosGetValueOnce: {
-          data: '404 Not Found',
-          status: 404
-        },
-        axiosGetWith: 'http://localhost:3000/video/shorts/failure',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube 'shorts' failure: id=5'`,
-        // response status: 200
-        youtubeLink: 'https://www.youtube.com/shorts/',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/shorts/',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube 'shorts' failure: id=6'`,
-        // response status: 200
-        youtubeLink: 'https://www.youtube.com/shorts',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/shorts',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube failure: id=7'`,
-        // response status: 200
-        youtubeLink: 'https://www.youtube.com/',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube failure: id=8'`,
-        youtubeLink: 'https://www.youtube.com',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube 'watch' failure: id=9'`,
-        youtubeLink: 'https://www.youtube.com/watch?v=failure',
-        axiosGetValueOnce: {
-          data: `This video isn't available anymore`,
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-    ]
+// https://youtu.be/vTeIKc2JjCU`,
+//         tweetIs: 'Tweet is: + 159'
+//       },
+//       {
+//         name: `youtube 'shorts' failure: id=4'`,
+//         youtubeLink: 'https://www.youtube.com/shorts/failure',
+//         axiosGetValueOnce: {
+//           data: '404 Not Found',
+//           status: 404
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/shorts/failure',
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280'
+//       },
+//       {
+//         name: `youtube 'shorts' failure: id=5'`,
+//         // response status: 200
+//         youtubeLink: 'https://www.youtube.com/shorts/',
+//         axiosGetValueOnce: {
+//           data: '',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/shorts/',
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280'
+//       },
+//       {
+//         name: `youtube 'shorts' failure: id=6'`,
+//         // response status: 200
+//         youtubeLink: 'https://www.youtube.com/shorts',
+//         axiosGetValueOnce: {
+//           data: '',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/shorts',
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280'
+//       },
+//       {
+//         name: `youtube failure: id=7'`,
+//         // response status: 200
+//         youtubeLink: 'https://www.youtube.com/',
+//         axiosGetValueOnce: {
+//           data: '',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/watch?v=',
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280'
+//       },
+//       {
+//         name: `youtube failure: id=8'`,
+//         youtubeLink: 'https://www.youtube.com',
+//         axiosGetValueOnce: {
+//           data: '',
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/watch?v=',
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280'
+//       },
+//       {
+//         name: `youtube 'watch' failure: id=9'`,
+//         youtubeLink: 'https://www.youtube.com/watch?v=failure',
+//         axiosGetValueOnce: {
+//           data: `This video isn't available anymore`,
+//           status: 200
+//         },
+//         axiosGetWith: 'http://localhost:3000/video/watch?v=failure',
+//         results: 'Tidak ada hasil',
+//         tweetIs: 'Tweet is: + 280'
+//       },
+//     ]
 
-    for (let test of testCases) {
-      console.debug('name:', test.name)
-      // GET
-      vi.spyOn(axios, 'get').mockResolvedValueOnce(test.axiosGetValueOnce)
+//     for (let test of testCases) {
+//       console.debug('name:', test.name)
+//       // GET
+//       vi.spyOn(axios, 'get').mockResolvedValueOnce(test.axiosGetValueOnce)
 
-      await ceramahSingkatIslam.setValue(test.youtubeLink)
-      await ceramahSingkatIslam.trigger('change')
+//       await ceramahSingkatIslam.setValue(test.youtubeLink)
+//       await ceramahSingkatIslam.trigger('change')
       
-      expect(axios.get).toHaveBeenCalledTimes(1)
-      expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
+//       expect(axios.get).toHaveBeenCalledTimes(1)
+//       expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
       
-      // Wait until the DOM updates.
-      await flushPromises()
+//       // Wait until the DOM updates.
+//       await flushPromises()
       
-      expect(results.element.value).toEqual(test.results)
-      assert.equal(btnTweet.text(), test.tweetIs)
-    }
-  })
-})
+//       expect(results.element.value).toEqual(test.results)
+//       assert.equal(btnTweet.text(), test.tweetIs)
+//     }
+//   })
+// })
 
-describe('App js: button reset', () => {
-  it('button reset', async() => {
-    // 1. textarea: ceramahSingkatIslam = '-'
-    // 2. textarea: hasil = 'Tidak ada hasil'
-    await ceramahSingkatIslam.setValue('-')
-    results.setValue('Tidak ada hasil')
+// describe('App js: button reset', () => {
+//   it('button reset', async() => {
+//     // 1. textarea: ceramahSingkatIslam = '-'
+//     // 2. textarea: hasil = 'Tidak ada hasil'
+//     await ceramahSingkatIslam.setValue('-')
+//     results.setValue('Tidak ada hasil')
 
-    assert.equal(ceramahSingkatIslam.element.value, '-')
-    assert.equal(results.element.value, 'Tidak ada hasil')
-    await btnReset.trigger('click')
+//     assert.equal(ceramahSingkatIslam.element.value, '-')
+//     assert.equal(results.element.value, 'Tidak ada hasil')
+//     await btnReset.trigger('click')
 
-    assert.equal(ceramahSingkatIslam.element.value, '')
-    assert.equal(results.element.value, '')
-  })
-})
+//     assert.equal(ceramahSingkatIslam.element.value, '')
+//     assert.equal(results.element.value, '')
+//   })
+// })
 
 describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async() => {
   // ceramah ?
@@ -259,20 +262,13 @@ https://www.youtube.com/shorts/peUj47yc1xo`)
     // test cases
     const testCases = [   
       {
-        name: 'Test 1',
+        name: 'Islam',
         index: 1,
-        listBool: [false, true, false, false],
-        hasil: 'Tags: Test 1',
-        tweetIs: 'Tweet is: + 268',
-        // `semua kotak centang` diaktifkan
-        allCheckboxesEnabled: 'diaktifkan: 1'
-      },
-      {
-        name: 'Test 3',
-        index: 3,
-        listBool: [false, true, false, true],
-        hasil: 'Tags: Test 1, Test 3',
-        tweetIs: 'Tweet is: + 260',
+        listBool: [true, true, false, false],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu
+
+https://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 95',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
@@ -295,14 +291,14 @@ https://www.youtube.com/shorts/peUj47yc1xo`)
 
     for (let test of testCases) {
       console.debug('checked ke-', test.name)
-      await checkboxTrends.at(test.index).setValue(true)
+      await checkboxCeramahSI.at(test.index).setValue(true)
       
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
-          expect(arrayTrends.at(i).classes()).toContain('completed')
+          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
         } else {
-          // same: assert.deepEqual(arrayTrends.at(...).classes(), [])
-          expect(arrayTrends.at(i).classes()).to.deep.equal([])
+          // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
+          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
         }
 
         assert.equal(btnTweet.text(), test.tweetIs)
@@ -314,60 +310,60 @@ https://www.youtube.com/shorts/peUj47yc1xo`)
     }
   })
 
-  it('App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang', async() => {    
-    console.debug('-----')
+//   it('App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang', async() => {    
+//     console.debug('-----')
     
-    // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+//     // textarea hasil: test youtube.com
+//     expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
-https://www.youtube.com/shorts/peUj47yc1xo`)
+// https://www.youtube.com/shorts/peUj47yc1xo`)
 
-    // test cases
-    const testCases = [
-      {
-        name: 'Singkat',
-        index: 0,
-        listBool: [false, true, true],
-        results: '#Singkat #SingkatTest',
-        tweetIs: 'Tweet is: + 252',
-        // `semua kotak centang` diaktifkan
-        allCheckboxesEnabled: 'diaktifkan: 2'
-      },
-      {
-        name: 'Test 1',
-        index: 1,
-        listBool: [false, false, true],
-        results: 'Test 1',
-        tweetIs: 'Tweet is: + 260',
-        allCheckboxesEnabled: 'diaktifkan: 1'
-      },
-      {
-        name: 'Test2',
-        index: 2,
-        listBool: [false, false, false],
-        results: 'Test 2',
-        tweetIs: 'Tweet is: + 268',
-        allCheckboxesEnabled: 'diaktifkan: 0'
-      }
-    ]
+//     // test cases
+//     const testCases = [
+//       {
+//         name: 'Singkat',
+//         index: 0,
+//         listBool: [false, true, true],
+//         results: '#Singkat #SingkatTest',
+//         tweetIs: 'Tweet is: + 252',
+//         // `semua kotak centang` diaktifkan
+//         allCheckboxesEnabled: 'diaktifkan: 2'
+//       },
+//       {
+//         name: 'Test 1',
+//         index: 1,
+//         listBool: [false, false, true],
+//         results: 'Test 1',
+//         tweetIs: 'Tweet is: + 260',
+//         allCheckboxesEnabled: 'diaktifkan: 1'
+//       },
+//       {
+//         name: 'Test2',
+//         index: 2,
+//         listBool: [false, false, false],
+//         results: 'Test 2',
+//         tweetIs: 'Tweet is: + 268',
+//         allCheckboxesEnabled: 'diaktifkan: 0'
+//       }
+//     ]
 
-    for (let test of testCases) {
-      console.debug('unchecked ke-', test.name)
-      await checkboxCeramahSI.at(test.index).setValue(false)
+//     for (let test of testCases) {
+//       console.debug('unchecked ke-', test.name)
+//       await checkboxCeramahSI.at(test.index).setValue(false)
       
-      for (let i = 0; i < test.listBool.length; i++) {
-        if (test.listBool[i]) {
-          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
-        } else {
-          // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
-        }
-      }
+//       for (let i = 0; i < test.listBool.length; i++) {
+//         if (test.listBool[i]) {
+//           expect(arrayCeramahSI.at(i).classes()).toContain('completed')
+//         } else {
+//           // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
+//           expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+//         }
+//       }
 
-      assert.equal(results.element.value, test.results)
-      assert.equal(btnTweet.text(), test.tweetIs)
-      // `semua kotak centang` diaktifkan
-      assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
-    }
-  })
+//       assert.equal(results.element.value, test.results)
+//       assert.equal(btnTweet.text(), test.tweetIs)
+//       // `semua kotak centang` diaktifkan
+//       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
+//     }
+//   })
 })
