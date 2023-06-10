@@ -307,27 +307,27 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       {
         name: 'Singkat',
         index: 0,
-        listBool: [false, true, true],
+        listBool: [false, true, true, true],
         results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 252',
+        tweetIs: 'Tweet is: + 115',
         // `semua kotak centang` diaktifkan
-        allCheckboxesEnabled: 'diaktifkan: 2'
+        allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
         name: 'Islam',
         index: 1,
-        listBool: [false, false, true],
+        listBool: [false, false, true, true],
         results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 260',
-        allCheckboxesEnabled: 'diaktifkan: 1'
+        tweetIs: 'Tweet is: + 180',
+        allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
         name: 'Mualaf',
         index: 2,
-        listBool: [false, false, false],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 268',
-        allCheckboxesEnabled: 'diaktifkan: 0'
+        listBool: [false, false, false, true],
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 188',
+        allCheckboxesEnabled: 'diaktifkan: 1'
       }
     ]
 

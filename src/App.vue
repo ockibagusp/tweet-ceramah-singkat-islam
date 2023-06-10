@@ -235,14 +235,11 @@ export default {
           })
         }
         if (youtubeVideoHtml != '') {
-          // ?
           this.youtubeVideo = youtubeVideoHtml
           this.ceramahSIText = this.arrayCeramahSI[0].tweets
           youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
           
-          youtubeVideoHtml = `${youtubeVideoHtml}
-
-${this.ceramahSingkatIslam}`
+          youtubeVideoHtml = `${youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
           this.isResultsSuccess(youtubeVideoHtml.length)
         } 
 
@@ -305,7 +302,7 @@ ${this.ceramahSingkatIslam}`
 
         this.selectCheckBoxAll = false
         
-        this.results = TAGS + newArrayCeramahSIName.substring(0, newArrayCeramahSIName.length-2)
+        this.results = newArrayCeramahSIName.substring(0, newArrayCeramahSIName.length-2)
         this.count = 280 - this.results.length
         this.isCopyAndCountTweet()
       } else {
@@ -327,11 +324,11 @@ ${this.ceramahSingkatIslam}`
     // html: Singkat Islam
     // berubah dalam array untuk ceramahSI
     ceramahSIChanged(event, index) {
-      const name = this.arrayCeramahSI[index].name
+      const tweets = this.arrayCeramahSI[index].tweets
       
       if (event.target.checked) {
         if (this.ceramahSIText === '') {
-          this.ceramahSIText = name
+          this.ceramahSIText = tweets
           this.results = `${this.youtubeVideo} ${this.ceramahSIText}\n\n${this.ceramahSingkatIslam}`
           // pilih hasil, button copy dan button tweet: true
           this.selectResults = true
@@ -355,9 +352,9 @@ ${this.ceramahSingkatIslam}`
 
         this.count = 280 - this.results.length
       } else {
-        const rightComma = `${name}, `
-        const leftComma = `, ${name}`
-        const bothComma = `, ${name}, `
+        const rightComma = `${tweets} `
+        const leftComma = ` ${tweets}`
+        const bothComma = ` ${tweets} `
         
         let release = ''
         if (this.results.includes(rightComma)) {
@@ -368,7 +365,7 @@ ${this.ceramahSingkatIslam}`
           release = bothComma
         } else {
           // melepas = text 
-          this.results = 'Tidak ada hasil'
+          this.results = `${this.youtubeVideo}\n\n${this.ceramahSIText}`
           // pilih hasil, button copy dan button tweet: false
           this.selectResults = false
           this.selectCopy = false
@@ -444,19 +441,19 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <h4 v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'">Kotak Centang: 
+    <h4 v-if="results !== '' && results !== 'Loading...'">Kotak Centang: 
     <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
       {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
     </button>    
     </h4>
     
-    <!-- <p  v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
+    <!-- <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
     <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
-    {{ results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...' ? '📌' : '' }}
-    <!-- <div v-if="results !== '' && results !== 'Tidak ada hasil' && results !== 'Loading...'"> -->
+    {{ results !== '' && results !== 'Loading...' ? '📌' : '' }}
+    <!-- <div v-if="results !== '' && results !== 'Loading...'"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
