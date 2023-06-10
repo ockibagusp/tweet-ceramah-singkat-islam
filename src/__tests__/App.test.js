@@ -59,9 +59,7 @@ describe('App js: delete tweet youtube video', () => {
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
-
-https://www.youtube.com/shorts/peUj47yc1xo`)
+    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`)
   })
 })
 
@@ -93,9 +91,7 @@ describe('App js: reset tweet youtube video', async() => {
 //           status: 200
 //         },
 //         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-//         results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
-
-// https://www.youtube.com/shorts/peUj47yc1xo`,
+//         results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
 //         tweetIs: 'Tweet is: + 160'
 //       },
 //       {
@@ -106,9 +102,7 @@ describe('App js: reset tweet youtube video', async() => {
 //           status: 200
 //         },
 //         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-//         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
-
-// https://www.youtube.com/watch?v=vTeIKc2JjCU`,
+//         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/watch?v=vTeIKc2JjCU`,
 //         tweetIs: 'Tweet is: + 144'
 //       },
 //       {
@@ -119,16 +113,14 @@ describe('App js: reset tweet youtube video', async() => {
 //           status: 200
 //         },
 //         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-//         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
-
-// https://youtu.be/vTeIKc2JjCU`,
+//         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
 //         tweetIs: 'Tweet is: + 159'
 //       },
 //       {
 //         name: `youtube 'shorts' failure: id=4'`,
 //         youtubeLink: 'https://www.youtube.com/shorts/failure',
 //         axiosGetValueOnce: {
-//           data: '404 Not Found',
+//           data: '',
 //           status: 404
 //         },
 //         axiosGetWith: 'http://localhost:3000/video/shorts/failure',
@@ -249,42 +241,36 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
-
-https://www.youtube.com/shorts/peUj47yc1xo`)
+    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
   })
 
   it('App js: textarea `hasil` untuk array untuk ceramah singkat: dicentang', async() => {        
-    assert.equal(results.element.value, `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
-
-https://www.youtube.com/shorts/peUj47yc1xo`)
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
     
     // test cases
     const testCases = [   
       {
-        name: 'Islam',
-        index: 1,
-        listBool: [true, true, false, false],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu
-
-https://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 95',
+        name: 'Pengajian',
+        index: 3,
+        listBool: [true, false, false, true],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 149',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
-        name: '#TimnasIndonesia',
-        index: 0,
+        name: 'Islam',
+        index: 1,
         listBool: [true, true, false, true],
-        hasil: 'Tags: #TimnasIndonesia, Test 1, Test 3',
-        tweetIs: 'Tweet is: + 242',
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 84',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
-        name: '#Test2',
+        name: 'Mualaf',
         index: 2,
         listBool: [true, true, true, true],
-        hasil: 'Tags: #TimnasIndonesia, Test 1, #Test2, Test 3',
-        tweetIs: 'Tweet is: + 234',
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 76',
         allCheckboxesEnabled: 'diaktifkan: 4'
       }  
     ]

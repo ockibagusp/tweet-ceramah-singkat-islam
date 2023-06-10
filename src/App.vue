@@ -293,12 +293,10 @@ ${this.ceramahSingkatIslam}`
         // Singkat
         this.arrayCeramahSI[0].completed = true
         this.ceramahSIText = this.arrayCeramahSI[0].tweets
-          youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
+        youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
           
-          this.results = `${youtubeVideoHtml}
-
-${this.ceramahSingkatIslam}`
-          this.isResultsSuccess(youtubeVideoHtml.length)
+        this.results = `${youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
+        this.isResultsSuccess(youtubeVideoHtml.length)
         this.allCheckboxesEnabled = 1
         
         this.selectResults = true
@@ -334,9 +332,7 @@ ${this.ceramahSingkatIslam}`
       if (event.target.checked) {
         if (this.ceramahSIText === '') {
           this.ceramahSIText = name
-          this.results = `${this.youtubeVideo} ${this.ceramahSIText}
-          
-${this.ceramahSingkatIslam}`
+          this.results = `${this.youtubeVideo} ${this.ceramahSIText}\n\n${this.ceramahSingkatIslam}`
           // pilih hasil, button copy dan button tweet: true
           this.selectResults = true
           this.selectCopy = true
@@ -351,9 +347,7 @@ ${this.ceramahSingkatIslam}`
             }
           }
 
-          this.results =  `${this.youtubeVideo} ${newArrayCeramahSITweets.substring(0, newArrayCeramahSITweets.length-1)}
-
-${this.ceramahSingkatIslam}`
+          this.results =  `${this.youtubeVideo} ${newArrayCeramahSITweets.substring(0, newArrayCeramahSITweets.length-1)}\n\n${this.ceramahSingkatIslam}`
           this.isCopyAndCountTweet()
           
           this.allCheckboxesEnabled++
