@@ -59,33 +59,37 @@ export default {
       arrayUstadz: [
         {
           name: 'Dr. Firanda Andirja, Lc., M.A.',
-          tweets: '#FirandaAndirja',
+          tweets: '#UstadzFirandaAndirja #FirandaAndirja',
           url: 'https://id.wikipedia.org/wiki/Firanda_Andirja',
           completed: false
         },
         {
           name: 'Dr. Khalid Basalamah, Lc., M.A.',
-          tweets: '#ustadzkhalidbasalamah #FirandaAndirja',
+          tweets: '#UstadzKhalidBasalamah #KhalidBasalamah',
           url: 'https://id.wikipedia.org/wiki/Khalid_Basalamah',
           completed: false
         },
         {
           name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
+          tweets: '#UstadzSyafiqBasalamah #SyafiqRizaBasalamah',
           url: 'https://id.wikipedia.org/wiki/Syafiq_Riza_Basalamah',
           completed: false
         },
         {
           name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
+          tweets: '#UstadzAdiHidayat #UAH',
           url: 'https://id.wikipedia.org/wiki/Adi_Hidayat',
           completed: false
         },
         {
           name: 'Prof. Abdul Somad, Lc., D.E.S.A., Ph.D.',
+          tweets: '#UstadzAbdulSomad #UAS',
           url: 'https://id.wikipedia.org/wiki/Abdul_Somad',
           completed: false
         },
         {
           name: '(Abu Yahya) Badrusalam, Lc',
+          tweets: '#UstadzBadrusalam',
           url: 'https://id.wikipedia.org/wiki/Badrusalam',
           completed: false
         },
@@ -94,7 +98,7 @@ export default {
       // array: Youtube video,  ceramah singkat Islam dan Ustadz
       youtubeVideo: '',
       ceramahSIText: '',
-      ustadzTest: '',
+      ustadzText: '',
       
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
@@ -321,7 +325,7 @@ export default {
       }
     },
 
-    // html: Singkat Islam
+    // html: Tag Singkat Islam
     // berubah dalam array untuk ceramahSI
     ceramahSIChanged(event, index) {
       const tweets = this.arrayCeramahSI[index].tweets
@@ -382,6 +386,12 @@ export default {
         
         this.allCheckboxesEnabled--
       }
+    },
+
+    // html: Tag Ustadz
+    // berubah dalam array untuk Ustadz
+    ustadzChanged(event, index) {
+
     },
 
     // sama dengan :isCountTweet()
@@ -479,7 +489,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         :key="ustadz.name"
         data-test="array-ustadz"
         :class="[ustadz.completed ? 'completed' : '']"
-        @change="ceramahSIChanged($event, index)"
+        @change="ustadzChanged($event, index)"
       >
         <input
           type="checkbox"

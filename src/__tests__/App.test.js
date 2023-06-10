@@ -224,7 +224,7 @@ describe('App js: button reset', () => {
 })
 
 describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async() => {
-  // ceramah ?
+  // ceramah
   it('add tweet youtube video', async() => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
@@ -346,6 +346,59 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
 
       assert.equal(results.element.value, test.results)
       assert.equal(btnTweet.text(), test.tweetIs)
+      // `semua kotak centang` diaktifkan
+      assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
+    }
+  })
+
+  // ustadz
+  it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async() => {        
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    
+    // test cases
+    const testCases = [   
+      {
+        name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
+        index: 3,
+        listBool: [false, false, true, false],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 149',
+        allCheckboxesEnabled: 'diaktifkan: 2'
+      },
+      {
+        name: 'Dr. Khalid Basalamah, Lc., M.A.',
+        index: 1,
+        listBool: [false, true, false, false],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 84',
+        allCheckboxesEnabled: 'diaktifkan: 3'
+      },
+      {
+        name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
+        index: 2,
+        listBool: [false, false, true, false],
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 76',
+        allCheckboxesEnabled: 'diaktifkan: 4'
+      }  
+    ]
+
+    for (let test of testCases) {
+      console.debug('checked ke-', test.name)
+      await checkboxCeramahSI.at(test.index).setValue(true)
+      
+      for (let i = 0; i < test.listBool.length; i++) {
+        if (test.listBool[i]) {
+          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
+        } else {
+          // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
+          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+        }
+
+        assert.equal(btnTweet.text(), test.tweetIs)
+      }
+
+      assert.equal(results.element.value, test.hasil)
       // `semua kotak centang` diaktifkan
       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
     }
