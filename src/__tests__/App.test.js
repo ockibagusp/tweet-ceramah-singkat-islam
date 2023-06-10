@@ -296,60 +296,58 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     }
   })
 
-//   it('App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang', async() => {    
-//     console.debug('-----')
+  it('App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang', async() => {    
+    console.debug('-----')
     
-//     // textarea hasil: test youtube.com
-//     expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
+    // textarea hasil: test youtube.com
+    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
 
-// https://www.youtube.com/shorts/peUj47yc1xo`)
+    // test cases
+    const testCases = [
+      {
+        name: 'Singkat',
+        index: 0,
+        listBool: [false, true, true],
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 252',
+        // `semua kotak centang` diaktifkan
+        allCheckboxesEnabled: 'diaktifkan: 2'
+      },
+      {
+        name: 'Islam',
+        index: 1,
+        listBool: [false, false, true],
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 260',
+        allCheckboxesEnabled: 'diaktifkan: 1'
+      },
+      {
+        name: 'Mualaf',
+        index: 2,
+        listBool: [false, false, false],
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 268',
+        allCheckboxesEnabled: 'diaktifkan: 0'
+      }
+    ]
 
-//     // test cases
-//     const testCases = [
-//       {
-//         name: 'Singkat',
-//         index: 0,
-//         listBool: [false, true, true],
-//         results: '#Singkat #SingkatTest',
-//         tweetIs: 'Tweet is: + 252',
-//         // `semua kotak centang` diaktifkan
-//         allCheckboxesEnabled: 'diaktifkan: 2'
-//       },
-//       {
-//         name: 'Test 1',
-//         index: 1,
-//         listBool: [false, false, true],
-//         results: 'Test 1',
-//         tweetIs: 'Tweet is: + 260',
-//         allCheckboxesEnabled: 'diaktifkan: 1'
-//       },
-//       {
-//         name: 'Test2',
-//         index: 2,
-//         listBool: [false, false, false],
-//         results: 'Test 2',
-//         tweetIs: 'Tweet is: + 268',
-//         allCheckboxesEnabled: 'diaktifkan: 0'
-//       }
-//     ]
-
-//     for (let test of testCases) {
-//       console.debug('unchecked ke-', test.name)
-//       await checkboxCeramahSI.at(test.index).setValue(false)
+    for (let test of testCases) {
+      console.debug('unchecked ke-', test.name)
+      await checkboxCeramahSI.at(test.index).setValue(false)
       
-//       for (let i = 0; i < test.listBool.length; i++) {
-//         if (test.listBool[i]) {
-//           expect(arrayCeramahSI.at(i).classes()).toContain('completed')
-//         } else {
-//           // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-//           expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
-//         }
-//       }
+      for (let i = 0; i < test.listBool.length; i++) {
+        if (test.listBool[i]) {
+          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
+        } else {
+          // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
+          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+        }
+      }
 
-//       assert.equal(results.element.value, test.results)
-//       assert.equal(btnTweet.text(), test.tweetIs)
-//       // `semua kotak centang` diaktifkan
-//       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
-//     }
-//   })
+      assert.equal(results.element.value, test.results)
+      assert.equal(btnTweet.text(), test.tweetIs)
+      // `semua kotak centang` diaktifkan
+      assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
+    }
+  })
 })
