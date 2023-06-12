@@ -22,45 +22,59 @@ export default {
       results: '',
       // tweet dihasil maks. 280 karakter
       count: 280,
-      // array: ceramah singkat Islam
-      arrayCeramahSI: [
+      // array: ceramah singkat Islam dan Ustadz
+      arrayCeramahAndUst: [
+        // array: ceramah singkat Islam
         {
           name: 'Singkat',
           tweets: '#CeramahPendek #Shorts #Video #YouTube',
+          url: '#',
+          isCeramah: true,
           completed: true
         },
         {
           name: 'Islam',
           tweets: '#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu',
+          url: '#',
+          isCeramah: true,
           completed: false
         },
         {
           name: 'Mualaf',
           tweets: '#Mualaf',
+          url: 'https://twitter.com/search?q=%23Mualaf',
+          isCeramah: true,
           completed: false
         },
         {
           name: 'Pengajian',
           tweets: '#Pengajian',
+          url: 'https://twitter.com/search?q=%23Pengajian',
+          isCeramah: true,
           completed: false
         },
         {
           name: 'RIBA',
           tweets: '#RIBA',
+          url: 'https://twitter.com/search?q=%23RIBA',
+          isCeramah: true,
           completed: false
         },
         {
           name: 'Azab',
           tweets: '#Azab',
+          url: 'https://twitter.com/search?q=%23Azab',
+          isCeramah: true,
           completed: false
-        }
-      ],
-      // array: Ustadz
-      arrayUstadz: [
+        },
+        // array: Ustadz
         {
           name: 'Dr. Firanda Andirja, Lc., M.A.',
           tweets: '#UstadzFirandaAndirja #FirandaAndirja',
           url: 'https://id.wikipedia.org/wiki/Firanda_Andirja',
+          // ustadz
+          // isCeramah: false
+          isCeramah: false,
           completed: false
         },
         {
@@ -92,13 +106,12 @@ export default {
           tweets: '#UstadzBadrusalam',
           url: 'https://id.wikipedia.org/wiki/Badrusalam',
           completed: false
-        },
+        }
       ],
 
       // array: Youtube video,  ceramah singkat Islam dan Ustadz
       youtubeVideo: '',
-      ceramahSIText: '',
-      ustadzText: '',
+      ceramahAndUstText: '',
       
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
@@ -240,8 +253,8 @@ export default {
         }
         if (youtubeVideoHtml != '') {
           this.youtubeVideo = youtubeVideoHtml
-          this.ceramahSIText = this.arrayCeramahSI[0].tweets
-          youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
+          this.ceramahAndUstText = this.arrayCeramahAndUst[0].tweets
+          youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahAndUstText
           
           youtubeVideoHtml = `${youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
           this.isResultsSuccess(youtubeVideoHtml.length)
@@ -292,9 +305,9 @@ export default {
         let newArrayCeramahSIName = ''
 
         // Singkat
-        this.arrayCeramahSI[0].completed = true
-        this.ceramahSIText = this.arrayCeramahSI[0].tweets
-        youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahSIText
+        this.arrayCeramahAndUst[0].completed = true
+        this.ceramahSIText = this.arrayCeramahAndUst[0].tweets
+        youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahAndUstText
           
         this.results = `${youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
         this.isResultsSuccess(youtubeVideoHtml.length)
@@ -310,8 +323,8 @@ export default {
         this.count = 280 - this.results.length
         this.isCopyAndCountTweet()
       } else {
-        this.arrayCeramahSI.forEach((val, index) => {
-          this.arrayCeramahSI[index].completed = false
+        this.arrayCeramahAndUst.forEach((val, index) => {
+          this.arrayCeramahAndUst[index].completed = false
         })
         this.count = 280
         this.results = '....'
@@ -327,13 +340,13 @@ export default {
 
     // html: Tag Singkat Islam
     // berubah dalam array untuk ceramahSI
-    ceramahSIChanged(event, index) {
-      const tweets = this.arrayCeramahSI[index].tweets
+    ceramahAndUstChanged(event, index) {
+      const tweets = this.arrayCeramahAndUst[index].tweets
       
       if (event.target.checked) {
-        if (this.ceramahSIText === '') {
+        if (this.ceramahAndUstText === '') {
           this.ceramahSIText = tweets
-          this.results = `${this.youtubeVideo} ${this.ceramahSIText}\n\n${this.ceramahSingkatIslam}`
+          this.results = `${this.youtubeVideo} ${this.ceramahAndUstText}\n\n${this.ceramahSingkatIslam}`
           // pilih hasil, button copy dan button tweet: true
           this.selectResults = true
           this.selectCopy = true
@@ -342,9 +355,9 @@ export default {
           this.allCheckboxesEnabled++
         } else {
           let newArrayCeramahSITweets = ''
-          for (let i = 0; i < this.arrayCeramahSI.length; i++) {
-            if (this.arrayCeramahSI[i].completed !== false) {
-              newArrayCeramahSITweets += `${this.arrayCeramahSI[i].tweets} `
+          for (let i = 0; i < this.arrayCeramahAndUst.length; i++) {
+            if (this.arrayCeramahAndUst[i].completed !== false) {
+              newArrayCeramahSITweets += `${this.arrayCeramahAndUst[i].tweets} `
             }
           }
 
@@ -369,7 +382,7 @@ export default {
           release = bothComma
         } else {
           // melepas = text 
-          this.results = `${this.youtubeVideo}\n\n${this.ceramahSIText}`
+          this.results = `${this.youtubeVideo}\n\n${this.ceramahAndUstText}`
           // pilih hasil, button copy dan button tweet: false
           this.selectResults = false
           this.selectCopy = false
@@ -391,7 +404,84 @@ export default {
     // html: Tag Ustadz
     // berubah dalam array untuk Ustadz
     ustadzChanged(event, index) {
+      const tweets = this.arrayCeramahAndUst[index].tweets
 
+      if (event.target.checked) {
+        if (this.ustadzText === '') {
+          this.ustadzText = tweets
+
+          console.log(this.ceramahAndUstText);
+          if (this.ceramahAndUstText !== '') {
+            
+          } else {
+            let newArrayCeramahSITweets = ''
+            for (let i = 0; i < this.arrayCeramahAndUst.length; i++) {
+              if (this.arrayCeramahAndUst[i].completed !== false) {
+                newArrayCeramahSITweets += `${this.arrayCeramahAndUst[i].tweets} `
+              }
+            }
+
+            this.results =  `${this.youtubeVideo} ${newArrayCeramahSITweets.substring(0, newArrayCeramahSITweets.length-1)}\n\n${this.ceramahSingkatIslam}`
+            this.isCopyAndCountTweet()
+            
+            this.allCheckboxesEnabled++
+          }
+
+
+
+          this.results = `${this.youtubeVideo} ${this.ustadzText}\n\n${this.ceramahSingkatIslam}`
+          // pilih hasil, button copy dan button tweet: true
+          this.selectResults = true
+          this.selectCopy = true
+          this.selectTweet = true
+          
+          this.allCheckboxesEnabled++
+        } else {
+          let newArrayarrayCeramahAndUstTweets = ''
+          for (let i = 0; i < this.arrayCeramahAndUst.length; i++) {
+            if (this.arrayCeramahAndUst[i].completed !== false) {
+              newArrayarrayCeramahAndUstTweets += `${this.arrayCeramahAndUst[i].tweets} `
+            }
+          }
+
+          this.results =  `${this.youtubeVideo} ${newArrayarrayCeramahAndUstTweets.substring(0, newArrayarrayCeramahAndUstTweets.length-1)}\n\n${this.ceramahSingkatIslam}`
+          this.isCopyAndCountTweet()
+          
+          this.allCheckboxesEnabled++
+        }
+
+        this.count = 280 - this.results.length
+      } else {
+        const rightComma = `${tweets} `
+        const leftComma = ` ${tweets}`
+        const bothComma = ` ${tweets} `
+        
+        let release = ''
+        if (this.results.includes(rightComma)) {
+          release = rightComma
+        } else if (this.results.includes(leftComma)) {
+          release = leftComma
+        } else if (this.results.includes(bothComma)) {
+          release = bothComma
+        } else {
+          // melepas = text 
+          this.results = `${this.youtubeVideo}\n\n${this.ustadzText}`
+          // pilih hasil, button copy dan button tweet: false
+          this.selectResults = false
+          this.selectCopy = false
+          this.selectTweet = false
+          this.count = 280
+          
+          this.allCheckboxesEnabled = 0
+          return
+        }
+        this.results = this.results.replace(release, '')
+        
+        this.count = 280 - this.results.length
+        this.isCopyAndCountTweet()
+        
+        this.allCheckboxesEnabled--
+      }
     },
 
     // sama dengan :isCountTweet()
@@ -466,26 +556,26 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <!-- <div v-if="results !== '' && results !== 'Loading...'"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
-        v-for="(ceramahSI, index) in arrayCeramahSI"
-        :key="ceramahSI.name"
-        data-test="array-ceramahSI"
-        :class="[ceramahSI.completed ? 'completed' : '']"
-        @change="ceramahSIChanged($event, index)"
+        v-for="(ceramahAndUst, index) in arrayCeramahAndUst"
+        :key="ceramahAndUst.name"
+        data-test="array-ceramah-and-Ust"
+        :class="[ceramahAndUst.completed ? 'completed' : '']"
+        @change="ceramahAndUstChanged($event, index)"
       >
         <input
           type="checkbox"
-          v-model="ceramahSI.completed"
-          data-test="ceramahSI-checkbox"
+          v-model="ceramahAndUst.completed"
+          data-test="ceramah-and-ust-checkbox"
         />
-        <a>{{ ceramahSI.name }}</a>
+        <a>{{ ceramahAndUst.name }}</a>
         <div style="margin-left: 20px;">
-          <small>{{ ceramahSI.tweets }}</small>
+          <small>{{ ceramahAndUst.tweets }}</small>
         </div>
       </div>
   
       <h4 style="margin-top: 10px;margin-bottom: 5px;">Tag Ustadz:</h4>
       <div
-        v-for="(ustadz, index) in arrayUstadz"
+        v-for="(ustadz, index) in arrayCeramahAndUst"
         :key="ustadz.name"
         data-test="array-ustadz"
         :class="[ustadz.completed ? 'completed' : '']"

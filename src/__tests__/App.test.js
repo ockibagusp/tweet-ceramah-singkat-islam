@@ -14,8 +14,8 @@ const ceramahSingkatIslam = wrapper.get('[data-test="ceramah-singkat-islam"]')
 const results = wrapper.get('[data-test="results"]')
 
 // array dan checkbox untuk ceramahSI
-const arrayCeramahSI = wrapper.findAll('[data-test="array-ceramahSI"]')
-const checkboxCeramahSI = wrapper.findAll('[data-test="ceramahSI-checkbox"]')
+const arrayCeramahAndUst = wrapper.findAll('[data-test="array-ceramah-and-Ust"]')
+const checkboxCeramahSI = wrapper.findAll('[data-test="ceramah-and-ust-checkbox"]')
 
 // button: btnReset dan btnCopy
 const btnReset = wrapper.get('[data-test="btn-reset"]') 
@@ -281,10 +281,10 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
-          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
+          expect(arrayCeramahAndUst.at(i).classes()).toContain('completed')
         } else {
           // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+          expect(arrayCeramahAndUst.at(i).classes()).to.deep.equal([])
         }
 
         assert.equal(btnTweet.text(), test.tweetIs)
@@ -337,10 +337,10 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
-          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
+          expect(arrayCeramahAndUst.at(i).classes()).toContain('completed')
         } else {
           // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+          expect(arrayCeramahAndUst.at(i).classes()).to.deep.equal([])
         }
       }
 
@@ -360,9 +360,9 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       {
         name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
         index: 3,
-        listBool: [false, false, true, false],
+        listBool: [false, false, false, false],
         hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 149',
+        tweetIs: 'Tweet is: + 188',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
@@ -371,7 +371,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         listBool: [false, true, false, false],
         hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 84',
-        allCheckboxesEnabled: 'diaktifkan: 3'
+        allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
         name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
@@ -379,20 +379,20 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         listBool: [false, false, true, false],
         hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
         tweetIs: 'Tweet is: + 76',
-        allCheckboxesEnabled: 'diaktifkan: 4'
+        allCheckboxesEnabled: 'diaktifkan: 2'
       }  
     ]
 
     for (let test of testCases) {
       console.debug('checked ke-', test.name)
-      await checkboxCeramahSI.at(test.index).setValue(true)
+      await checkboxUstadz.at(test.index).setValue(true)
       
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
-          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
+          expect(arrayUstadz.at(i).classes()).toContain('completed')
         } else {
-          // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+          // same: assert.deepEqual(arrayUstadz.at(...).classes(), [])
+          expect(arrayUstadz.at(i).classes()).to.deep.equal([])
         }
 
         assert.equal(btnTweet.text(), test.tweetIs)
