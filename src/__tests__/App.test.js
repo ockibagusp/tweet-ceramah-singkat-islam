@@ -14,8 +14,12 @@ const ceramahSingkatIslam = wrapper.get('[data-test="ceramah-singkat-islam"]')
 const results = wrapper.get('[data-test="results"]')
 
 // array dan checkbox untuk ceramahSI
-const arrayCeramahAndUst = wrapper.findAll('[data-test="array-ceramah-and-Ust"]')
-const checkboxCeramahSI = wrapper.findAll('[data-test="ceramah-and-ust-checkbox"]')
+const arrayCeramahSI = wrapper.findAll('[data-test="array-ceramahSI"]')
+const checkboxCeramahSI = wrapper.findAll('[data-test="ceramahSI-checkbox"]')
+
+// array dan checkbox untuk ustadz
+const arrayUstadz = wrapper.findAll('[data-test="array-ustadz"]')
+const checkboxUstadz = wrapper.findAll('[data-test="ustadz-checkbox"]')
 
 // button: btnReset dan btnCopy
 const btnReset = wrapper.get('[data-test="btn-reset"]') 
@@ -281,10 +285,10 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
-          expect(arrayCeramahAndUst.at(i).classes()).toContain('completed')
+          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
         } else {
           // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-          expect(arrayCeramahAndUst.at(i).classes()).to.deep.equal([])
+          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
         }
 
         assert.equal(btnTweet.text(), test.tweetIs)
@@ -337,10 +341,10 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
-          expect(arrayCeramahAndUst.at(i).classes()).toContain('completed')
+          expect(arrayCeramahSI.at(i).classes()).toContain('completed')
         } else {
           // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
-          expect(arrayCeramahAndUst.at(i).classes()).to.deep.equal([])
+          expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
         }
       }
 
