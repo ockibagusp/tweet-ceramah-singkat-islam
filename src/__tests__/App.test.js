@@ -364,9 +364,9 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       {
         name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
         index: 3,
-        listBool: [false, false, false, false],
+        listBool: [false, false, false, true],
         hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 188',
+        tweetIs: 'Tweet is: + 176',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
