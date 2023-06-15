@@ -339,15 +339,24 @@ export default {
       // ceramah Text dan Ustadz Text
       let alphaText = ''
       let betaText = ''
+      // array: caramah dan Ustadz
+      let alphaArray = []
+      let betaArray = []
 
       if (isArray === 'ceramahSI') {
         tweets = this.arrayCeramahSI[index].tweets
         alphaText = tweets
         betaText = this.ustadzText
+
+        alphaArray = this.arrayCeramahSI
+        betaArray = this.arrayUstadz
       } else if (isArray === 'ustadz') {
         tweets = this.arrayUstadz[index].tweets
         alphaText = tweets
         betaText = this.ceramahSIText
+
+        alphaArray = this.arrayUstadz
+        betaArray = this.arrayCeramahSI
       } else {
         alert("ceramahAndUstChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'")
       }
@@ -365,9 +374,10 @@ export default {
           this.allCheckboxesEnabled++
         } else {
           let newArrayAlphaTweets = ''
-          for (let i = 0; i < this.arrayCeramahSI.length; i++) {
-            if (this.arrayCeramahSI[i].completed !== false) {
-              newArrayAlphaTweets += `${this.arrayCeramahSI[i].tweets} `
+          // ?
+          for (let i = 0; i < alphaArray.length; i++) {
+            if (alphaArray[i].completed !== false) {
+              newArrayAlphaTweets += `${alphaArray[i].tweets} `
             }
           }
 
@@ -506,7 +516,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         :key="ustadz.name"
         data-test="array-ustadz"
         :class="[ustadz.completed ? 'completed' : '']"
-        @change="ceramahAndUstChanged($even, index, 'ustadz')"
+        @change="ceramahAndUstChanged($event, index, 'ustadz')"
       >
         <input
           type="checkbox"
