@@ -344,9 +344,6 @@ export default {
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     ceramahAndUstChanged(event, index, isArray) {
       let tweets = ''
-      // ceramah Text dan Ustadz Text
-      let alphaText = ''
-      let betaText = ''
       // array: caramah dan Ustadz
       let alphaArray = []
       let betaArray = []
