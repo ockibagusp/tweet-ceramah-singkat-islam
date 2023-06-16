@@ -497,13 +497,13 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     </button>    
     </h4>
     
-    <!-- <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
-    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ results !== '' && results !== 'Loading...' ? '📌' : '' }}
-    <!-- <div v-if="results !== '' && results !== 'Loading...'"> -->
+    <div v-if="results !== '' && results !== 'Loading...'">
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
@@ -538,6 +538,6 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
         />
         <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
       </div>
-    <!-- </div> -->
+    </div>
   </main>
 </template>
