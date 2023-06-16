@@ -366,14 +366,35 @@ export default {
       if (event.target.checked) {
         console.log('alphaText:', alphaText);
         let newArrayAlphaTweets = ''
+
         // ?
-        for (let i = 0; i < alphaArray.length; i++) {
-          if (alphaArray[i].completed !== false) {
-            newArrayAlphaTweets += `${alphaArray[i].tweets} `
+        if (isArray === 'ceramahSI') {
+          for (let i = 0; i < alphaArray.length; i++) {
+            if (alphaArray[i].completed !== false) {
+              newArrayAlphaTweets += `${alphaArray[i].tweets} `
+            }
           }
+
+          newArrayAlphaTweets = newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)
+        } else if (isArray === 'ustadz') {
+          for (let i = 0; i < betaArray.length; i++) {
+            if (betaArray[i].completed !== false) {
+              newArrayAlphaTweets += `${betaArray[i].tweets} `
+            }
+          }
+          
+          for (let j = 0; j < alphaArray.length; j++) {
+            if (alphaArray[j].completed !== false) {
+              newArrayAlphaTweets += `${alphaArray[j].tweets} `
+            }
+          }
+
+          newArrayAlphaTweets = newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)
         }
 
-        this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)}\n\n${this.ceramahSingkatIslam}`
+        // ?
+
+        this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets}\n\n${this.ceramahSingkatIslam}`
         this.isCopyAndCountTweet()
         
         this.allCheckboxesEnabled++

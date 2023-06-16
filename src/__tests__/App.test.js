@@ -366,24 +366,24 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         index: 3,
         listBool: [false, false, false, true],
         hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 176',
+        tweetIs: 'Tweet is: + 165',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
         name: 'Dr. Khalid Basalamah, Lc., M.A.',
         index: 1,
-        listBool: [false, true, false, false],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 84',
-        allCheckboxesEnabled: 'diaktifkan: 2'
+        listBool: [false, true, false, true],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 125',
+        allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
         name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
         index: 2,
-        listBool: [false, false, true, false],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 76',
-        allCheckboxesEnabled: 'diaktifkan: 2'
+        listBool: [false, true, true, true],
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 81',
+        allCheckboxesEnabled: 'diaktifkan: 4'
       }  
     ]
 
