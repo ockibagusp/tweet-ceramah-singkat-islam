@@ -273,6 +273,12 @@ export default {
       this.ceramahSingkatIslam = ''
       // autofocus
       this.$refs.ceramahSingkatIslam.focus()
+      this.arrayCeramahSI.forEach(element => {
+        element.completed = false
+      })
+      this.arrayUstadz.forEach(element => {
+        element.completed = false
+      })
       this.isNotResults()
     },
     btnCopy() {
