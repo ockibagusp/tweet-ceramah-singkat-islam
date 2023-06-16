@@ -407,4 +407,56 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
     }
   })
+
+  it('App js: textarea `hasil` untuk array untuk ustadz: tidak dicentang', async() => {        
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    
+    // test cases
+    const testCases = [   
+      {
+        name: 'Dr. Khalid Basalamah, Lc., M.A.',
+        index: 1,
+        listBool: [false, false, true, true],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 125',
+        allCheckboxesEnabled: 'diaktifkan: 3'
+      },
+      {
+        name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
+        index: 3,
+        listBool: [false, false, true, false],
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 165',
+        allCheckboxesEnabled: 'diaktifkan: 2'
+      },
+      {
+        name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
+        index: 2,
+        listBool: [false, false, false, false],
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        tweetIs: 'Tweet is: + 81',
+        allCheckboxesEnabled: 'diaktifkan: 1'
+      }  
+    ]
+
+    for (let test of testCases) {
+      console.debug('unchecked ke-', test.name)
+      await checkboxUstadz.at(test.index).setValue(true)
+      
+      for (let i = 0; i < test.listBool.length; i++) {
+        if (test.listBool[i]) {
+          expect(arrayUstadz.at(i).classes()).toContain('completed')
+        } else {
+          // same: assert.deepEqual(arrayUstadz.at(...).classes(), [])
+          expect(arrayUstadz.at(i).classes()).to.deep.equal([])
+        }
+
+        assert.equal(btnTweet.text(), test.tweetIs)
+      }
+
+      assert.equal(results.element.value, test.hasil)
+      // `semua kotak centang` diaktifkan
+      assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
+    }
+  })
 })

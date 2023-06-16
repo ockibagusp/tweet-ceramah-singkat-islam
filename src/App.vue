@@ -364,14 +364,18 @@ export default {
       }
       
       if (event.target.checked) {
-        console.log('alphaText:', alphaText);
         let newArrayAlphaTweets = ''
 
-        // ?
         if (isArray === 'ceramahSI') {
           for (let i = 0; i < alphaArray.length; i++) {
             if (alphaArray[i].completed !== false) {
               newArrayAlphaTweets += `${alphaArray[i].tweets} `
+            }
+          }
+
+          for (let j = 0; j < betaArray.length; j++) {
+            if (betaArray[j].completed !== false) {
+              newArrayAlphaTweets += `${betaArray[j].tweets} `
             }
           }
 
@@ -391,8 +395,6 @@ export default {
 
           newArrayAlphaTweets = newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)
         }
-
-        // ?
 
         this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets}\n\n${this.ceramahSingkatIslam}`
         this.isCopyAndCountTweet()
