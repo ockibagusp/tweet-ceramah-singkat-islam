@@ -364,31 +364,19 @@ export default {
       }
       
       if (event.target.checked) {
-        if (alphaText === '') {
-          this.alphaText = tweets
-
-          this.results = `${this.youtubeVideo} ${alphaText}${betaText}\n\n${this.ceramahSingkatIslam}`
-          // pilih hasil, button copy dan button tweet: true
-          this.selectResults = true
-          this.selectCopy = true
-          this.selectTweet = true
-          
-          this.allCheckboxesEnabled++
-        } else {
-          let newArrayAlphaTweets = ''
-          // ?
-          for (let i = 0; i < alphaArray.length; i++) {
-            if (alphaArray[i].completed !== false) {
-              newArrayAlphaTweets += `${alphaArray[i].tweets} `
-            }
+        console.log('alphaText:', alphaText);
+        let newArrayAlphaTweets = ''
+        // ?
+        for (let i = 0; i < alphaArray.length; i++) {
+          if (alphaArray[i].completed !== false) {
+            newArrayAlphaTweets += `${alphaArray[i].tweets} `
           }
-
-          this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)}\n\n${this.ceramahSingkatIslam}`
-          this.isCopyAndCountTweet()
-          
-          this.allCheckboxesEnabled++
         }
 
+        this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)}\n\n${this.ceramahSingkatIslam}`
+        this.isCopyAndCountTweet()
+        
+        this.allCheckboxesEnabled++
         this.count = 280 - this.results.length
       } else {
         const rightComma = `${tweets} `
