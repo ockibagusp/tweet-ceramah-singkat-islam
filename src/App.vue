@@ -28,7 +28,7 @@ export default {
           name: 'Singkat',
           tweets: '#CeramahPendek #Shorts #Video #YouTube',
           url: '#',
-          completed: true
+          completed: false
         },
         {
           name: 'Islam',
@@ -260,6 +260,8 @@ export default {
         }
         this.results = youtubeVideoHtml
 
+        // array: arrayCeramahSI: Singkat => true
+        this.arrayCeramahSI[0].completed = true
         this.allCheckboxesEnabled = 1
         this.isCopyAndCountTweet()
       } catch {
