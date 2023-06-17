@@ -33,3 +33,8 @@ npm run build
 ```sh
 npm run test:unit
 ```
+
+## Testing Utils
+
+testing: ok ✅
+html v-if="results !== ''..." ❌
