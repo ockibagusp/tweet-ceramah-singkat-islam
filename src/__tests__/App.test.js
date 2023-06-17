@@ -80,6 +80,13 @@ describe('App js: reset tweet youtube video', async() => {
     await btnReset.trigger('click')
     assert.equal(ceramahSingkatIslam.element.value, '')
     assert.equal(results.element.value, '')
+
+    // // default all arrayCemahaSI and all arrayUstadz: false
+    //
+    // // empxe: 
+    // this.arrayCeramahSI.forEach(element => {
+    //  element.completed = false
+    // })
   })
 })
 
