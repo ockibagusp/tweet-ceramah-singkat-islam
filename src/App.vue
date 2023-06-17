@@ -192,7 +192,7 @@ export default {
       }
 
       if (!quit)
-        this.isResultsError()
+        return this.isResultsError()
 
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
@@ -222,7 +222,7 @@ export default {
         } else if (res.status == 404) {
           this.isResultsError()
           return
-        } else if (res.data.search(`This video isn't available anymore`) !== -1 || res.data.search('YouTube is not currently available on this device.') !== -1 ) {
+        } else if (res.data.search(`This video isn't available anymore`) !== -1) {
           this.isResultsError()
           return
         }
