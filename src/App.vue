@@ -415,12 +415,12 @@ export default {
           release = bothComma
         } else {
           // melepas = text 
-          this.results = `${this.youtubeVideo}\n\n${this.ceramahAndUstText}`
+          this.results = `${this.youtubeVideo}\n\n${this.ceramahSingkatIslam}`
           // pilih hasil, button copy dan button tweet: false
-          this.selectResults = false
-          this.selectCopy = false
-          this.selectTweet = false
-          this.count = 280
+          this.selectResults = true
+          this.selectCopy = true
+          this.selectTweet = true
+          this.count = 280 - this.results.length
           
           this.allCheckboxesEnabled = 0
           return
