@@ -66,7 +66,7 @@ describe('App js: delete tweet youtube video', () => {
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`)
+    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo`)
   })
 })
 
@@ -112,7 +112,7 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 160'
       },
       {
@@ -123,7 +123,7 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/watch?v=vTeIKc2JjCU`,
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 144'
       },
       {
@@ -248,7 +248,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'diaktifkan')
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA\n\nhttps://youtu.be/peUj47yc1xo')
 
     for (let i = 0; i < arrayCeramahSI.length; i++) {
       // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
@@ -262,7 +262,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
     assert.equal(btnTweet.text(), 'Tweet is: + 160')
   })
 })
@@ -301,11 +301,11 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
   })
 
   it('App js: textarea `hasil` untuk array untuk ceramah singkat: dicentang', async() => {        
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
     
     // test cases
     const testCases = [   
@@ -313,7 +313,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Pengajian',
         index: 3,
         listBool: [true, false, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #Pengajian\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 149',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
@@ -321,7 +321,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Islam',
         index: 1,
         listBool: [true, true, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Pengajian\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 84',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
@@ -329,7 +329,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Mualaf',
         index: 2,
         listBool: [true, true, true, true],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
         tweetIs: 'Tweet is: + 76',
         allCheckboxesEnabled: 'diaktifkan: 4'
       }  
@@ -360,7 +360,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     console.debug('-----')
     
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo')
 
     // test cases
     const testCases = [
@@ -368,7 +368,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Singkat',
         index: 0,
         listBool: [false, true, true, true],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
         tweetIs: 'Tweet is: + 115',
         // `semua kotak centang` diaktifkan
         allCheckboxesEnabled: 'diaktifkan: 3'
@@ -377,7 +377,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Islam',
         index: 1,
         listBool: [false, false, true, true],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Mualaf #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
         tweetIs: 'Tweet is: + 180',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
@@ -385,7 +385,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Mualaf',
         index: 2,
         listBool: [false, false, false, true],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
         tweetIs: 'Tweet is: + 188',
         allCheckboxesEnabled: 'diaktifkan: 1'
       }
@@ -413,7 +413,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
 
   // ustadz
   it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async() => {        
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://youtu.be/peUj47yc1xo')
     
     // test cases
     const testCases = [   
@@ -421,7 +421,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
         index: 3,
         listBool: [false, false, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 165',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
@@ -429,7 +429,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Dr. Khalid Basalamah, Lc., M.A.',
         index: 1,
         listBool: [false, true, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 125',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
@@ -437,7 +437,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
         index: 2,
         listBool: [false, true, true, true],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo',
         tweetIs: 'Tweet is: + 81',
         allCheckboxesEnabled: 'diaktifkan: 4'
       }  
@@ -465,7 +465,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
   })
 
   it('App js: textarea `hasil` untuk array untuk ustadz: tidak dicentang', async() => {        
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo')
     
     // test cases
     const testCases = [   
@@ -473,7 +473,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Dr. Khalid Basalamah, Lc., M.A.',
         index: 1,
         listBool: [false, false, true, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 121',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
@@ -481,7 +481,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
         index: 3,
         listBool: [false, false, true, false],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`,
+        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah\n\nhttps://youtu.be/peUj47yc1xo`,
         tweetIs: 'Tweet is: + 144',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
@@ -489,7 +489,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
         index: 2,
         listBool: [false, false, false, false],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://www.youtube.com/shorts/peUj47yc1xo',
+        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
         tweetIs: 'Tweet is: + 188',
         allCheckboxesEnabled: 'diaktifkan: 1'
       }  
