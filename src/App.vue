@@ -303,17 +303,16 @@ export default {
     },
 
     btnCheckBoxAll() {
-      console.log(this.selectCheckBoxAll);
       if (this.selectCheckBoxAll === true) {
-        let newArrayCeramahSIName = ''
+        let youtubeVideo = ''
 
         // Singkat
         this.arrayCeramahSI[0].completed = true
         this.ceramahSIText = this.arrayCeramahSI[0].tweets
-        this.youtubeVideoHtml = this.youtubeVideoHtml + ' ' + this.ceramahAndUstText
+        youtubeVideo = this.youtubeVideo + ' ' + this.ceramahSIText
           
-        this.results = `${this.youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
-        this.isResultsSuccess(this.youtubeVideoHtml.length)
+        this.results = `${youtubeVideo}\n\n${this.ceramahSingkatIslam}`
+        this.isResultsSuccess(youtubeVideo.length)
         this.allCheckboxesEnabled = 1
         
         this.selectResults = true
@@ -321,8 +320,6 @@ export default {
         this.selectTweet = true
 
         this.selectCheckBoxAll = false
-        
-        this.results = newArrayCeramahSIName.substring(0, newArrayCeramahSIName.length-2)
         this.count = 280 - this.results.length
         this.isCopyAndCountTweet()
       } else {
@@ -354,15 +351,11 @@ export default {
 
       if (isArray === 'ceramahSI') {
         tweets = this.arrayCeramahSI[index].tweets
-        alphaText = tweets
-        betaText = this.ustadzText
 
         alphaArray = this.arrayCeramahSI
         betaArray = this.arrayUstadz
       } else if (isArray === 'ustadz') {
         tweets = this.arrayUstadz[index].tweets
-        alphaText = tweets
-        betaText = this.ceramahSIText
 
         alphaArray = this.arrayUstadz
         betaArray = this.arrayCeramahSI
