@@ -157,6 +157,7 @@ export default {
         return
       }
 
+      // why? textarea this.ceramahSingkatIslam = '#', '?', etc.
       const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)(\S+)?/gm
 
       // Alternative syntax using RegExp constructor
