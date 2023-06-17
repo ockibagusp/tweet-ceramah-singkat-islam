@@ -309,6 +309,9 @@ export default {
         // Singkat
         this.arrayCeramahSI[0].completed = true
         this.ceramahSIText = this.arrayCeramahSI[0].tweets
+        this.arrayUstadz.forEach(element => {
+          element.completed = false
+        })
         youtubeVideo = this.youtubeVideo + ' ' + this.ceramahSIText
           
         this.results = `${youtubeVideo}\n\n${this.ceramahSingkatIslam}`
@@ -492,9 +495,10 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <br>
 
     <h4 v-if="results !== '' && results !== 'Loading...'">Kotak Centang: 
-    <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
-      {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
-    </button>    
+    <!-- <h4 v-if="true">Kotak Centang:  -->
+      <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
+        {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
+      </button>    
     </h4>
     
     <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
