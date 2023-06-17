@@ -28,6 +28,9 @@ const btnCopy = wrapper.get('[data-test="btn-copy"]')
 // button: btnTweet
 const btnTweet = wrapper.get('[data-test="btn-tweet"]')
 
+ // button: btnCheckBoxAll diaktifkan atau tidak diaktifkan semua kotak centang
+const btnCheckBoxAll = wrapper.find('[data-test="btn-checkbox-all"]') 
+
  // `semua kotak centang` diaktifkan
 const allCheckboxesEnabled = wrapper.find('[data-test="all-checkboxes-enabled"]')
 
@@ -471,5 +474,30 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       // `semua kotak centang` diaktifkan
       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
     }
+  })
+})
+
+describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', () => {  
+  it('button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', async() => {
+    assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
+
+    await btnCheckBoxAll.trigger('click')
+    assert.equal(btnCheckBoxAll.text(), 'diaktifkan')
+    assert.equal(results.element.value, `DOSA - Ustadz Dr. Firanda Andirja, MA\n\nhttps://www.youtube.com/shorts/peUj47yc1xo`)
+
+    for (let i = 0; i < arrayCeramahSI.length; i++) {
+      // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
+      expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+    }
+
+    for (let i = 0; i < arrayUstadz.length; i++) {
+      // same: assert.deepEqual(arrayUstadz.at(...).classes(), [])
+      expect(arrayUstadz.at(i).classes()).to.deep.equal([])
+    }
+
+    await btnCheckBoxAll.trigger('click')
+    assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
+    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://www.youtube.com/shorts/peUj47yc1xo')
+    assert.equal(btnTweet.text(), 'Tweet is: + 160')
   })
 })
