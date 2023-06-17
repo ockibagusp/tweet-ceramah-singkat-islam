@@ -541,6 +541,9 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
           data-test="ustadz-checkbox"
         />
         <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
+        <div style="margin-left: 20px;">
+          <small>{{ ustadz.tweets }}</small>
+        </div>
       </div>
     </div>
   </main>
