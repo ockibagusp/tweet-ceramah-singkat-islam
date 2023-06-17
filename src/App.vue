@@ -303,16 +303,17 @@ export default {
     },
 
     btnCheckBoxAll() {
+      console.log(this.selectCheckBoxAll);
       if (this.selectCheckBoxAll === true) {
         let newArrayCeramahSIName = ''
 
         // Singkat
         this.arrayCeramahSI[0].completed = true
         this.ceramahSIText = this.arrayCeramahSI[0].tweets
-        youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahAndUstText
+        this.youtubeVideoHtml = this.youtubeVideoHtml + ' ' + this.ceramahAndUstText
           
-        this.results = `${youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
-        this.isResultsSuccess(youtubeVideoHtml.length)
+        this.results = `${this.youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
+        this.isResultsSuccess(this.youtubeVideoHtml.length)
         this.allCheckboxesEnabled = 1
         
         this.selectResults = true
@@ -328,14 +329,17 @@ export default {
         this.arrayCeramahSI.forEach((val, index) => {
           this.arrayCeramahSI[index].completed = false
         })
-        this.count = 280
-        this.results = '....'
+        this.arrayUstadz.forEach(element => {
+          element.completed = false
+        })
+        this.results = `${this.youtubeVideo}\n\n${this.ceramahSingkatIslam}`
+        this.count = 280 - this.results.length
         this.isCopyAndCountTweet()
         this.allCheckboxesEnabled = 0
         
-        this.selectResults = false
-        this.selectCopy = false
-        this.selectTweet = false        
+        this.selectResults = true
+        this.selectCopy = true
+        this.selectTweet = true        
         this.selectCheckBoxAll = true
       }
     },
