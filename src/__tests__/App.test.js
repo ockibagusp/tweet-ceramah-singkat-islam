@@ -83,10 +83,17 @@ describe('App js: reset tweet youtube video', async() => {
 
     // // default all arrayCemahaSI and all arrayUstadz: false
     //
-    // // empxe: 
+    // // example: 
     // this.arrayCeramahSI.forEach(element => {
     //  element.completed = false
     // })
+    for (let i = 0; i < arrayCeramahSI.length; i++) {
+      expect(arrayCeramahSI.at(i).classes()).to.deep.equal([])
+    }
+
+    for (let i = 0; i < arrayUstadz.length; i++) {
+      expect(arrayUstadz.at(i).classes()).to.deep.equal([])
+    }
   })
 })
 
