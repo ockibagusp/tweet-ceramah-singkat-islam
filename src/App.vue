@@ -20,6 +20,8 @@ export default {
       ceramahSingkatIslam: '',
       // textarea: hasil
       results: '',
+      // bool: resultsBool
+      resultsBool: false,
       // tweet dihasil maks. 280 karakter
       count: 280,
       // array: ceramah singkat Islam
@@ -274,7 +276,6 @@ export default {
         // array: arrayCeramahSI: Singkat => true
         this.arrayCeramahSI[0].completed = true
         this.allCheckboxesEnabled = 1
-        this.isCopyAndCountTweet()
       } catch {
         this.isResultsError()
       }
@@ -334,8 +335,6 @@ export default {
         this.selectTweet = true
 
         this.selectCheckBoxAll = false
-        this.count = 280 - this.results.length
-        this.isCopyAndCountTweet()
       } else {
         this.arrayCeramahSI.forEach((val, index) => {
           this.arrayCeramahSI[index].completed = false
@@ -344,13 +343,8 @@ export default {
           element.completed = false
         })
         this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
-        this.count = 280 - this.results.length
-        this.isCopyAndCountTweet()
-        this.allCheckboxesEnabled = 0
-        
-        this.selectResults = true
-        this.selectCopy = true
-        this.selectTweet = true        
+        this.isResultsSuccess(this.results.length)
+        this.allCheckboxesEnabled = 0    
         this.selectCheckBoxAll = true
       }
     },
@@ -411,10 +405,13 @@ export default {
         }
 
         this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
-        this.isCopyAndCountTweet()
+        if (this.results.length > 280) {
+          this.isResultsError()
+          return
+        } 
         
+        this.isResultsSuccess(this.results.length)
         this.allCheckboxesEnabled++
-        this.count = 280 - this.results.length
       } else {
         const rightComma = `${tweets} `
         const leftComma = ` ${tweets}`
@@ -431,19 +428,12 @@ export default {
           // melepas = text 
           this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
           // pilih hasil, button copy dan button tweet: false
-          this.selectResults = true
-          this.selectCopy = true
-          this.selectTweet = true
-          this.count = 280 - this.results.length
-          
+          this.isResultsSuccess(this.results.length)
           this.allCheckboxesEnabled = 0
           return
         }
         this.results = this.results.replace(release, '')
-        
-        this.count = 280 - this.results.length
-        this.isCopyAndCountTweet()
-        
+        this.isResultsSuccess(this.results.length)
         this.allCheckboxesEnabled--
       }
     },
@@ -462,18 +452,6 @@ export default {
         .replace('/watch?v=', '')
         .replace('/shorts/', '')
     },
-    // sama dengan :isCountTweet()
-    // adalah textarea hitungan dan tombol tweet
-    isCopyAndCountTweet() {
-      if (this.results === '' || this.results === 'Tidak ada hasil' 
-        || this.results.length > 280) { 
-        this.selectCopy = false
-        this.selectTweet = false
-      } else {
-        this.selectCopy = true
-        this.selectTweet = true
-      }
-    },
     isNotResults() {
       this.results = ''
       this.isResultsDefault()
@@ -483,17 +461,18 @@ export default {
       this.isResultsDefault()
     },
     isResultsDefault() {
+      this.resultsBool = false
       this.count = 280
       this.selectCopy = false
       this.selectTweet = false
       this.allCheckboxesEnabled = 0
     },
     isResultsSuccess(videoLength) {
+      this.resultsBool = true
       this.selectResults = true
       this.selectCopy = true
       this.selectTweet = true
       this.count = 280 - videoLength
-      this.allCheckboxesEnabled = 0
     }
   }
 }
@@ -519,20 +498,21 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <!-- <h4 v-if="results !== '' && results !== 'Loading...'">Kotak Centang:  -->
-    <h4 v-if="true">Kotak Centang: 
+    <h4 v-if="resultsBool">Kotak Centang: 
+    <!-- <h4 v-if="true">Kotak Centang:  -->
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
       </button>    
     </h4>
     
-    <!-- <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
-    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
-    {{ results !== '' && results !== 'Loading...' ? '📌' : '' }}
-    <!-- <div v-if="results !== '' && results !== 'Loading...'"> -->
+    {{ resultsBool ? '📌' : '' }}
+    <div v-if="resultsBool">
+    <!-- <div v-if="true"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
@@ -570,6 +550,6 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
           <small>{{ ustadz.tweets }}</small>
         </div>
       </div>
-    <!-- </div> -->
+    </div>
   </main>
 </template>

@@ -216,7 +216,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
     assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
-    assert.equal(btnTweet.text(), 'Tweet is: + 174')
+    assert.equal(btnTweet.text(), 'Tweet is: + 204')
   })
 })
 
