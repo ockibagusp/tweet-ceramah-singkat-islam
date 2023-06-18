@@ -197,11 +197,11 @@ export default {
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
       let ceramahSingkatSlice = this.ceramahSingkatIslam
-      .replace(YOUTUBEVIDURLS[0], '')
-      .replace(YOUTUBEVIDURLS[1], '')
-      .replace(YOUTUBEVIDURLS[2], '')
-      .replace(YOUTUBEVIDURLS[3], '')
-      .replace(YOUTUBEVIDURLS[4], '')
+        .replace(YOUTUBEVIDURLS[0], '')
+        .replace(YOUTUBEVIDURLS[1], '')
+        .replace(YOUTUBEVIDURLS[2], '')
+        .replace(YOUTUBEVIDURLS[3], '')
+        .replace(YOUTUBEVIDURLS[4], '')
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
       //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
@@ -240,8 +240,16 @@ export default {
           // The result can be accessed through the `m`-variable.
           m.forEach((match, groupIndex) => {
             if (groupIndex === 1) {
-              if (match !== undefined) {
-                youtubeVideoHtml = match
+              // unescape HTML
+              const unescapeHtml = match
+                .replace(/&amp;/g, "&")
+                .replace(/&lt;/g, "<")
+                .replace(/&gt;/g, ">")
+                .replace(/&quot;/g, "\"")
+                .replace(/&#39;/g, "'")
+              
+              if (unescapeHtml !== undefined) {
+                youtubeVideoHtml = unescapeHtml
                 return
               }
             }
@@ -252,7 +260,8 @@ export default {
           this.ceramahAndUstText = this.arrayCeramahSI[0].tweets
           youtubeVideoHtml = youtubeVideoHtml + ' ' + this.ceramahAndUstText
           
-          youtubeVideoHtml = `${youtubeVideoHtml}\n\n${this.ceramahSingkatIslam}`
+          // textarea youtube.com ke youtu.be
+          youtubeVideoHtml = `${youtubeVideoHtml}\n\n${this.isYoutubeComToYoutube(ceramahSingkatSlice)}`
           this.isResultsSuccess(youtubeVideoHtml.length)
         } 
 
@@ -316,7 +325,7 @@ export default {
         })
         youtubeVideo = this.youtubeVideo + ' ' + this.ceramahSIText
           
-        this.results = `${youtubeVideo}\n\n${this.ceramahSingkatIslam}`
+        this.results = `${youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
         this.isResultsSuccess(youtubeVideo.length)
         this.allCheckboxesEnabled = 1
         
@@ -334,7 +343,7 @@ export default {
         this.arrayUstadz.forEach(element => {
           element.completed = false
         })
-        this.results = `${this.youtubeVideo}\n\n${this.ceramahSingkatIslam}`
+        this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
         this.count = 280 - this.results.length
         this.isCopyAndCountTweet()
         this.allCheckboxesEnabled = 0
@@ -401,7 +410,7 @@ export default {
           newArrayAlphaTweets = newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)
         }
 
-        this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets}\n\n${this.ceramahSingkatIslam}`
+        this.results =  `${this.youtubeVideo} ${newArrayAlphaTweets}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
         this.isCopyAndCountTweet()
         
         this.allCheckboxesEnabled++
@@ -420,7 +429,7 @@ export default {
           release = bothComma
         } else {
           // melepas = text 
-          this.results = `${this.youtubeVideo}\n\n${this.ceramahSingkatIslam}`
+          this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
           // pilih hasil, button copy dan button tweet: false
           this.selectResults = true
           this.selectCopy = true
@@ -439,8 +448,19 @@ export default {
       }
     },
     // adalah textarea youtube.com ke youtu.be
-    isYoutubeComToYoutube() {
-      // ?
+    isYoutubeComToYoutube(link) {
+      // memotong pada youtube atau youtu ke '': misalnya,
+      //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
+      let ceramahSingkatSlice = link
+        .replace(YOUTUBEVIDURLS[0], '')
+        .replace(YOUTUBEVIDURLS[1], '')
+        .replace(YOUTUBEVIDURLS[2], '')
+        .replace(YOUTUBEVIDURLS[3], '')
+        .replace(YOUTUBEVIDURLS[4], '')
+
+      return 'https://youtu.be/' + ceramahSingkatSlice
+        .replace('/watch?v=', '')
+        .replace('/shorts/', '')
     },
     // sama dengan :isCountTweet()
     // adalah textarea hitungan dan tombol tweet
@@ -499,20 +519,20 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <h4 v-if="results !== '' && results !== 'Loading...'">Kotak Centang: 
-    <!-- <h4 v-if="true">Kotak Centang:  -->
+    <!-- <h4 v-if="results !== '' && results !== 'Loading...'">Kotak Centang:  -->
+    <h4 v-if="true">Kotak Centang: 
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
       </button>    
     </h4>
     
-    <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
-    <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
+    <!-- <p  v-if="results !== '' && results !== 'Loading...'" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
+    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ results !== '' && results !== 'Loading...' ? '📌' : '' }}
-    <div v-if="results !== '' && results !== 'Loading...'">
+    <!-- <div v-if="results !== '' && results !== 'Loading...'"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
@@ -550,6 +570,6 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
           <small>{{ ustadz.tweets }}</small>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </main>
 </template>
