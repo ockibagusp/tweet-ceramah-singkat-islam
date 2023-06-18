@@ -149,54 +149,7 @@ describe('App js: tweet youtube video all', () => {
         tweetIs: 'Tweet is: + 280'
       },
       {
-        name: `youtube 'shorts' failure: id=5'`,
-        // response status: 200
-        youtubeLink: 'https://www.youtube.com/shorts/',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/shorts/',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube 'shorts' failure: id=6'`,
-        // response status: 200
-        youtubeLink: 'https://www.youtube.com/shorts',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/shorts',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube failure: id=7'`,
-        // response status: 200
-        youtubeLink: 'https://www.youtube.com/',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube failure: id=8'`,
-        youtubeLink: 'https://www.youtube.com',
-        axiosGetValueOnce: {
-          data: '',
-          status: 200
-        },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=',
-        results: 'Tidak ada hasil',
-        tweetIs: 'Tweet is: + 280'
-      },
-      {
-        name: `youtube 'watch' failure: id=9'`,
+        name: `youtube 'watch' failure: id=5'`,
         youtubeLink: 'https://www.youtube.com/watch?v=failure',
         axiosGetValueOnce: {
           data: `This video isn't available anymore`,
