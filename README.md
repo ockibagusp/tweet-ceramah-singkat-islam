@@ -37,4 +37,47 @@ npm run test:unit
 ## Testing Utils
 
 testing: ok ✅
+
 html v-if="results !== ''..." ❌
+
+## Website tweet-ceramah-singkat-Islam, example... (Linux and MacOS)
+
+### 1. (I'am) from the root directory
+
+```sh
+$ pwd
+/Users/ockibagusp
+```
+
+### 2. New File: js_youtube_web.sh
+
+```
+#!/bin/bash
+
+cd /Users/ockibagusp/Project/vue3/tweet-ceramah-singkat-islam
+vite --port 3000
+```
+
+### 3. The `chmod` command allows you to change the permissions on a file
+
+```sh
+$ chmod 777 js_youtube_web.sh
+```
+
+### 4. Shell Scripting
+
+```sh
+$ sh js_youtube_web.sh
+```
+
+or
+
+```sh
+$ ./js_youtube_web.sh
+```
+
+VITE v4.3.9 ready in 235 ms
+
+➜ Local: http://localhost:3000/
+➜ Network: use --host to expose
+➜ press h to show help
