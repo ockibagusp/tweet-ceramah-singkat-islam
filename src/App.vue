@@ -61,7 +61,13 @@ export default {
           tweets: '#Azab',
           url: 'https://twitter.com/search?q=%23Azab',
           completed: false
-        }
+        },
+        {
+          name: 'Musibah',
+          tweets: '#Musibah',
+          url: 'https://twitter.com/search?q=%23Musibah',
+          completed: false
+        },
       ],
       // array: Ustadz
       arrayUstadz: [
