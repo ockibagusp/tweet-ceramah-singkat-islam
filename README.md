@@ -1,5 +1,8 @@
 # tweet-ceramah-singkat-islam
 
+Link:
+[ockibagusp.github.io/tweet-ceramah-singkat-islam](https://ockibagusp.github.io/tweet-ceramah-singkat-islam)
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
@@ -61,7 +64,7 @@ vite --port 3000
 ### 3. The `chmod` command allows you to change the permissions on a file
 
 ```sh
-$ chmod 777 js_youtube_web.sh
+$ chmod 755 js_youtube_web.sh
 ```
 
 ### 4. Shell Scripting
@@ -81,3 +84,29 @@ VITE v4.3.9 ready in 235 ms
 ➜ Local: http://localhost:3000/
 ➜ Network: use --host to expose
 ➜ press h to show help
+
+### Comment bash: deploy.sh
+
+#### Linux or MacOS:
+
+```sh
+chmod 755 deploy.sh
+```
+
+#### Use: deploy
+
+Example:
+
+```sh
+./deploy.sh
+```
+
+---
+
+$ ~/Pr/v/tweet-ceramah-singkat-islam on master ❯ heroku ps:scale web=1 --app xxxxx
+
+Scaling dynos... ! ❌ <sup>[1]<sup>
+
+▸ Subscribe to Eco to scale your dynos. Learn more at
+
+▸ https://blog.heroku.com/new-low-cost-plans
