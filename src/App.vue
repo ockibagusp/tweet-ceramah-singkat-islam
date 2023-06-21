@@ -544,8 +544,8 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
           v-model="ceramahSI.completed"
           data-test="ceramahSI-checkbox"
         />
-        <a>{{ ceramahSI.name }}</a>
-        <div style="margin-left: 20px;">
+        <a :href="ceramahSI.url" v-if="ceramahSI.url !== '#'" target="_blank">{{ ceramahSI.name }}</a>
+        <a v-else>{{ ceramahSI.name }}</a><div style="margin-left: 20px;">
           <small>{{ ceramahSI.tweets }}</small>
         </div>
       </div>
