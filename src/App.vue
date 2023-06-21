@@ -68,6 +68,18 @@ export default {
           url: 'https://twitter.com/search?q=%23Musibah',
           completed: false
         },
+        {
+          name: 'Utang',
+          tweets: '#Utang',
+          url: 'https://twitter.com/search?q=%23Utang',
+          completed: false
+        },
+        {
+          name: 'Sedekah',
+          tweets: '#Sedekah',
+          url: 'https://twitter.com/search?q=%23Sedekah',
+          completed: false
+        }
       ],
       // array: Ustadz
       arrayUstadz: [
