@@ -1,8 +1,5 @@
 # tweet-ceramah-singkat-islam
 
-Link:
-[ockibagusp.github.io/tweet-ceramah-singkat-islam](https://ockibagusp.github.io/tweet-ceramah-singkat-islam)
-
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
