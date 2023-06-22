@@ -81,29 +81,3 @@ VITE v4.3.9 ready in 235 ms
 ➜ Local: http://localhost:3000/
 ➜ Network: use --host to expose
 ➜ press h to show help
-
-### Comment bash: deploy.sh
-
-#### Linux or MacOS:
-
-```sh
-chmod 755 deploy.sh
-```
-
-#### Use: deploy
-
-Example:
-
-```sh
-./deploy.sh
-```
-
----
-
-$ ~/Pr/v/tweet-ceramah-singkat-islam on master ❯ heroku ps:scale web=1 --app xxxxx
-
-Scaling dynos... ! ❌ <sup>[1]<sup>
-
-▸ Subscribe to Eco to scale your dynos. Learn more at
-
-▸ https://blog.heroku.com/new-low-cost-plans
