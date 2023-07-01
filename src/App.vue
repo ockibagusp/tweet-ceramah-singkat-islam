@@ -222,6 +222,7 @@ export default {
         .replace(YOUTUBEVIDURLS[2], '')
         .replace(YOUTUBEVIDURLS[3], '')
         .replace(YOUTUBEVIDURLS[4], '')
+        .replace('https://', '')
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
       //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
