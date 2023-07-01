@@ -145,8 +145,8 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 159'
+        results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo`,
+        tweetIs: 'Tweet is: + 174'
       },
       {
         name: `youtube 'watch' success: id=5'`,
