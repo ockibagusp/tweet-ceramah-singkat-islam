@@ -178,7 +178,7 @@ export default {
       }
 
       // why? textarea this.ceramahSingkatIslam = '#', '?', etc.
-      const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)(\S+)?/gm
+      const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)([^\r\n\t\f\v \?&]+)?/gm
 
       // Alternative syntax using RegExp constructor
       // const regex = new RegExp('(https:\\/\\/)?(www\\.|m\\.)?(youtube\\.com|youtu\\.be)\\/(watch\\?v=|shorts\\/)?([\\w\\-]+)(\\S+)?', 'gm')
@@ -216,7 +216,7 @@ export default {
 
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
-      let ceramahSingkatSlice = this.ceramahSingkatIslam
+      let ceramahSingkatSlice = youtubeVideoHtml
         .replace(YOUTUBEVIDURLS[0], '')
         .replace(YOUTUBEVIDURLS[1], '')
         .replace(YOUTUBEVIDURLS[2], '')
