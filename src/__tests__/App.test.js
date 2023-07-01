@@ -138,7 +138,29 @@ describe('App js: tweet youtube video all', () => {
         tweetIs: 'Tweet is: + 159'
       },
       {
-        name: `youtube 'shorts' failure: id=4'`,
+        name: `youtube 'watch' success: id=4'`, // failure
+        youtubeLink: 'https://www.youtube.com/shorts/peUj47yc1xo&list=WL&index=157',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
+        tweetIs: 'Tweet is: + 159'
+      },
+      {
+        name: `youtube 'watch' success: id=5'`,
+        youtubeLink: 'https://youtube.com/shorts/peUj47yc1xo?feature=share',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
+        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
+        tweetIs: 'Tweet is: + 159'
+      },
+      {
+        name: `youtube 'shorts' failure: id=6'`,
         youtubeLink: 'https://www.youtube.com/shorts/failure',
         axiosGetValueOnce: {
           data: '',
@@ -149,7 +171,7 @@ describe('App js: tweet youtube video all', () => {
         tweetIs: 'Tweet is: + 280'
       },
       {
-        name: `youtube 'watch' failure: id=5'`,
+        name: `youtube 'watch' failure: id=7'`,
         youtubeLink: 'https://www.youtube.com/watch?v=failure',
         axiosGetValueOnce: {
           data: `This video isn't available anymore`,
