@@ -150,12 +150,12 @@ describe('App js: tweet youtube video all', () => {
       },
       {
         name: `youtube 'watch' success: id=5'`,
-        youtubeLink: 'https://youtube.com/shorts/peUj47yc1xo?feature=share',
+        youtubeLink: 'https://youtube.com/shorts/vTeIKc2JjCU?feature=share',
         axiosGetValueOnce: {
           data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
           status: 200
         },
-        axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
+        axiosGetWith: 'http://localhost:3000/video/shorts/vTeIKc2JjCU',
         results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
         tweetIs: 'Tweet is: + 159'
       },
