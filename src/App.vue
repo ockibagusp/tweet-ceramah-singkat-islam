@@ -528,7 +528,7 @@ export default {
     <textarea style="width: 500px;height: 80px;" v-model="results"
       placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
-https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
+https://youtu.be/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
     <br>
     <button @click="btnCopy" :disabled="isCopy" data-test="btn-copy">Copy</button>
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
