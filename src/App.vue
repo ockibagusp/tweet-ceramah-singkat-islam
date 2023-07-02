@@ -329,8 +329,19 @@ export default {
         this.selectTweet = false
         return
       }
-      const UTF8_hash = this.results.replaceAll("#", "%23")
-      window.open("https://twitter.com/intent/tweet?text="+UTF8_hash, "_blank")
+      const UTF8Hash = this.results
+        .replaceAll(':', '%3A')
+        .replaceAll('\/', '%2F')
+        .replaceAll('|', '%7C')
+        .replaceAll(' #', '%20%23')
+        .replaceAll(' # ', '%20%23%20')
+        .replaceAll('# ', '%23%20')
+        .replaceAll(' ', '%20')
+
+      const UTF8HashArray = UTF8Hash
+        .split('\n\n')
+      let UTF8HashReal = UTF8HashArray.join('%20')
+      window.open("https://twitter.com/intent/tweet?text="+UTF8HashReal, "_blank")
     },
 
     btnCheckBoxAll() {
@@ -523,21 +534,21 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <!-- <h4 v-if="resultsBool">Kotak Centang:  -->
-    <h4 v-if="true">Kotak Centang: 
+    <h4 v-if="resultsBool">Kotak Centang: 
+    <!-- <h4 v-if="true">Kotak Centang:  -->
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
       </button>    
     </h4>
     
-    <!-- <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
-    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ resultsBool ? '📌' : '' }}
-    <!-- <div v-if="resultsBool"> -->
-    <div v-if="true">
+    <div v-if="resultsBool">
+    <!-- <div v-if="true"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"

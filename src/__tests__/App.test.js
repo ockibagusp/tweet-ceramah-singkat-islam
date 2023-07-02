@@ -489,4 +489,22 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
     }
   })
+
+  it('button tweet youtube video', async() => {
+    const UTF8Hash = 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo'
+      .replaceAll('\/', '%2F')
+      .replaceAll(':', '%3A')
+      .replaceAll(' #', '%20%23')
+      .replaceAll('|', '%7C')
+      .replaceAll('# ', '%23%20')
+      .replaceAll(' # ', '%20%23%20')
+      .replaceAll(' ', '%20')
+
+    let UTF8HashArray = UTF8Hash
+      .split('\n\n')
+
+    let UTF8HashReal = UTF8HashArray.join('%20')
+
+    assert.equal(UTF8HashReal, 'DOSA%20-%20Ustadz%20Dr.%20Firanda%20Andirja,%20MA%20%23CeramahPendek%20%23Shorts%20%23Video%20%23YouTube%20https%3A%2F%2Fyoutu.be%2FpeUj47yc1xo')
+  })
 })
