@@ -496,6 +496,7 @@ export default {
       return 'https://youtu.be/' + ceramahSingkatSlice
         .replace('/watch?v=', '')
         .replace('/shorts/', '')
+        .replace('/', '')
     },
     isNotResults() {
       this.results = ''
