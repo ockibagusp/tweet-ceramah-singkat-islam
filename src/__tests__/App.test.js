@@ -567,22 +567,55 @@ describe('App js: textarea ceramahSingkatIslam: "https://www.youtube.com/shorts/
   })
 })
 
-describe('App js: textarea ceramahSingkatIslam: "https://youtube.com/shorts/peUj47yc1xo?feature=share"', async() => {
-  it('textarea ceramahSingkatIslam moved feature: Test #3', async() => { 
+describe('App js: textarea ceramahSingkatIslam: "https://youtu.be//-mD93UwO_40" to "https://youtu.be/-mD93UwO_40"', async() => {
+  // ceramah
+  it('textarea ceramahSingkatIslam delete "/": Test #3', async() => { 
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
       data: '<meta name="title" content="Test #3 - Author Three"><meta name="description" content=',
       status: 200
     })
-    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/3?feature=share')
+    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/321')
     await ceramahSingkatIslam.trigger('change')
   
     expect(axios.get).toHaveBeenCalledTimes(1)
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/3')
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/321')
   
     // Wait until the DOM updates.
     await flushPromises()
-    expect(results.element.value).toEqual('Test #3 - Author Three #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/3')
+    // textarea hasil: test youtube.com
+    expect(results.element.value).toEqual('Test #3 - Author Three #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/321')
+
+    expect(arrayCeramahSI.at(0).classes()).toContain('completed')
+    expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
+    
+    await checkboxCeramahSI.at(3).setValue(true)
+    expect(arrayCeramahSI.at(0).classes()).toContain('completed')
+    expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(3).classes()).toContain('completed')
+    expect(results.element.value).toEqual('Test #3 - Author Three #CeramahPendek #Shorts #Video #YouTube #Pengajian\n\nhttps://youtu.be/321')
+  })
+})
+
+describe('App js: textarea ceramahSingkatIslam: "https://youtube.com/shorts/peUj47yc1xo?feature=share"', async() => {
+  it('textarea ceramahSingkatIslam moved feature: Test #4', async() => { 
+    // GET
+    vi.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: '<meta name="title" content="Test #4 - Author Three"><meta name="description" content=',
+      status: 200
+    })
+    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/4321?feature=share')
+    await ceramahSingkatIslam.trigger('change')
+  
+    expect(axios.get).toHaveBeenCalledTimes(1)
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/4321')
+  
+    // Wait until the DOM updates.
+    await flushPromises()
+    expect(results.element.value).toEqual('Test #4 - Author Three #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/4321')
 
     await checkboxCeramahSI.at(2).setValue(true)
     expect(arrayCeramahSI.at(0).classes()).toContain('completed')
@@ -590,6 +623,6 @@ describe('App js: textarea ceramahSingkatIslam: "https://youtube.com/shorts/peUj
     expect(arrayCeramahSI.at(2).classes()).toContain('completed')
     expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
     
-    expect(results.element.value).toEqual('Test #3 - Author Three #CeramahPendek #Shorts #Video #YouTube #Mualaf\n\nhttps://youtu.be/3')
+    expect(results.element.value).toEqual('Test #4 - Author Three #CeramahPendek #Shorts #Video #YouTube #Mualaf\n\nhttps://youtu.be/4321')
   })
 })
