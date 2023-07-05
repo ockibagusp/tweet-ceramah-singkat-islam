@@ -559,7 +559,7 @@ https://youtu.be/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="result
       </button>    
     </h4>
     
-    <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
     <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
