@@ -552,21 +552,21 @@ https://youtu.be/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="result
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <!-- <h4 v-if="resultsBool">Kotak Centang:  -->
-    <h4 v-if="true">Kotak Centang: 
+    <h4 v-if="resultsBool">Kotak Centang: 
+    <!-- <h4 v-if="true">Kotak Centang:  -->
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
       </button>    
     </h4>
     
-    <!-- <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
-    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ resultsBool ? '📌' : '' }}
-    <!-- <div v-if="resultsBool"> -->
-    <div v-if="true">
+    <div v-if="resultsBool">
+    <!-- <div v-if="true"> -->
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
