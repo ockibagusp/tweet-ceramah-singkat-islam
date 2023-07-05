@@ -471,6 +471,7 @@ export default {
         } else {
           // melepas = text 
           this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
+          this.ceramahSingkatIslamZip = this.isYoutubeComToYoutube(this.ceramahSingkatIslam)
           // pilih hasil, button copy dan button tweet: false
           this.isResultsSuccess(this.results.length)
           this.allCheckboxesEnabled = 0
@@ -497,6 +498,7 @@ export default {
         .replace('/watch?v=', '')
         .replace('/shorts/', '')
         .replace('/', '')
+        .replace('?feature=share', '')
     },
     isNotResults() {
       this.results = ''
