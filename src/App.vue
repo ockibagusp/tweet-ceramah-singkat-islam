@@ -505,6 +505,8 @@ export default {
         .replace('/shorts/', '')
         .replace('/', '')
         .replace('?feature=share', '')
+        // e.q. https://www.youtube.com/watch?v=012345&t=1s
+        .replace('&t=1s', '')
     },
     isNotResults() {
       this.results = ''
