@@ -18,6 +18,7 @@ export default {
     return {
       // textarea: ceramahSingkatIslam
       ceramahSingkatIslam: '',
+      ceramahSingkatIslamCopy: '',
       // textarea: hasil
       results: '',
       // bool: resultsBool
@@ -39,15 +40,39 @@ export default {
           completed: false
         },
         {
+          name: 'Pengajian',
+          tweets: '#Pengajian',
+          url: 'https://twitter.com/search?q=%23Pengajian',
+          completed: false
+        },
+        {
+          name: 'Sedekah',
+          tweets: '#Sedekah',
+          url: 'https://twitter.com/search?q=%23Sedekah',
+          completed: false
+        },
+        {
           name: 'Mualaf',
           tweets: '#Mualaf',
           url: 'https://twitter.com/search?q=%23Mualaf',
           completed: false
         },
         {
-          name: 'Pengajian',
-          tweets: '#Pengajian',
-          url: 'https://twitter.com/search?q=%23Pengajian',
+          name: 'Musibah',
+          tweets: '#Musibah',
+          url: 'https://twitter.com/search?q=%23Musibah',
+          completed: false
+        },
+        {
+          name: 'Dosa',
+          tweets: '#Dosa',
+          url: 'https://twitter.com/search?q=%23Dosa',
+          completed: false
+        },
+        {
+          name: 'Utang',
+          tweets: '#Utang',
+          url: 'https://twitter.com/search?q=%23Utang',
           completed: false
         },
         {
@@ -60,24 +85,6 @@ export default {
           name: 'Azab',
           tweets: '#Azab',
           url: 'https://twitter.com/search?q=%23Azab',
-          completed: false
-        },
-        {
-          name: 'Musibah',
-          tweets: '#Musibah',
-          url: 'https://twitter.com/search?q=%23Musibah',
-          completed: false
-        },
-        {
-          name: 'Utang',
-          tweets: '#Utang',
-          url: 'https://twitter.com/search?q=%23Utang',
-          completed: false
-        },
-        {
-          name: 'Sedekah',
-          tweets: '#Sedekah',
-          url: 'https://twitter.com/search?q=%23Sedekah',
           completed: false
         }
       ],
@@ -171,14 +178,27 @@ export default {
       let youtubeVideoHtml = ''
       this.allCheckboxesEnabled = 1
 
-      if (this.ceramahSingkatIslam == '') {
+      // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
+      if (this.ceramahSingkatIslam === '') {
         this.results = ''
+        this.ceramahSingkatIslamCopy = ''
         this.isResultsDefault()
         return
       }
 
+      if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
+        this.arrayCeramahSI.forEach(element => {
+          element.completed = false
+        })
+        this.arrayUstadz.forEach(element => {
+          element.completed = false
+        })
+      } else {
+        this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam
+      }
+
       // why? textarea this.ceramahSingkatIslam = '#', '?', etc.
-      const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)(\S+)?/gm
+      const regex = /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)([^\r\n\t\f\v \?&]+)?/gm
 
       // Alternative syntax using RegExp constructor
       // const regex = new RegExp('(https:\\/\\/)?(www\\.|m\\.)?(youtube\\.com|youtu\\.be)\\/(watch\\?v=|shorts\\/)?([\\w\\-]+)(\\S+)?', 'gm')
@@ -216,12 +236,13 @@ export default {
 
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
-      let ceramahSingkatSlice = this.ceramahSingkatIslam
+      let ceramahSingkatSlice = youtubeVideoHtml
         .replace(YOUTUBEVIDURLS[0], '')
         .replace(YOUTUBEVIDURLS[1], '')
         .replace(YOUTUBEVIDURLS[2], '')
         .replace(YOUTUBEVIDURLS[3], '')
         .replace(YOUTUBEVIDURLS[4], '')
+        .replace('https://', '')
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
       //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
@@ -328,8 +349,19 @@ export default {
         this.selectTweet = false
         return
       }
-      const UTF8_hash = this.results.replaceAll("#", "%23")
-      window.open("https://twitter.com/intent/tweet?text="+UTF8_hash, "_blank")
+      const UTF8Hash = this.results
+        .replaceAll(':', '%3A')
+        .replaceAll('\/', '%2F')
+        .replaceAll('|', '%7C')
+        .replaceAll(' #', '%20%23')
+        .replaceAll(' # ', '%20%23%20')
+        .replaceAll('# ', '%23%20')
+        .replaceAll(' ', '%20')
+
+      const UTF8HashArray = UTF8Hash
+        .split('\n\n')
+      let UTF8HashReal = UTF8HashArray.join('%20')
+      window.open("https://twitter.com/intent/tweet?text="+UTF8HashReal, "_blank")
     },
 
     btnCheckBoxAll() {
@@ -445,6 +477,7 @@ export default {
         } else {
           // melepas = text 
           this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(this.ceramahSingkatIslam)}`
+          this.ceramahSingkatIslamZip = this.isYoutubeComToYoutube(this.ceramahSingkatIslam)
           // pilih hasil, button copy dan button tweet: false
           this.isResultsSuccess(this.results.length)
           this.allCheckboxesEnabled = 0
@@ -467,8 +500,11 @@ export default {
         .replace(YOUTUBEVIDURLS[4], '')
 
       return 'https://youtu.be/' + ceramahSingkatSlice
+        .replace('https://', '')
         .replace('/watch?v=', '')
         .replace('/shorts/', '')
+        .replace('/', '')
+        .replace('?feature=share', '')
     },
     isNotResults() {
       this.results = ''
@@ -483,6 +519,12 @@ export default {
       this.count = 280
       this.selectCopy = false
       this.selectTweet = false
+      this.arrayCeramahSI.forEach((val, index) => {
+        this.arrayCeramahSI[index].completed = false
+      })
+      this.arrayUstadz.forEach(element => {
+        element.completed = false
+      })
       this.allCheckboxesEnabled = 0
     },
     isResultsSuccess(videoLength) {
@@ -510,7 +552,7 @@ export default {
     <textarea style="width: 500px;height: 80px;" v-model="results"
       placeholder="DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
 
-https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
+https://youtu.be/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="results"></textarea>
     <br>
     <button @click="btnCopy" :disabled="isCopy" data-test="btn-copy">Copy</button>
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
@@ -523,7 +565,7 @@ https://www.youtube.com/shorts/peUj47yc1xo" cols="50" rows="3" ref="results" dat
       </button>    
     </h4>
     
-    <p  v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
     <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
