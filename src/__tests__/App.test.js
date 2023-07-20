@@ -6,7 +6,65 @@ import App from '../App.vue'
 import axios from 'axios'
 
 const wrapper = mount(App, {
-  props: { } 
+  props: { },
+  data() {
+    return {
+      // array: ceramah singkat Islam
+      arrayCeramahSI: [
+        {
+          name: 'Test Zero',
+          tweets: '#TestZero',
+          url: '#',
+          completed: false
+        },
+        {
+          name: 'Test One',
+          tweets: '#TestOne',
+          url: '#',
+          completed: false
+        },
+        {
+          name: 'Test Two',
+          tweets: '#TestTwo',
+          url: '#',
+          completed: false
+        },
+        {
+          name: 'Test Three',
+          tweets: '#TestThree',
+          url: '#',
+          completed: false
+        }
+      ],
+      // array: Ustadz
+      arrayUstadz: [
+        {
+          name: 'Author One',
+          tweets: '#AuthorOne',
+          url: '#',
+          completed: false
+        },
+        {
+          name: 'Author Two',
+          tweets: '#AuthorTwo',
+          url: '#',
+          completed: false
+        },
+        {
+          name: 'AuthorThree',
+          tweets: '#AuthorThree',
+          url: '#',
+          completed: false
+        },
+        {
+          name: 'Author Four',
+          tweets: '#AuthorFour',
+          url: '#',
+          completed: false
+        }
+      ]
+    }
+  }
 })
 
 // textarea: ceramahSingkatIslam dan hasil
@@ -52,21 +110,21 @@ describe('App js: delete tweet youtube video', () => {
   it('delete tweet youtube video', async() => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+      data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
       status: 200
     })
 
-    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
+    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/0000')
     await ceramahSingkatIslam.trigger('change')
   
     expect(axios.get).toHaveBeenCalledTimes(1)
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/0000')
   
     // Wait until the DOM updates.
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo`)
+    expect(results.element.value).toEqual(`Test Zero - Author One #TestZero\n\nhttps://youtu.be/0000`)
   })
 })
 
@@ -106,36 +164,36 @@ describe('App js: tweet youtube video all', () => {
     const testCases = [
       {
         name: `youtube 'shorts' success: id=1`,
-        youtubeLink: 'https://www.youtube.com/shorts/peUj47yc1xo',
+        youtubeLink: 'https://www.youtube.com/shorts/1111',
         axiosGetValueOnce: {
-          data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
           status: 200
         },
-        axiosGetWith: 'http://localhost:3000/video/shorts/peUj47yc1xo',
-        results: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 174'
+        axiosGetWith: 'http://localhost:3000/video/shorts/1111',
+        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/1111`,
+        tweetIs: 'Tweet is: + 225'
       },
       {
         name: `youtube 'watch' success: id=2'`,
-        youtubeLink: 'https://www.youtube.com/watch?v=vTeIKc2JjCU',
+        youtubeLink: 'https://www.youtube.com/watch?v=2222',
         axiosGetValueOnce: {
-          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          data: '<meta name="title" content="Test One - Author One"><meta name="description" content=',
           status: 200
         },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 159'
+        axiosGetWith: 'http://localhost:3000/video/watch?v=2222',
+        results: `Test One - Author One #TestZero\n\nhttps://youtu.be/2222`,
+        tweetIs: 'Tweet is: + 226'
       },
       {
         name: `youtube 'watch' success: id=3'`,
-        youtubeLink: 'https://youtu.be/vTeIKc2JjCU',
+        youtubeLink: 'https://youtu.be/3333',
         axiosGetValueOnce: {
-          data: '<meta name="title" content="Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+          data: '<meta name="title" content="Test Three - Author Two"><meta name="description" content=',
           status: 200
         },
-        axiosGetWith: 'http://localhost:3000/video/watch?v=vTeIKc2JjCU',
-        results: `Perbanyak Istighfar - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/vTeIKc2JjCU`,
-        tweetIs: 'Tweet is: + 159'
+        axiosGetWith: 'http://localhost:3000/video/watch?v=3333',
+        results: `Test Three - Author Two #TestZero\n\nhttps://youtu.be/3333`,
+        tweetIs: 'Tweet is: + 224'
       },
       {
         name: `youtube 'shorts' failure: id=4'`,
@@ -185,14 +243,14 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
   it('button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', async() => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+      data: '<meta name="title" content="Test Two - Author Two"><meta name="description" content=',
       status: 200
     })
-    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
+    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/2222')
     await ceramahSingkatIslam.trigger('change')
   
     expect(axios.get).toHaveBeenCalledTimes(1)
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/2222')
   
     // Wait until the DOM updates.
     await flushPromises()
@@ -201,7 +259,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'diaktifkan')
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA\n\nhttps://youtu.be/peUj47yc1xo')
+    assert.equal(results.element.value, 'Test Two - Author Two\n\nhttps://youtu.be/2222')
 
     for (let i = 0; i < arrayCeramahSI.length; i++) {
       // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
@@ -215,8 +273,8 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
-    assert.equal(btnTweet.text(), 'Tweet is: + 204')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nhttps://youtu.be/2222')
+    assert.equal(btnTweet.text(), 'Tweet is: + 249')
   })
 })
 
@@ -241,49 +299,49 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
   it('add tweet youtube video', async() => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: '<meta name="title" content="DOSA - Ustadz Dr. Firanda Andirja, MA"><meta name="description" content=',
+      data: '<meta name="title" content="Test Two - Author Two"><meta name="description" content=',
       status: 200
     })
-    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/peUj47yc1xo')
+    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/0000')
     await ceramahSingkatIslam.trigger('change')
   
     expect(axios.get).toHaveBeenCalledTimes(1)
-    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/peUj47yc1xo')
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/0000')
   
     // Wait until the DOM updates.
     await flushPromises()
   
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
+    expect(results.element.value).toEqual('Test Two - Author Two #TestZero\n\nhttps://youtu.be/0000')
   })
 
   it('App js: textarea `hasil` untuk array untuk ceramah singkat: dicentang', async() => {        
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube\n\nhttps://youtu.be/peUj47yc1xo')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nhttps://youtu.be/0000')
     
     // test cases
     const testCases = [   
       {
-        name: 'Pengajian',
+        name: 'Test Three',
         index: 3,
         listBool: [true, false, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #Pengajian\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 163',
+        hasil: `Test Two - Author Two #TestZero #TestThree\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 215',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
-        name: 'Islam',
+        name: 'Test One',
         index: 1,
         listBool: [true, true, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Pengajian\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 98',
+        hasil: `Test Two - Author Two #TestZero #TestOne #TestThree\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 206',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
-        name: 'Mualaf',
+        name: 'Test Two',
         index: 2,
         listBool: [true, true, true, true],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 90',
+        hasil: 'Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000',
+        tweetIs: 'Tweet is: + 197',
         allCheckboxesEnabled: 'diaktifkan: 4'
       }  
     ]
@@ -313,33 +371,33 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     console.debug('-----')
     
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo')
+    expect(results.element.value).toEqual('Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000')
 
     // test cases
     const testCases = [
       {
-        name: 'Singkat',
+        name: 'Test Zero',
         index: 0,
         listBool: [false, true, true, true],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 129',
+        results: 'Test Two - Author Two #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000',
+        tweetIs: 'Tweet is: + 207',
         // `semua kotak centang` diaktifkan
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
-        name: 'Islam',
+        name: 'Test One',
         index: 1,
         listBool: [false, false, true, true],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Mualaf #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 194',
+        results: 'Test Two - Author Two #TestTwo #TestThree\n\nhttps://youtu.be/0000',
+        tweetIs: 'Tweet is: + 216',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
-        name: 'Mualaf',
+        name: 'Test Two',
         index: 2,
         listBool: [false, false, false, true],
-        results: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 202',
+        results: 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000',
+        tweetIs: 'Tweet is: + 225',
         allCheckboxesEnabled: 'diaktifkan: 1'
       }
     ]
@@ -366,32 +424,32 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
 
   // ustadz
   it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async() => {        
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://youtu.be/peUj47yc1xo')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000')
     
     // test cases
-    const testCases = [   
+    const testCases = [
       {
-        name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
+        name: 'Author Three',
         index: 3,
         listBool: [false, false, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 179',
+        hasil: `Test Two - Author Two #TestThree #AuthorFour\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 213',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
-        name: 'Dr. Khalid Basalamah, Lc., M.A.',
+        name: 'Author One',
         index: 1,
         listBool: [false, true, false, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 139',
+        hasil: `Test Two - Author Two #TestThree #AuthorTwo #AuthorFour\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 202',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
-        name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
+        name: 'Author Two',
         index: 2,
         listBool: [false, true, true, true],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 95',
+        hasil: 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000',
+        tweetIs: 'Tweet is: + 189',
         allCheckboxesEnabled: 'diaktifkan: 4'
       }  
     ]
@@ -418,32 +476,32 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
   })
 
   it('App js: textarea `hasil` untuk array untuk ustadz: tidak dicentang', async() => {        
-    assert.equal(results.element.value, 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzKhalidBasalamah #KhalidBasalamah #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000')
     
     // test cases
     const testCases = [   
       {
-        name: 'Dr. Khalid Basalamah, Lc., M.A.',
+        name: 'Author One',
         index: 1,
         listBool: [false, false, true, true],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah #UstadzAdiHidayat #UAH\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 135',
+        hasil: `Test Two - Author Two #TestThree #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 200',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
-        name: 'Dr. (H.C.) Adi Hidayat, Lc., M.A.',
+        name: 'Author Three',
         index: 3,
         listBool: [false, false, true, false],
-        hasil: `DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian #UstadzSyafiqBasalamah #SyafiqRizaBasalamah\n\nhttps://youtu.be/peUj47yc1xo`,
-        tweetIs: 'Tweet is: + 158',
+        hasil: `Test Two - Author Two #TestThree #AuthorThree\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 212',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
-        name: 'Dr. Syafiq Riza Basalamah, Lc., M.A.',
+        name: 'Author Two',
         index: 2,
         listBool: [false, false, false, false],
-        hasil: 'DOSA - Ustadz Dr. Firanda Andirja, MA #Pengajian\n\nhttps://youtu.be/peUj47yc1xo',
-        tweetIs: 'Tweet is: + 202',
+        hasil: 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000',
+        tweetIs: 'Tweet is: + 225',
         allCheckboxesEnabled: 'diaktifkan: 1'
       }  
     ]
