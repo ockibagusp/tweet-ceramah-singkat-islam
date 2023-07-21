@@ -526,3 +526,106 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     }
   })
 })
+
+describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', () => {
+  it('tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', async() => {
+    // test cases
+    const testCases = [
+      // ?feature=share
+      {
+        name: `youtube 'shorts' success: id=1 query=?feature=share`,
+        youtubeLink: 'https://www.youtube.com/shorts/1111?feature=share',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/shorts/1111',
+        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/1111`,
+        tweetIs: 'Tweet is: + 225'
+      },
+      {
+        name: `youtube 'watch' success: id=2 ?feature=share'`,
+        youtubeLink: 'https://www.youtube.com/watch?v=2222?feature=share',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test One - Author One"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=2222',
+        results: `Test One - Author One #TestZero\n\nhttps://youtu.be/2222`,
+        tweetIs: 'Tweet is: + 226'
+      },
+      {
+        name: `youtube 'watch' success: id=3 ?feature=share'`,
+        youtubeLink: 'https://youtu.be/3333?feature=share',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test Three - Author Two"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=3333',
+        results: `Test Three - Author Two #TestZero\n\nhttps://youtu.be/3333`,
+        tweetIs: 'Tweet is: + 224'
+      },
+      // &t=1s
+      {
+        name: `youtube 'shorts' success: id=1 query=&t=1s`,
+        youtubeLink: 'https://www.youtube.com/shorts/1111&t=1s',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/shorts/1111',
+        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/1111`,
+        tweetIs: 'Tweet is: + 225'
+      },
+      {
+        name: `youtube 'watch' success: id=2 &t=1s'`,
+        youtubeLink: 'https://www.youtube.com/watch?v=2222&t=1s',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test One - Author One"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=2222',
+        results: `Test One - Author One #TestZero\n\nhttps://youtu.be/2222`,
+        tweetIs: 'Tweet is: + 226'
+      },
+      {
+        name: `youtube 'watch' success: id=3 &t=1s'`,
+        youtubeLink: 'https://youtu.be/3333&t=1s',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test Three - Author Two"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=3333',
+        results: `Test Three - Author Two #TestZero\n\nhttps://youtu.be/3333`,
+        tweetIs: 'Tweet is: + 224'
+      }
+    ]
+
+    for (let test of testCases) {
+      console.debug('name:', test.name)
+      // GET
+      vi.spyOn(axios, 'get').mockResolvedValueOnce(test.axiosGetValueOnce)
+
+      await ceramahSingkatIslam.setValue(test.youtubeLink)
+      await ceramahSingkatIslam.trigger('change')
+      
+      expect(axios.get).toHaveBeenCalledTimes(1)
+      expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
+      
+      // Wait until the DOM updates.
+      await flushPromises()
+      
+      expect(results.element.value).toEqual(test.results)
+      assert.equal(btnTweet.text(), test.tweetIs)
+
+      await checkboxCeramahSI.at(1).setValue(true)
+      expect(arrayCeramahSI.at(1).classes()).toContain('completed')
+
+      await checkboxCeramahSI.at(1).setValue(false)
+      expect(arrayUstadz.at(1).classes()).to.deep.equal([])
+
+      expect(results.element.value).toEqual(test.results)
+      assert.equal(btnTweet.text(), test.tweetIs)
+    }
+  })
+})
