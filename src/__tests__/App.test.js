@@ -34,6 +34,12 @@ const wrapper = mount(App, {
           tweets: '#TestThree',
           url: '#',
           completed: false
+        },
+        {
+          name: 'Test Four',
+          tweets: '#TestFour #Test4 #Four #4',
+          url: '#',
+          completed: false
         }
       ],
       // array: Ustadz
@@ -627,5 +633,37 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
       expect(results.element.value).toEqual(test.results)
       assert.equal(btnTweet.text(), test.tweetIs)
     }
+  })
+})
+
+describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async() => {
+  // ceramah
+  it('untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async() => {
+    // GET
+    vi.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: '<meta name="title" content="Test Four - Author Four #TestFour #4"><meta name="description" content=',
+      status: 200
+    })
+    await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/4444')
+    await ceramahSingkatIslam.trigger('change')
+  
+    expect(axios.get).toHaveBeenCalledTimes(1)
+    expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/4444')
+  
+    // Wait until the DOM updates.
+    await flushPromises()
+  
+    // textarea hasil: test youtube.com
+    expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4 #TestZero\n\nhttps://youtu.be/4444')
+
+    // caramah: dimatikan #TestZero
+    await checkboxCeramahSI.at(0).setValue(false)
+    expect(arrayCeramahSI.at(0).classes()).to.deep.equal([])
+    expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4\n\nhttps://youtu.be/4444')
+
+    // caramah: diaktifkan #TestFour
+    await checkboxCeramahSI.at(4).setValue(true)
+    expect(arrayCeramahSI.at(4).classes()).toContain('completed')
+    expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4 #Test4 #Four\n\nhttps://youtu.be/4444')
   })
 })
