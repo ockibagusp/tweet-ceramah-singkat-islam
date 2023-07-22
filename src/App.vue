@@ -64,6 +64,12 @@ export default {
           completed: false
         },
         {
+          name: 'Taubat',
+          tweets: '#Taubat #TaubatNasuha #TaubatSebelumTerlambat',
+          url: 'https://twitter.com/search?q=%23Taubat',
+          completed: false
+        },
+        {
           name: 'Dosa',
           tweets: '#Dosa',
           url: 'https://twitter.com/search?q=%23Dosa',
