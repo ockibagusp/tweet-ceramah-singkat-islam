@@ -243,11 +243,11 @@ export default {
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
       let ceramahSingkatSlice = youtubeVideoHtml
-        .replace(YOUTUBEVIDURLS[0], '')
-        .replace(YOUTUBEVIDURLS[1], '')
-        .replace(YOUTUBEVIDURLS[2], '')
-        .replace(YOUTUBEVIDURLS[3], '')
-        .replace(YOUTUBEVIDURLS[4], '')
+        .replace(YOUTUBEVIDURLS.at(0), '')
+        .replace(YOUTUBEVIDURLS.at(1), '')
+        .replace(YOUTUBEVIDURLS.at(2), '')
+        .replace(YOUTUBEVIDURLS.at(3), '')
+        .replace(YOUTUBEVIDURLS.at(4), '')
         .replace('https://', '')
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
@@ -319,7 +319,7 @@ export default {
         this.results = youtubeVideoHtml
 
         // array: arrayCeramahSI: Singkat => true
-        this.arrayCeramahSI[0].completed = true
+        this.arrayCeramahSI.at(0).completed = true
         this.allCheckboxesEnabled = 1
       } catch {
         this.isResultsError()
@@ -375,8 +375,8 @@ export default {
         let youtubeVideo = ''
 
         // Singkat
-        this.arrayCeramahSI[0].completed = true
-        this.ceramahSIText = this.arrayCeramahSI[0].tweets
+        this.arrayCeramahSI.at(0).completed = true
+        this.ceramahSIText = this.arrayCeramahSI.at(0).tweets
         this.arrayUstadz.forEach(element => {
           element.completed = false
         })
@@ -414,12 +414,12 @@ export default {
       let betaArray = []
 
       if (isArray === 'ceramahSI') {
-        tweets = this.arrayCeramahSI[index].tweets
+        tweets = this.arrayCeramahSI.at(index).tweets
 
         alphaArray = this.arrayCeramahSI
         betaArray = this.arrayUstadz
       } else if (isArray === 'ustadz') {
-        tweets = this.arrayUstadz[index].tweets
+        tweets = this.arrayUstadz.at(index).tweets
 
         alphaArray = this.arrayUstadz
         betaArray = this.arrayCeramahSI
@@ -432,28 +432,28 @@ export default {
 
         if (isArray === 'ceramahSI') {
           for (let i = 0; i < alphaArray.length; i++) {
-            if (alphaArray[i].completed !== false) {
-              newArrayAlphaTweets += `${alphaArray[i].tweets} `
+            if (alphaArray.at(i).completed !== false) {
+              newArrayAlphaTweets += `${alphaArray.at(i).tweets} `
             }
           }
 
           for (let j = 0; j < betaArray.length; j++) {
-            if (betaArray[j].completed !== false) {
-              newArrayAlphaTweets += `${betaArray[j].tweets} `
+            if (betaArray.at(j).completed !== false) {
+              newArrayAlphaTweets += `${betaArray.at(j).tweets} `
             }
           }
 
           newArrayAlphaTweets = newArrayAlphaTweets.substring(0, newArrayAlphaTweets.length-1)
         } else if (isArray === 'ustadz') {
           for (let i = 0; i < betaArray.length; i++) {
-            if (betaArray[i].completed !== false) {
-              newArrayAlphaTweets += `${betaArray[i].tweets} `
+            if (betaArray.at(i).completed !== false) {
+              newArrayAlphaTweets += `${betaArray.at(i).tweets} `
             }
           }
           
           for (let j = 0; j < alphaArray.length; j++) {
-            if (alphaArray[j].completed !== false) {
-              newArrayAlphaTweets += `${alphaArray[j].tweets} `
+            if (alphaArray.at(j).completed !== false) {
+              newArrayAlphaTweets += `${alphaArray.at(j).tweets} `
             }
           }
 
@@ -499,11 +499,11 @@ export default {
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
       let ceramahSingkatSlice = link
-        .replace(YOUTUBEVIDURLS[0], '')
-        .replace(YOUTUBEVIDURLS[1], '')
-        .replace(YOUTUBEVIDURLS[2], '')
-        .replace(YOUTUBEVIDURLS[3], '')
-        .replace(YOUTUBEVIDURLS[4], '')
+        .replace(YOUTUBEVIDURLS.at(0), '')
+        .replace(YOUTUBEVIDURLS.at(1), '')
+        .replace(YOUTUBEVIDURLS.at(2), '')
+        .replace(YOUTUBEVIDURLS.at(3), '')
+        .replace(YOUTUBEVIDURLS.at(4), '')
 
       return 'https://youtu.be/' + ceramahSingkatSlice
         .replace('https://', '')
@@ -566,21 +566,21 @@ https://youtu.be/peUj47yc1xo" cols="50" rows="3" ref="results" data-test="result
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small> {{count}}</button>
     <br>
 
-    <h4 v-if="resultsBool">Kotak Centang: 
-    <!-- <h4 v-if="true">Kotak Centang:  -->
+    <!-- <h4 v-if="resultsBool">Kotak Centang:  -->
+    <h4 v-if="true">Kotak Centang: 
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? 'diaktifkan': 'tidak diaktifkan' }}
       </button>    
     </h4>
     
-    <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
-    <!-- <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
+    <!-- <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
+    <p  v-if="true" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
     
     {{ resultsBool ? '📌' : '' }}
-    <div v-if="resultsBool">
-    <!-- <div v-if="true"> -->
+    <!-- <div v-if="resultsBool"> -->
+    <div v-if="true">
       <h4 style="margin-top: 0px;margin-bottom: 5px;">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
