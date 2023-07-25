@@ -6,7 +6,7 @@ import App from '../App.vue'
 import axios from 'axios'
 
 const wrapper = mount(App, {
-  props: { },
+  props: {},
   data() {
     return {
       // array: ceramah singkat Islam
@@ -86,16 +86,16 @@ const arrayUstadz = wrapper.findAll('[data-test="array-ustadz"]')
 const checkboxUstadz = wrapper.findAll('[data-test="ustadz-checkbox"]')
 
 // button: btnReset dan btnCopy
-const btnReset = wrapper.get('[data-test="btn-reset"]') 
+const btnReset = wrapper.get('[data-test="btn-reset"]')
 const btnCopy = wrapper.get('[data-test="btn-copy"]')
 
 // button: btnTweet
 const btnTweet = wrapper.get('[data-test="btn-tweet"]')
 
- // button: btnCheckBoxAll diaktifkan atau tidak diaktifkan semua kotak centang
-const btnCheckBoxAll = wrapper.find('[data-test="btn-checkbox-all"]') 
+// button: btnCheckBoxAll diaktifkan atau tidak diaktifkan semua kotak centang
+const btnCheckBoxAll = wrapper.find('[data-test="btn-checkbox-all"]')
 
- // `semua kotak centang` diaktifkan
+// `semua kotak centang` diaktifkan
 const allCheckboxesEnabled = wrapper.find('[data-test="all-checkboxes-enabled"]')
 
 describe('App js: init', () => {
@@ -113,7 +113,7 @@ describe('App js: init', () => {
 })
 
 describe('App js: delete tweet youtube video', () => {
-  it('delete tweet youtube video', async() => {
+  it('delete tweet youtube video', async () => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
       data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
@@ -122,28 +122,28 @@ describe('App js: delete tweet youtube video', () => {
 
     await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/0000')
     await ceramahSingkatIslam.trigger('change')
-  
+
     expect(axios.get).toHaveBeenCalledTimes(1)
     expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/0000')
-  
+
     // Wait until the DOM updates.
     await flushPromises()
-  
+
     // textarea hasil: test youtube.com
     expect(results.element.value).toEqual(`Test Zero - Author One #TestZero\n\nhttps://youtu.be/0000`)
   })
 })
 
-describe('App js: reset tweet youtube video', async() => {
-  it('reset tweet youtube video', async() => {
+describe('App js: reset tweet youtube video', async () => {
+  it('reset tweet youtube video', async () => {
     // 1. textarea: ceramahSingkatIslam = '-'
     await ceramahSingkatIslam.setValue('-')
     // 2. textarea: hasil = 'Tidak ada hasil'
     await results.setValue('Tidak ada hasil')
-  
+
     assert.equal(ceramahSingkatIslam.element.value, '-')
     assert.equal(results.element.value, 'Tidak ada hasil')
-  
+
     await btnReset.trigger('click')
     assert.equal(ceramahSingkatIslam.element.value, '')
     assert.equal(results.element.value, '')
@@ -165,7 +165,7 @@ describe('App js: reset tweet youtube video', async() => {
 })
 
 describe('App js: tweet youtube video all', () => {
-  it('tweet youtube video all', async() => {
+  it('tweet youtube video all', async () => {
     // test cases
     const testCases = [
       {
@@ -232,21 +232,21 @@ describe('App js: tweet youtube video all', () => {
 
       await ceramahSingkatIslam.setValue(test.youtubeLink)
       await ceramahSingkatIslam.trigger('change')
-      
+
       expect(axios.get).toHaveBeenCalledTimes(1)
       expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
-      
+
       // Wait until the DOM updates.
       await flushPromises()
-      
+
       expect(results.element.value).toEqual(test.results)
       assert.equal(btnTweet.text(), test.tweetIs)
     }
   })
 })
 
-describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', () => {  
-  it('button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', async() => {
+describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', () => {
+  it('button `semua kotak centang` di array untuk ceramahSI dan Ustadz: `diaktifkan` atau `tidak diaktifkan`', async () => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
       data: '<meta name="title" content="Test Two - Author Two"><meta name="description" content=',
@@ -254,13 +254,13 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
     })
     await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/2222')
     await ceramahSingkatIslam.trigger('change')
-  
+
     expect(axios.get).toHaveBeenCalledTimes(1)
     expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/2222')
-  
+
     // Wait until the DOM updates.
     await flushPromises()
-    
+
     assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
 
     await btnCheckBoxAll.trigger('click')
@@ -285,7 +285,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 })
 
 describe('App js: button reset', () => {
-  it('button reset', async() => {
+  it('button reset', async () => {
     // 1. textarea: ceramahSingkatIslam = '-'
     // 2. textarea: hasil = 'Tidak ada hasil'
     await ceramahSingkatIslam.setValue('-')
@@ -300,9 +300,9 @@ describe('App js: button reset', () => {
   })
 })
 
-describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async() => {
+describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async () => {
   // ceramah
-  it('add tweet youtube video', async() => {
+  it('add tweet youtube video', async () => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
       data: '<meta name="title" content="Test Two - Author Two"><meta name="description" content=',
@@ -310,22 +310,22 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     })
     await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/0000')
     await ceramahSingkatIslam.trigger('change')
-  
+
     expect(axios.get).toHaveBeenCalledTimes(1)
     expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/0000')
-  
+
     // Wait until the DOM updates.
     await flushPromises()
-  
+
     // textarea hasil: test youtube.com
     expect(results.element.value).toEqual('Test Two - Author Two #TestZero\n\nhttps://youtu.be/0000')
   })
 
-  it('App js: textarea `hasil` untuk array untuk ceramah singkat: dicentang', async() => {        
+  it('App js: textarea `hasil` untuk array untuk ceramah singkat: dicentang', async () => {
     assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nhttps://youtu.be/0000')
-    
+
     // test cases
-    const testCases = [   
+    const testCases = [
       {
         name: 'Test Three',
         index: 3,
@@ -349,13 +349,13 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         hasil: 'Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000',
         tweetIs: 'Tweet is: + 197',
         allCheckboxesEnabled: 'diaktifkan: 4'
-      }  
+      }
     ]
 
     for (let test of testCases) {
       console.debug('checked ke-', test.name)
       await checkboxCeramahSI.at(test.index).setValue(true)
-      
+
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
           expect(arrayCeramahSI.at(i).classes()).toContain('completed')
@@ -373,9 +373,9 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     }
   })
 
-  it('App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang', async() => {    
+  it('App js: textarea `hasil` untuk array untuk ceramah singkat: tidak dicentang', async () => {
     console.debug('-----')
-    
+
     // textarea hasil: test youtube.com
     expect(results.element.value).toEqual('Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000')
 
@@ -411,7 +411,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     for (let test of testCases) {
       console.debug('unchecked ke-', test.name)
       await checkboxCeramahSI.at(test.index).setValue(false)
-      
+
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
           expect(arrayCeramahSI.at(i).classes()).toContain('completed')
@@ -429,9 +429,9 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
   })
 
   // ustadz
-  it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async() => {        
+  it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async () => {
     assert.equal(results.element.value, 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000')
-    
+
     // test cases
     const testCases = [
       {
@@ -457,13 +457,13 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         hasil: 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000',
         tweetIs: 'Tweet is: + 189',
         allCheckboxesEnabled: 'diaktifkan: 4'
-      }  
+      }
     ]
 
     for (let test of testCases) {
       console.debug('checked ke-', test.name)
       await checkboxUstadz.at(test.index).setValue(true)
-      
+
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
           expect(arrayUstadz.at(i).classes()).toContain('completed')
@@ -481,11 +481,11 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
     }
   })
 
-  it('App js: textarea `hasil` untuk array untuk ustadz: tidak dicentang', async() => {        
+  it('App js: textarea `hasil` untuk array untuk ustadz: tidak dicentang', async () => {
     assert.equal(results.element.value, 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000')
-    
+
     // test cases
-    const testCases = [   
+    const testCases = [
       {
         name: 'Author One',
         index: 1,
@@ -509,13 +509,13 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
         hasil: 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000',
         tweetIs: 'Tweet is: + 225',
         allCheckboxesEnabled: 'diaktifkan: 1'
-      }  
+      }
     ]
 
     for (let test of testCases) {
       console.debug('unchecked ke-', test.name)
       await checkboxUstadz.at(test.index).setValue(false)
-      
+
       for (let i = 0; i < test.listBool.length; i++) {
         if (test.listBool[i]) {
           expect(arrayUstadz.at(i).classes()).toContain('completed')
@@ -534,7 +534,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async(
 })
 
 describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', () => {
-  it('tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', async() => {
+  it('tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', async () => {
     // test cases
     const testCases = [
       // ?feature=share
@@ -614,13 +614,13 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
 
       await ceramahSingkatIslam.setValue(test.youtubeLink)
       await ceramahSingkatIslam.trigger('change')
-      
+
       expect(axios.get).toHaveBeenCalledTimes(1)
       expect(axios.get).toHaveBeenCalledWith(test.axiosGetWith)
-      
+
       // Wait until the DOM updates.
       await flushPromises()
-      
+
       expect(results.element.value).toEqual(test.results)
       assert.equal(btnTweet.text(), test.tweetIs)
 
@@ -636,9 +636,9 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
   })
 })
 
-describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async() => {
+describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async () => {
   // ceramah
-  it('untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async() => {
+  it('untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async () => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
       data: '<meta name="title" content="Test Four - Author Four #TestFour #4"><meta name="description" content=',
@@ -646,13 +646,13 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
     })
     await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/4444')
     await ceramahSingkatIslam.trigger('change')
-  
+
     expect(axios.get).toHaveBeenCalledTimes(1)
     expect(axios.get).toHaveBeenCalledWith('http://localhost:3000/video/shorts/4444')
-  
+
     // Wait until the DOM updates.
     await flushPromises()
-  
+
     // textarea hasil: test youtube.com
     expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4 #TestZero\n\nhttps://youtu.be/4444')
 
