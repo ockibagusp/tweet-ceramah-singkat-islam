@@ -210,14 +210,14 @@ export default {
       }
 
       if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
-        this.arrayCeramahSI.forEach(element => {
-          element.completed = false
-        })
-        this.arrayUstadz.forEach(element => {
-          element.completed = false
-        })
+        this.arrayCeramahSI.forEach((element) => {
+          element.completed = false;
+        });
+        this.arrayUstadz.forEach((element) => {
+          element.completed = false;
+        });
       } else {
-        this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam
+        this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam;
       }
 
       // why? textarea this.ceramahSingkatIslam = '#', '?', etc.
@@ -689,15 +689,19 @@ https://youtu.be/peUj47yc1xo"
 
     <h4 v-if="resultsBool">
       Kotak Centang:
-    <!-- <h4 v-if="true">
+      <!-- <h4 v-if="true">
       Kotak Centang:  -->
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? "diaktifkan" : "tidak diaktifkan" }}
       </button>
     </h4>
 
-    <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
-    <!-- <p
+    <p
+      v-if="resultsBool"
+      style="margin-top: -20px; margin-bottom: 10px"
+      data-test="all-checkboxes-enabled"
+    >
+      <!-- <p
       v-if="true"
       style="margin-top: -20px; margin-bottom: 10px"
       data-test="all-checkboxes-enabled"
@@ -706,8 +710,8 @@ https://youtu.be/peUj47yc1xo"
     </p>
 
     {{ resultsBool ? "📌" : "" }}
-    <!-- <div v-if="resultsBool"> -->
-    <div v-if="true">
+    <div v-if="resultsBool">
+      <!-- <div v-if="true"> -->
       <h4 style="margin-top: 0px; margin-bottom: 5px">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
