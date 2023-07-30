@@ -5,6 +5,10 @@ import App from '../App.vue'
 
 import axios from 'axios'
 
+// Judul: Kekuatan Doa - Ustadz Dr. Firanda Andirja #shorts
+//                                                  -------
+// Link: https://www.youtube.com/shorts/sqY-2c96UrI
+
 const wrapper = mount(App, {
   props: {},
   data() {
