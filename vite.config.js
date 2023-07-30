@@ -5,18 +5,13 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/tweet-ceramah-singkat-islam/',
+  // base: '/tweet-ceramah-singkat-islam/',
   plugins: [vue()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }, // options...
-  
-  // $ npm install cors
-  // https://expressjs.com/en/resources/middleware/cors.html
-
-  // heroku!
   server: {
     proxy: {
       '/video': {

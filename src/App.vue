@@ -209,6 +209,17 @@ export default {
         this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam;
       }
 
+      if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
+        this.arrayCeramahSI.forEach(element => {
+          element.completed = false
+        })
+        this.arrayUstadz.forEach(element => {
+          element.completed = false
+        })
+      } else {
+        this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam
+      }
+
       // why? textarea this.ceramahSingkatIslam = '#', '?', etc.
       const regex =
         /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)([^\r\n\t\f\v \?&]+)?/gm;
@@ -570,6 +581,7 @@ export default {
           this.ceramahSingkatIslamZip = this.isYoutubeComToYoutube(
             this.ceramahSingkatIslam
           );
+
           // pilih hasil, button copy dan button tweet: false
           this.isResultsSuccess(this.results.length);
           this.allCheckboxesEnabled = 0;
@@ -675,20 +687,21 @@ https://youtu.be/peUj47yc1xo"
     </button>
     <br />
 
-    <!-- <h4 v-if="resultsBool">Kotak Centang:  -->
-    <h4 v-if="true">
+    <h4 v-if="resultsBool">
       Kotak Centang:
+    <!-- <h4 v-if="true">
+      Kotak Centang:  -->
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? "diaktifkan" : "tidak diaktifkan" }}
       </button>
     </h4>
 
-    <!-- <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled"> -->
-    <p
+    <p v-if="resultsBool" style="margin-top: -20px; margin-bottom: 10px;" data-test="all-checkboxes-enabled">
+    <!-- <p
       v-if="true"
       style="margin-top: -20px; margin-bottom: 10px"
       data-test="all-checkboxes-enabled"
-    >
+    > -->
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
 
