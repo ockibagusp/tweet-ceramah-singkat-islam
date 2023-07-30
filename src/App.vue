@@ -93,6 +93,12 @@ export default {
           url: "https://twitter.com/search?q=%23Azab",
           completed: false,
         },
+        {
+          name: "Zina",
+          tweets: "#Zina",
+          url: "https://twitter.com/search?q=%23Zina",
+          completed: false,
+        },
       ],
       // array: Ustadz
       arrayUstadz: [
