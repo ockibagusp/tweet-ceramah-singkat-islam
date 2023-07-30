@@ -433,6 +433,7 @@ export default {
     ceramahAndUstChanged(event, index, isArray) {
       let tweets = "";
       let isTweet = false;
+      let isTweets = [];
 
       // array: caramah dan Ustadz
       let alphaArray = [];
@@ -454,41 +455,56 @@ export default {
         );
       }
 
-      const tweetRegex = new RegExp(tweets);
       const tweetSplit = tweets.split(" ");
-      isTweet = tweetRegex.test(this.ceramahSingkatIslam);
+      if (tweetSplit.length === 0) {
+        console.log("alert: tweetSplit = []");
+        return;
+      }
+
+      if (tweetSplit.length === 1) {
+        // "i": a A => a
+        const tweetRegex = new RegExp(tweets, "i");
+
+        // true: !true (false)
+        //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+        // false: !false (true)
+        //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+        isTweet = tweetRegex.test(this.results.toLowerCase());
+      } else {
+        // tweetSplit.length !== 1
+        tweetSplit.forEach((element, index) => {
+          const tweetRegex = new RegExp(tweetSplit.at(index), "i");
+          isTweets[index] = tweetRegex.test(this.results.toLowerCase());
+        });
+      }
 
       if (event.target.checked) {
         let newArrayAlphaTweets = "";
 
         if (isArray === "ceramahSI") {
           for (let i = 0; i < alphaArray.length; i++) {
-            if (tweetSplit.length === 1) {
-              if (!isTweet) {
-                if (alphaArray.at(i).completed !== false) {
-                  newArrayAlphaTweets += `${alphaArray.at(i).tweets} `;
-                }
-              }
-            } else {
-              //
-              if (!isTweet) {
-                if (alphaArray.at(i).completed !== false) {
-                  newArrayAlphaTweets += `${alphaArray.at(i).tweets} `;
-                }
-              }
-            }
-
-            if (isTweet) {
+            if (tweetSplit.length === 1 && !isTweet && tweetSplit.at(0)) {
               if (alphaArray.at(i).completed !== false) {
                 newArrayAlphaTweets += `${alphaArray.at(i).tweets} `;
+              }
+            } else if (tweetSplit.length !== 1 && !isTweet) {
+              if (alphaArray.at(i).completed !== false) {
+                for (let j = 0; j < tweetSplit.length; j++) {
+                  const element = tweetSplit.at(j);
+                  if (!isTweets.at(j)) {
+                    newArrayAlphaTweets += `${element} `;
+                  }
+                }
               }
             }
           }
 
           for (let j = 0; j < betaArray.length; j++) {
-            if (isTweet) {
-              if (betaArray.at(j).completed !== false) {
-                newArrayAlphaTweets += `${betaArray.at(j).tweets} `;
+            if (tweetSplit.length !== 1) {
+              if (!isTweet) {
+                if (betaArray.at(j).completed !== false) {
+                  newArrayAlphaTweets += `${betaArray.at(j).tweets} `;
+                }
               }
             }
           }
@@ -499,18 +515,14 @@ export default {
           );
         } else if (isArray === "ustadz") {
           for (let i = 0; i < betaArray.length; i++) {
-            if (isTweet) {
-              if (betaArray.at(i).completed !== false) {
-                newArrayAlphaTweets += `${betaArray.at(i).tweets} `;
-              }
+            if (betaArray.at(i).completed !== false) {
+              newArrayAlphaTweets += `${betaArray.at(i).tweets} `;
             }
           }
 
           for (let j = 0; j < alphaArray.length; j++) {
-            if (isTweet) {
-              if (alphaArray.at(j).completed !== false) {
-                newArrayAlphaTweets += `${alphaArray.at(j).tweets} `;
-              }
+            if (alphaArray.at(j).completed !== false) {
+              newArrayAlphaTweets += `${alphaArray.at(j).tweets} `;
             }
           }
 
