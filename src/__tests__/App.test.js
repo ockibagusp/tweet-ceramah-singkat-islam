@@ -667,7 +667,7 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
   it('untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', async () => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
-      data: '<meta name="title" content="Test Four - Author Four #TestFour #4"><meta name="description" content=',
+      data: '<meta name="title" content="Test Four - Author Four #testFour #4"><meta name="description" content=',
       status: 200
     })
     await ceramahSingkatIslam.setValue('https://www.youtube.com/shorts/4444')
@@ -680,17 +680,23 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
     await flushPromises()
 
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4 #TestZero\n\nhttps://youtu.be/4444')
+    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #TestZero\n\nhttps://youtu.be/4444')
 
     // caramah: dimatikan #TestZero
     await checkboxCeramahSI.at(0).setValue(false)
     expect(arrayCeramahSI.at(0).classes()).to.deep.equal([])
-    expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4\n\nhttps://youtu.be/4444')
+    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4\n\nhttps://youtu.be/4444')
 
     // caramah: diaktifkan #TestFour
     await checkboxCeramahSI.at(4).setValue(true)
+    expect(arrayCeramahSI.at(0).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
+    expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(4).classes()).toContain('completed')
-    expect(results.element.value).toEqual('Test Four - Author Four #TestFour #4 #Test4 #Four\n\nhttps://youtu.be/4444')
+    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #Test4 #Four\n\nhttps://youtu.be/4444')
+
+    // ???
   })
 
   it('button tweet youtube video', async () => {

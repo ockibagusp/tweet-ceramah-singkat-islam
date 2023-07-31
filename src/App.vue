@@ -334,10 +334,58 @@ export default {
             }
           });
         }
+
         if (youtubeVideoHtml != "") {
+          let tweets = this.arrayCeramahSI[0].tweets;
+
+          let tweetSplit = tweets.split(" ");
+          if (tweetSplit.length === 0) {
+            console.log("alert: tweetSplit = []");
+            return;
+          }
+
+          let tweetsHashtags = "";
+          let tweetArray = [];
+          let isTweet = false;
+          let isTweets = [];
+
+          if (tweetSplit.length === 1) {
+            // "i": a A => a
+            const tweetRegex = new RegExp(tweets.toLowerCase(), "i");
+
+            // true: !true (false)
+            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+            // false: !false (true)
+            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+            isTweet = tweetRegex.test(youtubeVideoHtml.toLowerCase());
+          } else {
+            // tweetSplit.length !== 1
+            tweetSplit.forEach((element, index) => {
+              const tweetRegex = new RegExp(
+                tweetSplit.at(index).toLowerCase(),
+                "i"
+              );
+
+              tweetArray[index] = element.toLowerCase();
+              isTweets[index] = tweetRegex.test(youtubeVideoHtml.toLowerCase());
+            });
+          }
+
+          if (tweetSplit.length === 1 && !isTweet && tweetSplit.at(0)) {
+            if (tweets.toLowerCase() === tweetSplit.at(0).toLowerCase())
+              tweetsHashtags = this.arrayCeramahSI.at(0).tweets;
+          } else if (tweetSplit.length !== 1 && !isTweet) {
+            for (let j = 0; j < tweetSplit.length; j++) {
+              const element = tweetSplit.at(j);
+              if (!isTweets.at(j)) {
+                if (tweetArray.at(j) === element.toLowerCase())
+                  tweetsHashtags += `${element} `;
+              }
+            }
+          }
+
           this.youtubeVideo = youtubeVideoHtml;
-          this.ceramahAndUstText = this.arrayCeramahSI[0].tweets;
-          youtubeVideoHtml = youtubeVideoHtml + " " + this.ceramahAndUstText;
+          youtubeVideoHtml = youtubeVideoHtml + " " + tweetsHashtags;
 
           // textarea youtube.com ke youtu.be
           youtubeVideoHtml = `${youtubeVideoHtml}\n\n${this.isYoutubeComToYoutube(
@@ -687,31 +735,31 @@ https://youtu.be/peUj47yc1xo"
     </button>
     <br />
 
-    <h4 v-if="resultsBool">
+    <!-- <h4 v-if="resultsBool">
+      Kotak Centang: -->
+    <h4 v-if="true">
       Kotak Centang:
-      <!-- <h4 v-if="true">
-      Kotak Centang:  -->
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
         {{ !isCheckBoxAll ? "diaktifkan" : "tidak diaktifkan" }}
       </button>
     </h4>
 
-    <p
+    <!-- <p
       v-if="resultsBool"
       style="margin-top: -20px; margin-bottom: 10px"
       data-test="all-checkboxes-enabled"
-    >
-      <!-- <p
+    > -->
+    <p
       v-if="true"
       style="margin-top: -20px; margin-bottom: 10px"
       data-test="all-checkboxes-enabled"
-    > -->
+    >
       diaktifkan: {{ allCheckboxesEnabled }}
     </p>
 
     {{ resultsBool ? "📌" : "" }}
-    <div v-if="resultsBool">
-      <!-- <div v-if="true"> -->
+    <!-- <div v-if="resultsBool"> -->
+    <div v-if="true">
       <h4 style="margin-top: 0px; margin-bottom: 5px">Tag Singkat Islam:</h4>
       <div
         v-for="(ceramahSI, index) in arrayCeramahSI"
