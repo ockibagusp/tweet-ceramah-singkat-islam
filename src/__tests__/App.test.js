@@ -195,7 +195,7 @@ describe('App js: tweet youtube video all', () => {
         tweetIs: 'Tweet is: + 226'
       },
       {
-        name: `youtube 'watch' success: id=3'`,
+        name: `youtube '' success: id=3'`,
         youtubeLink: 'https://youtu.be/3333',
         axiosGetValueOnce: {
           data: '<meta name="title" content="Test Three - Author Two"><meta name="description" content=',
@@ -206,7 +206,7 @@ describe('App js: tweet youtube video all', () => {
         tweetIs: 'Tweet is: + 224'
       },
       {
-        name: `youtube 'watch' success: id=4'`, // failure
+        name: `youtube 'shorts' success: id=4'`, // failure
         youtubeLink: 'https://www.youtube.com/shorts/4444&list=WL&index=157',
         axiosGetValueOnce: {
           data: '<meta name="title" content="Test Four - Author Three"><meta name="description" content=',
@@ -217,7 +217,7 @@ describe('App js: tweet youtube video all', () => {
         tweetIs: 'Tweet is: + 223'
       },
       {
-        name: `youtube 'watch' success: id=5'`,
+        name: `youtube 'shorts' success: id=5'`,
         youtubeLink: 'https://youtube.com/shorts/5555?feature=share',
         axiosGetValueOnce: {
           data: '<meta name="title" content="Test Five - Author Four"><meta name="description" content=',
@@ -563,6 +563,18 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
   it('tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', async () => {
     // test cases
     const testCases = [
+      // &list=WL&index=0123...
+      {
+        name: `youtube 'watch' success: id=1 &list=WL&index=1'`,
+        youtubeLink: 'https://www.youtube.com/watch?v=8888&list=WL&index=1',
+        axiosGetValueOnce: {
+          data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
+          status: 200
+        },
+        axiosGetWith: 'http://localhost:3000/video/watch?v=8888',
+        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/8888`,
+        tweetIs: 'Tweet is: + 225'
+      },
       // ?feature=share
       {
         name: `youtube 'shorts' success: id=1 query=?feature=share`,
