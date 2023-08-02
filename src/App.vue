@@ -140,11 +140,13 @@ export default {
         },
       ],
 
-      // string: Youtube video
-      youtubeVideo: "",
+      // string: judul
+      judulText: "",
       // string: ceramah singkat Islam dan Ustadz
       ceramahSIText: "",
       ustadzText: "",
+      // string: Youtube video
+      youtubeVideo: "",
 
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
@@ -187,8 +189,10 @@ export default {
   methods: {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async carry() {
-      let youtubeVideoHtml = "";
       this.allCheckboxesEnabled = 1;
+
+      let judulText = "";
+      let results = "";
 
       // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
       if (this.ceramahSingkatIslam === "") {
@@ -241,7 +245,7 @@ export default {
         m.forEach((match, groupIndex) => {
           if (groupIndex === 0) {
             if (match !== undefined) {
-              youtubeVideoHtml = match;
+              judulText = match;
             }
           }
 
@@ -262,7 +266,7 @@ export default {
 
       // memotong pada youtube atau youtu ke '': misalnya,
       //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
-      let ceramahSingkatSlice = youtubeVideoHtml
+      let ceramahSingkatSlice = judulText
         .replace(YOUTUBEVIDURLS.at(0), "")
         .replace(YOUTUBEVIDURLS.at(1), "")
         .replace(YOUTUBEVIDURLS.at(2), "")
@@ -328,14 +332,14 @@ export default {
                 .replace(/&#39;/g, "'");
 
               if (unescapeHtml !== undefined) {
-                youtubeVideoHtml = unescapeHtml;
+                judulText = unescapeHtml;
                 return;
               }
             }
           });
         }
 
-        if (youtubeVideoHtml != "") {
+        if (judulText != "") {
           let tweets = this.arrayCeramahSI[0].tweets;
 
           let tweetSplit = tweets.split(" ");
@@ -357,7 +361,7 @@ export default {
             //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
             // false: !false (true)
             //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            isTweet = tweetRegex.test(youtubeVideoHtml.toLowerCase());
+            isTweet = tweetRegex.test(judulText.toLowerCase());
           } else {
             // tweetSplit.length !== 1
             tweetSplit.forEach((element, index) => {
@@ -367,7 +371,7 @@ export default {
               );
 
               tweetArray[index] = element.toLowerCase();
-              isTweets[index] = tweetRegex.test(youtubeVideoHtml.toLowerCase());
+              isTweets[index] = tweetRegex.test(judulText.toLowerCase());
             });
           }
 
@@ -384,21 +388,19 @@ export default {
             }
           }
 
-          this.youtubeVideo = youtubeVideoHtml;
-          youtubeVideoHtml = youtubeVideoHtml + " " + tweetsHashtags;
+          this.judulText = judulText;
+          this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
 
           // textarea youtube.com ke youtu.be
-          youtubeVideoHtml = `${youtubeVideoHtml}\n\n${this.isYoutubeComToYoutube(
-            ceramahSingkatSlice
-          )}`;
-          this.isResultsSuccess(youtubeVideoHtml.length);
+          results = `${judulText} ${tweetsHashtags}\n\n${this.youtubeVideo}`;
+          this.isResultsSuccess(results.length);
         }
 
-        if (str != "" && youtubeVideoHtml == "") {
-          youtubeVideoHtml = "";
+        if (str != "" && results == "") {
+          results = "";
           this.isResultsDefault();
         }
-        this.results = youtubeVideoHtml;
+        this.results = results;
 
         // array: arrayCeramahSI: Singkat => true
         this.arrayCeramahSI.at(0).completed = true;
@@ -659,8 +661,9 @@ export default {
           .replace("/shorts/", "")
           .replace("/", "")
           .replace("?feature=share", "")
-          // e.q. https://www.youtube.com/watch?v=012345&t=1s
+          // e.q. https://www.youtube.com/watch?v=012345...&t=1s
           .replace("&t=1s", "")
+          .replace(/&list=WL&index=\d{1,}/, "")
       );
     },
     isNotResults() {
