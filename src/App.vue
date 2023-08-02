@@ -601,11 +601,7 @@ export default {
           );
         }
 
-        this.results = `${
-          this.youtubeVideo
-        } ${newArrayAlphaTweets}\n\n${this.isYoutubeComToYoutube(
-          this.ceramahSingkatIslam
-        )}`;
+        this.results = `${this.judulText} ${newArrayAlphaTweets}\n\n${this.youtubeVideo}`;
         if (this.results.length > 280) {
           this.isResultsError();
           return;
@@ -625,20 +621,8 @@ export default {
           release = leftComma;
         } else if (this.results.includes(bothComma)) {
           release = bothComma;
-        } else {
-          // melepas = text
-          this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(
-            this.ceramahSingkatIslam
-          )}`;
-          this.ceramahSingkatIslamZip = this.isYoutubeComToYoutube(
-            this.ceramahSingkatIslam
-          );
-
-          // pilih hasil, button copy dan button tweet: false
-          this.isResultsSuccess(this.results.length);
-          this.allCheckboxesEnabled = 0;
-          return;
         }
+
         this.results = this.results.replace(release, "");
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled--;
