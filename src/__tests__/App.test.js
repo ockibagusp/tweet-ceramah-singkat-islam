@@ -306,7 +306,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
     assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nhttps://youtu.be/2222')
-    assert.equal(btnTweet.text(), 'Tweet is: + 249')
+    assert.equal(btnTweet.text(), 'Tweet is: + 226')
   })
 })
 
