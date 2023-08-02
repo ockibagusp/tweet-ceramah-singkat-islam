@@ -8,6 +8,7 @@ const YOUTUBEVIDURLS = [
   "youtube.com",
   "https://youtu.be",
   "youtu.be",
+  "https://",
 ];
 
 import axios from "axios";
@@ -273,7 +274,7 @@ export default {
         .replace(YOUTUBEVIDURLS.at(2), "")
         .replace(YOUTUBEVIDURLS.at(3), "")
         .replace(YOUTUBEVIDURLS.at(4), "")
-        .replace("https://", "");
+        .replace(YOUTUBEVIDURLS.at(5), "");
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
       //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
