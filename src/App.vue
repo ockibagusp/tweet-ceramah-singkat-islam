@@ -487,9 +487,6 @@ export default {
           element.completed = false;
         });
 
-        console.log("this.judulText", this.judulText);
-        console.log("this.ceramahSIText", this.ceramahSIText);
-        console.log("this.youtubeVideo", this.youtubeVideo);
         this.results = `${this.judulText}\n\n${this.youtubeVideo}`;
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled = 0;
