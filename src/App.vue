@@ -193,6 +193,7 @@ export default {
       this.allCheckboxesEnabled = 1;
 
       let judulText = "";
+      let ceramahSIText = "";
       let results = "";
 
       // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
@@ -350,7 +351,6 @@ export default {
             return;
           }
 
-          let tweetsHashtags = "";
           let tweetArray = [];
           let isTweet = false;
           let isTweets = [];
@@ -379,13 +379,18 @@ export default {
 
           if (tweetSplit.length === 1 && !isTweet && tweetSplit.at(0)) {
             if (tweets.toLowerCase() === tweetSplit.at(0).toLowerCase())
-              tweetsHashtags = this.arrayCeramahSI.at(0).tweets;
+              ceramahSIText = this.arrayCeramahSI.at(0).tweets;
           } else if (tweetSplit.length !== 1 && !isTweet) {
             for (let j = 0; j < tweetSplit.length; j++) {
               const element = tweetSplit.at(j);
               if (!isTweets.at(j)) {
                 if (tweetArray.at(j) === element.toLowerCase())
-                  tweetsHashtags += `${element} `;
+                  ceramahSIText += `${element} `;
+
+                ceramahSIText = ceramahSIText.substring(
+                  0,
+                  ceramahSIText.length - 1
+                );
               }
             }
           }
@@ -394,7 +399,7 @@ export default {
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
 
           // textarea youtube.com ke youtu.be
-          results = `${judulText} ${tweetsHashtags}\n\n${this.youtubeVideo}`;
+          results = `${judulText} ${ceramahSIText}\n\n${this.youtubeVideo}`;
           this.isResultsSuccess(results.length);
         }
 
