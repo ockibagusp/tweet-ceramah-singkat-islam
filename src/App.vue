@@ -251,6 +251,7 @@ export default {
 
           if (groupIndex === 5) {
             if (match !== undefined) {
+              // e.g.: youtube.com/watch?v=0123... or youtube.com/shorts/0123...
               if (
                 match.search("watch") === -1 &&
                 match.search("shorts") === -1
