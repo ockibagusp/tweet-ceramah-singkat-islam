@@ -15,30 +15,35 @@ const wrapper = mount(App, {
     return {
       // array: ceramah singkat Islam
       arrayCeramahSI: [
+        // [0]
         {
           name: 'Test Zero',
           tweets: '#TestZero',
           url: '#',
           completed: false
         },
+        // [1]
         {
           name: 'Test One',
           tweets: '#TestOne',
           url: '#',
           completed: false
         },
+        // [2]
         {
           name: 'Test Two',
           tweets: '#TestTwo',
           url: '#',
           completed: false
         },
+        // [3]
         {
           name: 'Test Three',
           tweets: '#TestThree',
           url: '#',
           completed: false
         },
+        // [4]
         {
           name: 'Test Four',
           tweets: '#TestFour #Test4 #Four #4',
@@ -48,24 +53,28 @@ const wrapper = mount(App, {
       ],
       // array: Ustadz
       arrayUstadz: [
+        // [0]
         {
           name: 'Author One',
           tweets: '#AuthorOne',
           url: '#',
           completed: false
         },
+        // [1]
         {
           name: 'Author Two',
           tweets: '#AuthorTwo',
           url: '#',
           completed: false
         },
+        // [2]
         {
           name: 'AuthorThree',
           tweets: '#AuthorThree',
           url: '#',
           completed: false
         },
+        // [3]
         {
           name: 'Author Four',
           tweets: '#AuthorFour',
@@ -707,8 +716,6 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
     expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(4).classes()).toContain('completed')
     expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #Test4 #Four\n\nhttps://youtu.be/4444')
-
-    // ???
   })
 
   it('button tweet youtube video', async () => {
