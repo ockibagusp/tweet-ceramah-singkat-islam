@@ -642,7 +642,6 @@ export default {
       return (
         "https://youtu.be/" +
         ceramahSingkatSlice
-          .replace("https://", "")
           .replace("/watch?v=", "")
           .replace("/shorts/", "")
           .replace("/", "")
