@@ -232,12 +232,10 @@ export default {
 
       // Alternative syntax using RegExp constructor
       // const regex = new RegExp('(https:\\/\\/)?(www\\.|m\\.)?(youtube\\.com|youtu\\.be)\\/(watch\\?v=|shorts\\/)?([\\w\\-]+)(\\S+)?', 'gm')
-
-      const str = this.ceramahSingkatIslam;
       let m;
 
       let quit = false;
-      while ((m = regex.exec(str)) !== null) {
+      while ((m = regex.exec(this.ceramahSingkatIslam)) !== null) {
         // This is necessary to avoid infinite loops with zero-width matches
         if (m.index === regex.lastIndex) {
           regex.lastIndex++;
@@ -386,13 +384,13 @@ export default {
               if (!isTweets.at(j)) {
                 if (tweetArray.at(j) === element.toLowerCase())
                   ceramahSIText += `${element} `;
-
-                ceramahSIText = ceramahSIText.substring(
-                  0,
-                  ceramahSIText.length - 1
-                );
               }
             }
+
+            ceramahSIText = ceramahSIText.substring(
+              0,
+              ceramahSIText.length - 1
+            );
           }
 
           this.judulText = judulText;
@@ -465,20 +463,15 @@ export default {
 
     btnCheckBoxAll() {
       if (this.selectCheckBoxAll === true) {
-        let youtubeVideo = "";
-
         // Singkat
         this.arrayCeramahSI.at(0).completed = true;
         this.ceramahSIText = this.arrayCeramahSI.at(0).tweets;
         this.arrayUstadz.forEach((element) => {
           element.completed = false;
         });
-        youtubeVideo = this.youtubeVideo + " " + this.ceramahSIText;
 
-        this.results = `${youtubeVideo}\n\n${this.isYoutubeComToYoutube(
-          this.ceramahSingkatIslam
-        )}`;
-        this.isResultsSuccess(youtubeVideo.length);
+        this.results = `${this.judulText} ${this.ceramahSIText}\n\n${this.youtubeVideo}`;
+        this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled = 1;
 
         this.selectResults = true;
@@ -493,9 +486,11 @@ export default {
         this.arrayUstadz.forEach((element) => {
           element.completed = false;
         });
-        this.results = `${this.youtubeVideo}\n\n${this.isYoutubeComToYoutube(
-          this.ceramahSingkatIslam
-        )}`;
+
+        console.log("this.judulText", this.judulText);
+        console.log("this.ceramahSIText", this.ceramahSIText);
+        console.log("this.youtubeVideo", this.youtubeVideo);
+        this.results = `${this.judulText}\n\n${this.youtubeVideo}`;
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled = 0;
         this.selectCheckBoxAll = true;
