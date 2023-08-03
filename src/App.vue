@@ -143,9 +143,6 @@ export default {
 
       // string: judul
       judulText: "",
-      // string: ceramah singkat Islam dan Ustadz
-      ceramahSIText: "",
-      ustadzText: "",
       // string: Youtube video
       youtubeVideo: "",
 
@@ -360,6 +357,10 @@ export default {
             );
 
             tweetArray[index] = element.toLowerCase();
+            // true: !true (false)
+            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+            // false: !false (true)
+            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
             isTweets[index] = tweetRegex.test(judulText.toLowerCase());
           });
 
@@ -444,13 +445,14 @@ export default {
     btnCheckBoxAll() {
       if (this.selectCheckBoxAll === true) {
         // Singkat
+        let ceramahSIText = this.arrayCeramahSI.at(0).tweets;
         this.arrayCeramahSI.at(0).completed = true;
-        this.ceramahSIText = this.arrayCeramahSI.at(0).tweets;
+
         this.arrayUstadz.forEach((element) => {
           element.completed = false;
         });
 
-        this.results = `${this.judulText} ${this.ceramahSIText}\n\n${this.youtubeVideo}`;
+        this.results = `${this.judulText} ${ceramahSIText}\n\n${this.youtubeVideo}`;
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled = 1;
 
@@ -478,7 +480,7 @@ export default {
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     ceramahAndUstChanged(event, index, isArray) {
       let tweets = "";
-      let isTweet = false;
+      let tweetArray = [];
       let isTweets = [];
 
       // array: caramah dan Ustadz
@@ -507,33 +509,23 @@ export default {
         return;
       }
 
-      if (tweetSplit.length === 1) {
+      // tweetSplit.length !== 0
+      tweetSplit.forEach((element, index) => {
         // "i": a A => a
-        const tweetRegex = new RegExp(tweets, "i");
+        const tweetRegex = new RegExp(tweetSplit.at(index).toLowerCase(), "i");
 
-        // true: !true (false)
-        //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-        // false: !false (true)
-        //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-        isTweet = tweetRegex.test(this.results.toLowerCase());
-      } else {
-        // tweetSplit.length !== 1
-        tweetSplit.forEach((element, index) => {
-          const tweetRegex = new RegExp(tweetSplit.at(index), "i");
-          isTweets[index] = tweetRegex.test(this.results.toLowerCase());
-        });
-      }
+        tweetArray[index] = element.toLowerCase();
+        isTweets[index] = tweetRegex.test(this.results.toLowerCase());
+      });
 
       if (event.target.checked) {
         let newArrayAlphaTweets = "";
 
         if (isArray === "ceramahSI") {
+          // arrayCeramahSI
           for (let i = 0; i < alphaArray.length; i++) {
-            if (tweetSplit.length === 1 && !isTweet && tweetSplit.at(0)) {
-              if (alphaArray.at(i).completed !== false) {
-                newArrayAlphaTweets += `${alphaArray.at(i).tweets} `;
-              }
-            } else if (tweetSplit.length !== 1 && !isTweet) {
+            const element = tweetSplit.at(i);
+            if (!isTweets.at(i)) {
               if (alphaArray.at(i).completed !== false) {
                 for (let j = 0; j < tweetSplit.length; j++) {
                   const element = tweetSplit.at(j);
@@ -547,7 +539,7 @@ export default {
 
           for (let j = 0; j < betaArray.length; j++) {
             if (tweetSplit.length !== 1) {
-              if (!isTweet) {
+              if (!isTweets) {
                 if (betaArray.at(j).completed !== false) {
                   newArrayAlphaTweets += `${betaArray.at(j).tweets} `;
                 }
