@@ -352,7 +352,7 @@ export default {
           let tweetArray = [];
           let isTweets = [];
 
-          // tweetSplit.length !== 1
+          // tweetSplit.length !== 0
           tweetSplit.forEach((element, index) => {
             const tweetRegex = new RegExp(
               tweetSplit.at(index).toLowerCase(),
