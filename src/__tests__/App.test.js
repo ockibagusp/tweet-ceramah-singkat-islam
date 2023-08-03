@@ -5,9 +5,12 @@ import App from '../App.vue'
 
 import axios from 'axios'
 
-// Judul: Kekuatan Doa - Ustadz Dr. Firanda Andirja #shorts
+// Judul #1: Kekuatan Doa - Ustadz Dr. Firanda Andirja #shorts
 //                                                  -------
 // Link: https://www.youtube.com/shorts/sqY-2c96UrI
+
+// Judul #2: DOSA - Ustadz Dr. Firanda Andirja, MA                                
+// Link: https://www.youtube.com/shorts/peUj47yc1xo
 
 const wrapper = mount(App, {
   props: {},
@@ -364,26 +367,34 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
       {
         name: 'Test Three',
         index: 3,
-        listBool: [true, false, false, true],
+        listBool: [true, false, false, true, false],
         hasil: `Test Two - Author Two #TestZero #TestThree\n\nhttps://youtu.be/0000`,
         tweetIs: 'Tweet is: + 215',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
+        name: 'Test Three',
+        index: 4,
+        listBool: [true, false, false, true, true],
+        hasil: `Test Two - Author Two #TestZero #TestThree #TestFour #Test4 #Four #4\n\nhttps://youtu.be/0000`,
+        tweetIs: 'Tweet is: + 158',
+        allCheckboxesEnabled: 'diaktifkan: 3'
+      },
+      {
         name: 'Test One',
         index: 1,
-        listBool: [true, true, false, true],
-        hasil: `Test Two - Author Two #TestZero #TestOne #TestThree\n\nhttps://youtu.be/0000`,
+        listBool: [true, true, false, true, true],
+        hasil: `Test Two - Author Two #TestZero #TestOne #TestThree #TestFour #Test4 #Four #4\n\nhttps://youtu.be/0000`,
         tweetIs: 'Tweet is: + 206',
-        allCheckboxesEnabled: 'diaktifkan: 3'
+        allCheckboxesEnabled: 'diaktifkan: 4'
       },
       {
         name: 'Test Two',
         index: 2,
-        listBool: [true, true, true, true],
-        hasil: 'Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000',
+        listBool: [true, true, true, true, true],
+        hasil: 'Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree #TestFour #Test4 #Four #4\n\nhttps://youtu.be/0000',
         tweetIs: 'Tweet is: + 197',
-        allCheckboxesEnabled: 'diaktifkan: 4'
+        allCheckboxesEnabled: 'diaktifkan: 5'
       }
     ]
 
