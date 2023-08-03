@@ -350,48 +350,28 @@ export default {
           }
 
           let tweetArray = [];
-          let isTweet = false;
           let isTweets = [];
 
-          if (tweetSplit.length === 1) {
-            // "i": a A => a
-            const tweetRegex = new RegExp(tweets.toLowerCase(), "i");
-
-            // true: !true (false)
-            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-            // false: !false (true)
-            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            isTweet = tweetRegex.test(judulText.toLowerCase());
-          } else {
-            // tweetSplit.length !== 1
-            tweetSplit.forEach((element, index) => {
-              const tweetRegex = new RegExp(
-                tweetSplit.at(index).toLowerCase(),
-                "i"
-              );
-
-              tweetArray[index] = element.toLowerCase();
-              isTweets[index] = tweetRegex.test(judulText.toLowerCase());
-            });
-          }
-
-          if (tweetSplit.length === 1 && !isTweet && tweetSplit.at(0)) {
-            if (tweets.toLowerCase() === tweetSplit.at(0).toLowerCase())
-              ceramahSIText = this.arrayCeramahSI.at(0).tweets;
-          } else if (tweetSplit.length !== 1 && !isTweet) {
-            for (let j = 0; j < tweetSplit.length; j++) {
-              const element = tweetSplit.at(j);
-              if (!isTweets.at(j)) {
-                if (tweetArray.at(j) === element.toLowerCase())
-                  ceramahSIText += `${element} `;
-              }
-            }
-
-            ceramahSIText = ceramahSIText.substring(
-              0,
-              ceramahSIText.length - 1
+          // tweetSplit.length !== 1
+          tweetSplit.forEach((element, index) => {
+            const tweetRegex = new RegExp(
+              tweetSplit.at(index).toLowerCase(),
+              "i"
             );
+
+            tweetArray[index] = element.toLowerCase();
+            isTweets[index] = tweetRegex.test(judulText.toLowerCase());
+          });
+
+          for (let i = 0; i < tweetSplit.length; i++) {
+            const element = tweetSplit.at(i);
+            if (!isTweets.at(i)) {
+              if (tweetArray.at(i) === element.toLowerCase())
+                ceramahSIText += `${element} `;
+            }
           }
+
+          ceramahSIText = ceramahSIText.substring(0, ceramahSIText.length - 1);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
