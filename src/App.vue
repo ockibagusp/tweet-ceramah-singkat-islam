@@ -522,16 +522,17 @@ export default {
         let newArrayAlphaTweets = "";
 
         if (isArray === "ceramahSI") {
+          // ???
           // arrayCeramahSI
+          console.log("alphaArray:", alphaArray);
           for (let i = 0; i < alphaArray.length; i++) {
-            const element = tweetSplit.at(i);
-            if (!isTweets.at(i)) {
-              if (alphaArray.at(i).completed !== false) {
-                for (let j = 0; j < tweetSplit.length; j++) {
-                  const element = tweetSplit.at(j);
-                  if (!isTweets.at(j)) {
-                    newArrayAlphaTweets += `${element} `;
-                  }
+            const iElement = alphaArray.at(i);
+            if (iElement.completed !== false) {
+              console.log(iElement.completed !== false);
+              for (let j = 0; j < tweetSplit.length; j++) {
+                const jElement = tweetSplit.at(j);
+                if (!isTweets.at(j)) {
+                  newArrayAlphaTweets += `${jElement} `;
                 }
               }
             }
@@ -609,7 +610,7 @@ export default {
         .replace(YOUTUBEVIDURLS.at(4), "");
 
       return (
-        "https://youtu.be/" +
+        "youtu.be/" +
         ceramahSingkatSlice
           .replace("/watch?v=", "")
           .replace("/shorts/", "")
