@@ -83,6 +83,13 @@ const wrapper = mount(App, {
           tweets: '#AuthorFour',
           url: '#',
           completed: false
+        },
+        // [4]
+        {
+          name: 'Author Five',
+          tweets: '#AuthorFive #Author5 #Five #5',
+          url: '#',
+          completed: false
         }
       ]
     }
@@ -146,7 +153,7 @@ describe('App js: delete tweet youtube video', () => {
     await flushPromises()
 
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`Test Zero - Author One #TestZero\n\nhttps://youtu.be/0000`)
+    expect(results.element.value).toEqual(`Test Zero - Author One #TestZero\n\nyoutu.be/0000`)
   })
 })
 
@@ -192,8 +199,8 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/1111',
-        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/1111`,
-        tweetIs: 'Tweet is: + 225'
+        results: `Test Zero - Author One #TestZero\n\nyoutu.be/1111`,
+        tweetIs: 'Tweet is: + 233'
       },
       {
         name: `youtube 'watch' success: id=2'`,
@@ -203,8 +210,8 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=2222',
-        results: `Test One - Author One #TestZero\n\nhttps://youtu.be/2222`,
-        tweetIs: 'Tweet is: + 226'
+        results: `Test One - Author One #TestZero\n\nyoutu.be/2222`,
+        tweetIs: 'Tweet is: + 234'
       },
       {
         name: `youtube '' success: id=3'`,
@@ -214,8 +221,8 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=3333',
-        results: `Test Three - Author Two #TestZero\n\nhttps://youtu.be/3333`,
-        tweetIs: 'Tweet is: + 224'
+        results: `Test Three - Author Two #TestZero\n\nyoutu.be/3333`,
+        tweetIs: 'Tweet is: + 232'
       },
       {
         name: `youtube 'shorts' success: id=4'`, // failure
@@ -225,8 +232,8 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/4444',
-        results: `Test Four - Author Three #TestZero\n\nhttps://youtu.be/4444`,
-        tweetIs: 'Tweet is: + 223'
+        results: `Test Four - Author Three #TestZero\n\nyoutu.be/4444`,
+        tweetIs: 'Tweet is: + 231'
       },
       {
         name: `youtube 'shorts' success: id=5'`,
@@ -236,8 +243,8 @@ describe('App js: tweet youtube video all', () => {
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/5555',
-        results: `Test Five - Author Four #TestZero\n\nhttps://youtu.be/5555`,
-        tweetIs: 'Tweet is: + 224'
+        results: `Test Five - Author Four #TestZero\n\nyoutu.be/5555`,
+        tweetIs: 'Tweet is: + 232'
       },
       {
         name: `youtube 'shorts' failure: id=6'`,
@@ -303,7 +310,7 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'diaktifkan')
-    assert.equal(results.element.value, 'Test Two - Author Two\n\nhttps://youtu.be/2222')
+    assert.equal(results.element.value, 'Test Two - Author Two\n\nyoutu.be/2222')
 
     for (let i = 0; i < arrayCeramahSI.length; i++) {
       // same: assert.deepEqual(arrayCeramahSI.at(...).classes(), [])
@@ -317,8 +324,8 @@ describe('App js: button `semua kotak centang` di array untuk ceramahSI dan Usta
 
     await btnCheckBoxAll.trigger('click')
     assert.equal(btnCheckBoxAll.text(), 'tidak diaktifkan')
-    assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nhttps://youtu.be/2222')
-    assert.equal(btnTweet.text(), 'Tweet is: + 226')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nyoutu.be/2222')
+    assert.equal(btnTweet.text(), 'Tweet is: + 234')
   })
 })
 
@@ -356,11 +363,11 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
     await flushPromises()
 
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test Two - Author Two #TestZero\n\nhttps://youtu.be/0000')
+    expect(results.element.value).toEqual('Test Two - Author Two #TestZero\n\nyoutu.be/0000')
   })
 
   it('App js: textarea `hasil` untuk array untuk ceramah singkat: dicentang', async () => {
-    assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nhttps://youtu.be/0000')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestZero\n\nyoutu.be/0000')
 
     // test cases
     const testCases = [
@@ -368,32 +375,32 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
         name: 'Test Three',
         index: 3,
         listBool: [true, false, false, true, false],
-        hasil: `Test Two - Author Two #TestZero #TestThree\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 215',
+        hasil: `Test Two - Author Two #TestZero #TestThree\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 223',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
         name: 'Test Three',
         index: 4,
         listBool: [true, false, false, true, true],
-        hasil: `Test Two - Author Two #TestZero #TestThree #TestFour #Test4 #Four #4\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 158',
+        hasil: `Test Two - Author Two #TestZero #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 197',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
         name: 'Test One',
         index: 1,
         listBool: [true, true, false, true, true],
-        hasil: `Test Two - Author Two #TestZero #TestOne #TestThree #TestFour #Test4 #Four #4\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 206',
+        hasil: `Test Two - Author Two #TestZero #TestOne #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 188',
         allCheckboxesEnabled: 'diaktifkan: 4'
       },
       {
         name: 'Test Two',
         index: 2,
         listBool: [true, true, true, true, true],
-        hasil: 'Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree #TestFour #Test4 #Four #4\n\nhttps://youtu.be/0000',
-        tweetIs: 'Tweet is: + 197',
+        hasil: 'Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 179',
         allCheckboxesEnabled: 'diaktifkan: 5'
       }
     ]
@@ -423,34 +430,34 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
     console.debug('-----')
 
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000')
+    expect(results.element.value).toEqual('Test Two - Author Two #TestZero #TestOne #TestTwo #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000')
 
     // test cases
     const testCases = [
       {
         name: 'Test Zero',
         index: 0,
-        listBool: [false, true, true, true],
-        results: 'Test Two - Author Two #TestOne #TestTwo #TestThree\n\nhttps://youtu.be/0000',
-        tweetIs: 'Tweet is: + 207',
+        listBool: [false, true, true, true, true],
+        results: 'Test Two - Author Two #TestOne #TestTwo #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 189',
         // `semua kotak centang` diaktifkan
-        allCheckboxesEnabled: 'diaktifkan: 3'
+        allCheckboxesEnabled: 'diaktifkan: 4'
       },
       {
         name: 'Test One',
         index: 1,
-        listBool: [false, false, true, true],
-        results: 'Test Two - Author Two #TestTwo #TestThree\n\nhttps://youtu.be/0000',
-        tweetIs: 'Tweet is: + 216',
-        allCheckboxesEnabled: 'diaktifkan: 2'
+        listBool: [false, false, true, true, true],
+        results: 'Test Two - Author Two #TestTwo #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 198',
+        allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
         name: 'Test Two',
         index: 2,
-        listBool: [false, false, false, true],
-        results: 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000',
-        tweetIs: 'Tweet is: + 225',
-        allCheckboxesEnabled: 'diaktifkan: 1'
+        listBool: [false, false, false, true, true],
+        results: 'Test Two - Author Two #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 207',
+        allCheckboxesEnabled: 'diaktifkan: 2'
       }
     ]
 
@@ -472,11 +479,14 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
       // `semua kotak centang` diaktifkan
       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
     }
+
+    // Test 'unchecked ke-4': #TestFour #Test4 #Four #4
+    await checkboxCeramahSI.at(4).setValue(false)
   })
 
   // ustadz
   it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async () => {
-    assert.equal(results.element.value, 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestThree\n\nyoutu.be/0000')
 
     // test cases
     const testCases = [
@@ -484,24 +494,24 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
         name: 'Author Three',
         index: 3,
         listBool: [false, false, false, true],
-        hasil: `Test Two - Author Two #TestThree #AuthorFour\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 213',
+        hasil: `Test Two - Author Two #TestThree #AuthorFour\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 221',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
         name: 'Author One',
         index: 1,
         listBool: [false, true, false, true],
-        hasil: `Test Two - Author Two #TestThree #AuthorTwo #AuthorFour\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 202',
+        hasil: `Test Two - Author Two #TestThree #AuthorTwo #AuthorFour\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 210',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
         name: 'Author Two',
         index: 2,
         listBool: [false, true, true, true],
-        hasil: 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000',
-        tweetIs: 'Tweet is: + 189',
+        hasil: 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 197',
         allCheckboxesEnabled: 'diaktifkan: 4'
       }
     ]
@@ -528,7 +538,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
   })
 
   it('App js: textarea `hasil` untuk array untuk ustadz: tidak dicentang', async () => {
-    assert.equal(results.element.value, 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000')
+    assert.equal(results.element.value, 'Test Two - Author Two #TestThree #AuthorTwo #AuthorThree #AuthorFour\n\nyoutu.be/0000')
 
     // test cases
     const testCases = [
@@ -536,24 +546,32 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
         name: 'Author One',
         index: 1,
         listBool: [false, false, true, true],
-        hasil: `Test Two - Author Two #TestThree #AuthorThree #AuthorFour\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 200',
+        hasil: `Test Two - Author Two #TestThree #AuthorThree #AuthorFour\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 208',
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
         name: 'Author Three',
         index: 3,
         listBool: [false, false, true, false],
-        hasil: `Test Two - Author Two #TestThree #AuthorThree\n\nhttps://youtu.be/0000`,
-        tweetIs: 'Tweet is: + 212',
+        hasil: `Test Two - Author Two #TestThree #AuthorThree\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 220',
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
         name: 'Author Two',
         index: 2,
         listBool: [false, false, false, false],
-        hasil: 'Test Two - Author Two #TestThree\n\nhttps://youtu.be/0000',
-        tweetIs: 'Tweet is: + 225',
+        hasil: 'Test Two - Author Two #TestThree\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 233',
+        allCheckboxesEnabled: 'diaktifkan: 1'
+      },
+      {
+        name: 'Author Five',
+        index: 2,
+        listBool: [false, false, false, false],
+        hasil: 'Test Two - Author Two #TestThree\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 233',
         allCheckboxesEnabled: 'diaktifkan: 1'
       }
     ]
@@ -592,8 +610,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=8888',
-        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/8888`,
-        tweetIs: 'Tweet is: + 225'
+        results: `Test Zero - Author One #TestZero\n\nyoutu.be/8888`,
+        tweetIs: 'Tweet is: + 233'
       },
       // ?feature=share
       {
@@ -604,8 +622,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/1111',
-        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/1111`,
-        tweetIs: 'Tweet is: + 225'
+        results: `Test Zero - Author One #TestZero\n\nyoutu.be/1111`,
+        tweetIs: 'Tweet is: + 233'
       },
       {
         name: `youtube 'watch' success: id=2 ?feature=share'`,
@@ -615,8 +633,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=2222',
-        results: `Test One - Author One #TestZero\n\nhttps://youtu.be/2222`,
-        tweetIs: 'Tweet is: + 226'
+        results: `Test One - Author One #TestZero\n\nyoutu.be/2222`,
+        tweetIs: 'Tweet is: + 234'
       },
       {
         name: `youtube 'watch' success: id=3 ?feature=share'`,
@@ -626,8 +644,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=3333',
-        results: `Test Three - Author Two #TestZero\n\nhttps://youtu.be/3333`,
-        tweetIs: 'Tweet is: + 224'
+        results: `Test Three - Author Two #TestZero\n\nyoutu.be/3333`,
+        tweetIs: 'Tweet is: + 232'
       },
       // &t=1s
       {
@@ -638,8 +656,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/shorts/1111',
-        results: `Test Zero - Author One #TestZero\n\nhttps://youtu.be/1111`,
-        tweetIs: 'Tweet is: + 225'
+        results: `Test Zero - Author One #TestZero\n\nyoutu.be/1111`,
+        tweetIs: 'Tweet is: + 233'
       },
       {
         name: `youtube 'watch' success: id=2 &t=1s'`,
@@ -649,8 +667,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=2222',
-        results: `Test One - Author One #TestZero\n\nhttps://youtu.be/2222`,
-        tweetIs: 'Tweet is: + 226'
+        results: `Test One - Author One #TestZero\n\nyoutu.be/2222`,
+        tweetIs: 'Tweet is: + 234'
       },
       {
         name: `youtube 'watch' success: id=3 &t=1s'`,
@@ -660,8 +678,8 @@ describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/o
           status: 200
         },
         axiosGetWith: 'http://localhost:3000/video/watch?v=3333',
-        results: `Test Three - Author Two #TestZero\n\nhttps://youtu.be/3333`,
-        tweetIs: 'Tweet is: + 224'
+        results: `Test Three - Author Two #TestZero\n\nyoutu.be/3333`,
+        tweetIs: 'Tweet is: + 232'
       }
     ]
 
@@ -712,12 +730,12 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
     await flushPromises()
 
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #TestZero\n\nhttps://youtu.be/4444')
+    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #TestZero\n\nyoutu.be/4444')
 
     // caramah: dimatikan #TestZero
     await checkboxCeramahSI.at(0).setValue(false)
     expect(arrayCeramahSI.at(0).classes()).to.deep.equal([])
-    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4\n\nhttps://youtu.be/4444')
+    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4\n\nyoutu.be/4444')
 
     // caramah: diaktifkan #TestFour
     await checkboxCeramahSI.at(4).setValue(true)
@@ -726,11 +744,11 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
     expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(4).classes()).toContain('completed')
-    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #Test4 #Four\n\nhttps://youtu.be/4444')
+    expect(results.element.value).toEqual('Test Four - Author Four #testFour #4 #Test4 #Four\n\nyoutu.be/4444')
   })
 
   it('button tweet youtube video', async () => {
-    const UTF8Hash = 'Test One - Author One #TestZero\n\nhttps://youtu.be/1111'
+    const UTF8Hash = 'Test One - Author One #TestZero\n\nyoutu.be/1111'
       .replaceAll('\/', '%2F')
       .replaceAll(':', '%3A')
       .replaceAll(' #', '%20%23')
@@ -744,7 +762,7 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
 
     let UTF8HashReal = UTF8HashArray.join('%20')
 
-    assert.equal(UTF8HashReal, 'Test%20One%20-%20Author%20One%20%23TestZero%20https%3A%2F%2Fyoutu.be%2F1111')
+    assert.equal(UTF8HashReal, 'Test%20One%20-%20Author%20One%20%23TestZero%20youtu.be%2F1111')
   })
 })
 
@@ -765,7 +783,7 @@ describe('App js: textarea ceramahSingkatIslam: "https://www.youtube.com/shorts/
     // Wait until the DOM updates.
     await flushPromises()
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test #1 - Author One #TestZero\n\nhttps://youtu.be/12345')
+    expect(results.element.value).toEqual('Test #1 - Author One #TestZero\n\nyoutu.be/12345')
 
     expect(arrayCeramahSI.at(0).classes()).toContain('completed')
     expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
@@ -777,7 +795,7 @@ describe('App js: textarea ceramahSingkatIslam: "https://www.youtube.com/shorts/
     expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(3).classes()).toContain('completed')
-    expect(results.element.value).toEqual('Test #1 - Author One #TestZero #TestThree\n\nhttps://youtu.be/12345')
+    expect(results.element.value).toEqual('Test #1 - Author One #TestZero #TestThree\n\nyoutu.be/12345')
   })
 
   it('textarea ceramahSingkatIslam moved: Test #2', async () => {
@@ -795,14 +813,14 @@ describe('App js: textarea ceramahSingkatIslam: "https://www.youtube.com/shorts/
     // Wait until the DOM updates.
     await flushPromises()
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test #2 - Author Two #TestZero\n\nhttps://youtu.be/54321')
+    expect(results.element.value).toEqual('Test #2 - Author Two #TestZero\n\nyoutu.be/54321')
 
     expect(arrayCeramahSI.at(0).classes()).toContain('completed')
     expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
 
-    expect(results.element.value).toEqual('Test #2 - Author Two #TestZero\n\nhttps://youtu.be/54321')
+    expect(results.element.value).toEqual('Test #2 - Author Two #TestZero\n\nyoutu.be/54321')
   })
 })
 
@@ -823,7 +841,7 @@ describe('App js: textarea ceramahSingkatIslam: "https://youtu.be//-mD93UwO_40" 
     // Wait until the DOM updates.
     await flushPromises()
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual('Test #3 - Author Three #TestZero\n\nhttps://youtu.be/321')
+    expect(results.element.value).toEqual('Test #3 - Author Three #TestZero\n\nyoutu.be/321')
 
     expect(arrayCeramahSI.at(0).classes()).toContain('completed')
     expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
@@ -835,7 +853,7 @@ describe('App js: textarea ceramahSingkatIslam: "https://youtu.be//-mD93UwO_40" 
     expect(arrayCeramahSI.at(1).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(2).classes()).to.deep.equal([])
     expect(arrayCeramahSI.at(3).classes()).toContain('completed')
-    expect(results.element.value).toEqual('Test #3 - Author Three #TestZero #TestThree\n\nhttps://youtu.be/321')
+    expect(results.element.value).toEqual('Test #3 - Author Three #TestZero #TestThree\n\nyoutu.be/321')
   })
 })
 
@@ -854,7 +872,7 @@ describe('App js: textarea ceramahSingkatIslam: "https://youtube.com/shorts/peUj
 
     // Wait until the DOM updates.
     await flushPromises()
-    expect(results.element.value).toEqual('Test #4 - Author Three #TestZero\n\nhttps://youtu.be/4321')
+    expect(results.element.value).toEqual('Test #4 - Author Three #TestZero\n\nyoutu.be/4321')
 
     await checkboxCeramahSI.at(2).setValue(true)
     expect(arrayCeramahSI.at(0).classes()).toContain('completed')
@@ -862,6 +880,6 @@ describe('App js: textarea ceramahSingkatIslam: "https://youtube.com/shorts/peUj
     expect(arrayCeramahSI.at(2).classes()).toContain('completed')
     expect(arrayCeramahSI.at(3).classes()).to.deep.equal([])
 
-    expect(results.element.value).toEqual('Test #4 - Author Three #TestZero #TestTwo\n\nhttps://youtu.be/4321')
+    expect(results.element.value).toEqual('Test #4 - Author Three #TestZero #TestTwo\n\nyoutu.be/4321')
   })
 })
