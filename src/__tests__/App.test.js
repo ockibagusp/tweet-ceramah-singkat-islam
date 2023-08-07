@@ -380,7 +380,7 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
         allCheckboxesEnabled: 'diaktifkan: 2'
       },
       {
-        name: 'Test Three',
+        name: 'Test Four',
         index: 4,
         listBool: [true, false, false, true, true],
         hasil: `Test Two - Author Two #TestZero #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000`,
@@ -484,7 +484,6 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
     await checkboxCeramahSI.at(4).setValue(false)
   })
 
-  // ustadz
   it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async () => {
     assert.equal(results.element.value, 'Test Two - Author Two #TestThree\n\nyoutu.be/0000')
 
