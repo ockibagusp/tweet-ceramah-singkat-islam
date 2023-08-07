@@ -452,12 +452,20 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
         allCheckboxesEnabled: 'diaktifkan: 3'
       },
       {
+        name: 'Test Four',
+        index: 4,
+        listBool: [false, false, true, true, false],
+        results: `Test Two - Author Two #TestTwo #TestThree\n\nyoutu.be/0000`,
+        tweetIs: 'Tweet is: + 224',
+        allCheckboxesEnabled: 'diaktifkan: 2'
+      },
+      {
         name: 'Test Two',
         index: 2,
-        listBool: [false, false, false, true, true],
-        results: 'Test Two - Author Two #TestThree #TestFour #Test4 #Four #4\n\nyoutu.be/0000',
-        tweetIs: 'Tweet is: + 207',
-        allCheckboxesEnabled: 'diaktifkan: 2'
+        listBool: [false, false, false, true, false],
+        results: 'Test Two - Author Two #TestThree\n\nyoutu.be/0000',
+        tweetIs: 'Tweet is: + 233',
+        allCheckboxesEnabled: 'diaktifkan: 1'
       }
     ]
 
@@ -479,9 +487,6 @@ describe('App js: textarea `hasil` untuk array untuk ceramah dan Ustadz', async 
       // `semua kotak centang` diaktifkan
       assert.equal(allCheckboxesEnabled.text(), test.allCheckboxesEnabled)
     }
-
-    // Test 'unchecked ke-4': #TestFour #Test4 #Four #4
-    await checkboxCeramahSI.at(4).setValue(false)
   })
 
   it('App js: textarea `hasil` untuk array untuk ustadz: dicentang', async () => {
