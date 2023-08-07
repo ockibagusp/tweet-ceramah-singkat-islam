@@ -346,7 +346,6 @@ export default {
             return;
           }
 
-          let tweetArray = [];
           let isTweets = [];
 
           // tweetSplit.length !== 0
@@ -356,7 +355,6 @@ export default {
               "i"
             );
 
-            tweetArray[index] = element.toLowerCase();
             // true: !true (false)
             //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
             // false: !false (true)
@@ -367,7 +365,11 @@ export default {
           for (let i = 0; i < tweetSplit.length; i++) {
             const element = tweetSplit.at(i);
             if (!isTweets.at(i)) {
-              if (tweetArray.at(i) === element.toLowerCase())
+              console.log(tweetSplit.at(i).toLocaleLowerCase());
+              console.log(element.toLowerCase());
+              if (
+                tweetSplit.at(i).toLocaleLowerCase() === element.toLowerCase()
+              )
                 ceramahSIText += `${element} `;
             }
           }
@@ -479,8 +481,8 @@ export default {
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     ceramahAndUstChanged(event, index, isArray) {
-      let tweets = "";
-      let tweetArray = [];
+      // e.q: tweet = "Test One";
+      let tweet = "";
       let isTweets = [];
 
       // array: caramah dan Ustadz
@@ -488,12 +490,12 @@ export default {
       let betaArray = [];
 
       if (isArray === "ceramahSI") {
-        tweets = this.arrayCeramahSI.at(index).tweets;
+        tweet = this.arrayCeramahSI.at(index).tweets;
 
         alphaArray = this.arrayCeramahSI;
         betaArray = this.arrayUstadz;
       } else if (isArray === "ustadz") {
-        tweets = this.arrayUstadz.at(index).tweets;
+        tweet = this.arrayUstadz.at(index).tweets;
 
         alphaArray = this.arrayUstadz;
         betaArray = this.arrayCeramahSI;
@@ -503,7 +505,7 @@ export default {
         );
       }
 
-      const tweetSplit = tweets.split(" ");
+      const tweetSplit = tweet.split(" ");
       if (tweetSplit.length === 0) {
         console.log("alert: tweetSplit = []");
         return;
@@ -514,37 +516,54 @@ export default {
         // "i": a A => a
         const tweetRegex = new RegExp(tweetSplit.at(index).toLowerCase(), "i");
 
-        tweetArray[index] = element.toLowerCase();
+        // true: !true (false)
+        //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+        // false: !false (true)
+        //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
         isTweets[index] = tweetRegex.test(this.results.toLowerCase());
       });
+
+      console.log("tweetSplit:", tweetSplit);
+
+      console.log("isTweets:", isTweets);
 
       if (event.target.checked) {
         let newArrayAlphaTweets = "";
 
         if (isArray === "ceramahSI") {
-          // ???
           // arrayCeramahSI
-          console.log("alphaArray:", alphaArray);
           for (let i = 0; i < alphaArray.length; i++) {
-            const iElement = alphaArray.at(i);
-            if (iElement.completed !== false) {
-              console.log(iElement.completed !== false);
-              for (let j = 0; j < tweetSplit.length; j++) {
-                const jElement = tweetSplit.at(j);
-                if (!isTweets.at(j)) {
-                  newArrayAlphaTweets += `${jElement} `;
+            const alpha = alphaArray.at(i);
+            // !false === true
+            if (alpha.completed === true) {
+              if (tweet === alpha.tweets) {
+                console.log("ok");
+                for (let j = 0; j < tweetSplit.length; j++) {
+                  const jTweet = tweetSplit.at(j);
+                  console.log("jTweet:", jTweet);
+                  console.log("checked:", alpha.tweets);
+                  console.log("isTweets[i]:", isTweets[i]);
+                  if (!isTweets.at(j)) {
+                    if (
+                      tweetSplit.at(j).toLocaleLowerCase() ===
+                      jTweet.toLowerCase()
+                    )
+                      newArrayAlphaTweets += `${jTweet} `;
+                  }
                 }
+              }
+              // !false === true
+              else {
+                console.log("else checked:", alpha.tweets);
+                newArrayAlphaTweets += `${alpha.tweets} `;
               }
             }
           }
 
           for (let j = 0; j < betaArray.length; j++) {
-            if (tweetSplit.length !== 1) {
-              if (!isTweets) {
-                if (betaArray.at(j).completed !== false) {
-                  newArrayAlphaTweets += `${betaArray.at(j).tweets} `;
-                }
-              }
+            // true == !false
+            if (betaArray.at(j).completed !== false) {
+              newArrayAlphaTweets += `${betaArray.at(j).tweets} `;
             }
           }
 
@@ -580,9 +599,9 @@ export default {
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled++;
       } else {
-        const rightComma = `${tweets} `;
-        const leftComma = ` ${tweets}`;
-        const bothComma = ` ${tweets} `;
+        const rightComma = `${tweet} `;
+        const leftComma = ` ${tweet}`;
+        const bothComma = ` ${tweet} `;
 
         let release = "";
         if (this.results.includes(rightComma)) {
