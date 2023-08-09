@@ -350,6 +350,7 @@ export default {
           });
         }
 
+        let ceramahSIText = "";
         if (judulText != "") {
           // TODO: config.json
           let arrayTweets = [this.arraysCeramahSI[0].tweets];
@@ -380,13 +381,11 @@ export default {
               }
             });
 
-            // ObjCeramahSITweets === undefined
-            this.objCeramahSITweets[index] = arrayCeramahSI.join(" ");
+            ceramahSIText = arrayCeramahSI.join(" ");
+            this.objCeramahSITweets[index] = ceramahSIText;
           }
 
           console.log("this.objCeramahSITweets:", this.objCeramahSITweets);
-
-          let ceramahSIText = arrayCeramahSI.join(" ");
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
@@ -539,6 +538,7 @@ export default {
 
       console.log("isTweets:", isTweets);
 
+      // ObjCeramahSITweets === undefined
       if (event.target.checked) {
         let newArrayAlphaTweets = "";
 
