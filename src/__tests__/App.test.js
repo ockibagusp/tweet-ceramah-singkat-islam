@@ -17,7 +17,7 @@ const wrapper = mount(App, {
   data() {
     return {
       // array: ceramah singkat Islam
-      arrayCeramahSI: [
+      arraysCeramahSI: [
         // [0]
         {
           name: 'Test Zero',
@@ -55,7 +55,7 @@ const wrapper = mount(App, {
         }
       ],
       // array: Ustadz
-      arrayUstadz: [
+      arraysUstadz: [
         // [0]
         {
           name: 'Author One',
