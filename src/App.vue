@@ -47,6 +47,12 @@ export default {
           completed: false,
         },
         {
+          name: "Sholat",
+          tweets: "#Sholat",
+          url: "https://twitter.com/search?q=%23Sholat",
+          completed: false,
+        },
+        {
           name: "Sedekah",
           tweets: "#Sedekah",
           url: "https://twitter.com/search?q=%23Sedekah",
