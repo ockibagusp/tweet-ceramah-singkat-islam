@@ -145,8 +145,9 @@ export default {
       judulText: "",
       // string: Youtube video
       youtubeVideo: "",
-      // objects: ceramah singkat Islam tweets
+      // objects: ceramah singkat Islam dan Ustadz tweets
       objCeramahSITweets: {},
+      objUstadzTweets: {},
 
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
@@ -375,8 +376,8 @@ export default {
               //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
               // false: !false (true)
               //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-              const isTweets = tweetRegex.test(judulText.toLowerCase());
-              if (!isTweets) {
+              const isTweet = tweetRegex.test(judulText.toLowerCase());
+              if (!isTweet) {
                 arrayCeramahSI.push(element);
               }
             });
@@ -384,8 +385,6 @@ export default {
             ceramahSIText = arrayCeramahSI.join(" ");
             this.objCeramahSITweets[index] = ceramahSIText;
           }
-
-          console.log("this.objCeramahSITweets:", this.objCeramahSITweets);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
@@ -494,7 +493,9 @@ export default {
     ceramahAndUstChanged(event, index, isArray) {
       // e.q: tweet = "Test One";
       let tweet = "";
-      let isTweets = [];
+      let arrayCeramahSI = [];
+      // arrays: Ustadz
+      let arraysUstadz = [];
 
       // array: caramah dan Ustadz
       let alphaArray = [];
@@ -525,79 +526,50 @@ export default {
       // tweetSplit.length !== 0
       tweetSplit.forEach((element, index) => {
         // "i": a A => a
-        const tweetRegex = new RegExp(tweetSplit.at(index).toLowerCase(), "i");
+        const tweetRegex = new RegExp(element.toLowerCase(), "i");
 
         // true: !true (false)
         //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
         // false: !false (true)
         //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-        isTweets[index] = tweetRegex.test(this.results.toLowerCase());
+        const isTweet = tweetRegex.test(this.results.toLowerCase());
+        if (!isTweet) {
+          arrayCeramahSI.push(element);
+        }
       });
 
-      console.log("tweetSplit:", tweetSplit);
+      let ceramahSIText = arrayCeramahSI.join(" ");
+      this.objCeramahSITweets[index] = ceramahSIText;
 
-      console.log("isTweets:", isTweets);
+      console.log("tweetSplit:", tweetSplit);
+      console.log("this.objCeramahSITweets:", this.objCeramahSITweets);
 
       // ObjCeramahSITweets === undefined
       if (event.target.checked) {
+        // ???
         let newArrayAlphaTweets = "";
 
         if (isArray === "ceramahSI") {
           // arrayCeramahSI
-          for (let i = 0; i < alphaArray.length; i++) {
-            const alpha = alphaArray.at(i);
-            // !false === true
-            if (alpha.completed === true) {
-              if (tweet === alpha.tweets) {
-                console.log("ok");
-                for (let j = 0; j < tweetSplit.length; j++) {
-                  const jTweet = tweetSplit.at(j);
-                  console.log("jTweet:", jTweet);
-                  console.log("checked:", alpha.tweets);
-                  console.log("isTweets[i]:", isTweets[i]);
-                  if (!isTweets.at(j)) {
-                    if (
-                      tweetSplit.at(j).toLocaleLowerCase() ===
-                      jTweet.toLowerCase()
-                    )
-                      newArrayAlphaTweets += `${jTweet} `;
-                  }
-                }
-              }
-              // !false === true
-              else {
-                const tweetSplit = tweet.split(" ");
-                if (tweetSplit.length === 0) {
-                  console.log("alert: tweetSplit = []");
-                  return;
-                }
-
-                // tweetSplit.length !== 0
-                tweetSplit.forEach((element, index) => {
-                  // "i": a A => a
-                  const tweetRegex = new RegExp(
-                    tweetSplit.at(index).toLowerCase(),
-                    "i"
-                  );
-
-                  // true: !true (false)
-                  //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-                  // false: !false (true)
-                  //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-                  isTweets[index] = tweetRegex.test(this.results.toLowerCase());
-                });
-                console.log("else checked:", alpha.tweets);
-                newArrayAlphaTweets += `${alpha.tweets} `;
-              }
+          // !false === true
+          if (alpha.completed === true) {
+            for (let i = 0; i < tweetSplit.length; i++) {
+              const iTweet = tweetSplit.at(i);
+              console.log("jTweet:", iTweet);
+              console.log("checked:", alpha.tweets);
+              if (tweetSplit.at(i).toLocaleLowerCase() === iTweet.toLowerCase())
+                arrayCeramahSI.push(iTweet);
             }
           }
 
           for (let j = 0; j < betaArray.length; j++) {
             // true == !false
             if (betaArray.at(j).completed !== false) {
-              newArrayAlphaTweets += `${betaArray.at(j).tweets} `;
+              arraysUstadz.push(betaArray.at(j).tweets);
             }
           }
+
+          this.objCeramahSITweets.join(" ");
 
           newArrayAlphaTweets = newArrayAlphaTweets.substring(
             0,
