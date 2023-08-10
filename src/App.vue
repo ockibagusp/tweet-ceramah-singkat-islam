@@ -345,14 +345,14 @@ export default {
         let ceramahSIText = "";
         if (judulText != "") {
           // TODO: config.json
-          let startTweets = [0];
-          let arraysStartTweets = [];
+          let startCeramahSITweets = [0];
+          let arraysStartCeramahSITweets = [];
 
           for (let i = 0; i < this.arraysCeramahSI.length; i++) {
             const element = this.arraysCeramahSI.at(i);
             // [i] =>
             // .at(i) => i | undefined
-            if (startTweets.at(i) !== undefined) {
+            if (startCeramahSITweets.at(i) !== undefined) {
               const tweetSplit = element.tweets.split(" ");
               if (tweetSplit.length === 0) {
                 console.log("alert: tweetSplit = []");
@@ -373,7 +373,7 @@ export default {
                 //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
                 const isTweet = tweetRegex.test(judulText.toLowerCase());
                 if (!isTweet) {
-                  arraysStartTweets.push(jElement);
+                  arraysStartCeramahSITweets.push(jElement);
                 }
               });
               // [i].completed => true
@@ -382,7 +382,7 @@ export default {
               this.allCheckboxesEnabled++;
             }
 
-            ceramahSIText = arraysStartTweets.join(" ");
+            ceramahSIText = arraysStartCeramahSITweets.join(" ");
           }
 
           this.judulText = judulText;
