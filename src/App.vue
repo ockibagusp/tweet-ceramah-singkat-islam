@@ -151,9 +151,6 @@ export default {
       judulText: "",
       // string: Youtube video
       youtubeVideo: "",
-      // objects: ceramah singkat Islam dan Ustadz tweets
-      objCeramahSITweets: {},
-      objUstadzTweets: {},
 
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
@@ -199,19 +196,7 @@ export default {
       this.allCheckboxesEnabled = 1;
 
       let judulText = "";
-      let arrayCeramahSI = [];
       let results = "";
-
-      // // ????
-      // this.objCeramahSITweets = {
-      //   4: ["test4"],
-      //   1: ["test", "test1"],
-      //   6: ["test6"],
-      // };
-      // console.table(this.objCeramahSITweets);
-      // console.log(this.objCeramahSITweets["6"]);
-      // console.log(this.objCeramahSITweets["2"]);
-      // console.log("----");
 
       // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
       if (this.ceramahSingkatIslam === "") {
@@ -360,36 +345,44 @@ export default {
         let ceramahSIText = "";
         if (judulText != "") {
           // TODO: config.json
-          let arrayTweets = [this.arraysCeramahSI[0].tweets];
+          let startTweets = [0];
+          let arraysStartTweets = [];
 
-          for (let index = 0; index < arrayTweets.length; index++) {
-            const element = arrayTweets.at(index);
-            const tweetSplit = element.split(" ");
-            if (tweetSplit.length === 0) {
-              console.log("alert: tweetSplit = []");
-              return;
+          for (let i = 0; i < this.arraysCeramahSI.length; i++) {
+            const element = this.arraysCeramahSI.at(i);
+            // [i] =>
+            // .at(i) => i | undefined
+            if (startTweets.at(i) !== undefined) {
+              const tweetSplit = element.tweets.split(" ");
+              if (tweetSplit.length === 0) {
+                console.log("alert: tweetSplit = []");
+                return;
+              }
+
+              // tweetSplit.length !== 0
+              tweetSplit.forEach((jElement) => {
+                const tweetRegex = new RegExp(
+                  // e.q: tweetSplit.at(index).toLowerCase(),
+                  jElement.toLowerCase(),
+                  "i"
+                );
+
+                // true: !true (false)
+                //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+                // false: !false (true)
+                //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+                const isTweet = tweetRegex.test(judulText.toLowerCase());
+                if (!isTweet) {
+                  arraysStartTweets.push(jElement);
+                }
+              });
+              // [i].completed => true
+              // array: arrayCeramahSI: Singkat => true
+              element.completed = true;
+              this.allCheckboxesEnabled++;
             }
 
-            // tweetSplit.length !== 0
-            tweetSplit.forEach((element) => {
-              const tweetRegex = new RegExp(
-                // e.q: tweetSplit.at(index).toLowerCase(),
-                element.toLowerCase(),
-                "i"
-              );
-
-              // true: !true (false)
-              //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-              // false: !false (true)
-              //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-              const isTweet = tweetRegex.test(judulText.toLowerCase());
-              if (!isTweet) {
-                arrayCeramahSI.push(element);
-              }
-            });
-
-            ceramahSIText = arrayCeramahSI.join(" ");
-            this.objCeramahSITweets[index] = ceramahSIText;
+            ceramahSIText = arraysStartTweets.join(" ");
           }
 
           this.judulText = judulText;
@@ -405,10 +398,6 @@ export default {
           this.isResultsDefault();
         }
         this.results = results;
-
-        // array: arrayCeramahSI: Singkat => true
-        this.arraysCeramahSI.at(0).completed = true;
-        this.allCheckboxesEnabled = 1;
       } catch {
         this.isResultsError();
       }
