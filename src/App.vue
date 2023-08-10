@@ -25,7 +25,7 @@ export default {
       resultsBool: false,
       // tweet dihasil maks. 280 karakter
       counts: 280,
-      // array: ceramah singkat Islam
+      // arrays: ceramah singkat Islam
       arraysCeramahSI: [
         {
           name: "Singkat",
@@ -107,7 +107,7 @@ export default {
           completed: false,
         },
       ],
-      // array: Ustadz
+      // arrays: Ustadz
       arraysUstadz: [
         {
           name: "Dr. Firanda Andirja, Lc., M.A.",
