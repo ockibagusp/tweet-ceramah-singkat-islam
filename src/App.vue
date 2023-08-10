@@ -451,6 +451,8 @@ export default {
 
     btnCheckBoxAll() {
       if (this.selectCheckBoxAll === true) {
+        // TODO: config.json
+
         // Singkat
         let ceramahSIText = this.arraysCeramahSI.at(0).tweets;
         this.arraysCeramahSI.at(0).completed = true;
