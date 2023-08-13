@@ -17,7 +17,7 @@ const wrapper = mount(App, {
   data() {
     return {
       // array: ceramah singkat Islam
-      arraysCeramahSI: [
+      arrsCeramahSI: [
         // [0]
         {
           name: 'Test Zero',
@@ -55,7 +55,7 @@ const wrapper = mount(App, {
         }
       ],
       // array: Ustadz
-      arraysUstadz: [
+      arrsUstadz: [
         // [0]
         {
           name: 'Author One',
@@ -91,7 +91,9 @@ const wrapper = mount(App, {
           url: '#',
           completed: false
         }
-      ]
+      ],
+      arrStartCermTweets: [0],
+      arrStartUstTweets: []
     }
   }
 })
@@ -135,8 +137,8 @@ describe('App js: init', () => {
   })
 })
 
-describe('App js: delete tweet youtube video', () => {
-  it('delete tweet youtube video', async () => {
+describe('App js: start tweet youtube video', () => {
+  it('start tweet youtube video', async () => {
     // GET
     vi.spyOn(axios, 'get').mockResolvedValueOnce({
       data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
