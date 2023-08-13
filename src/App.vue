@@ -26,7 +26,7 @@ export default {
       // tweet dihasil maks. 280 karakter
       counts: 280,
       // arrays: ceramah singkat Islam
-      arraysCeramahSI: [
+      arrsCeramahSI: [
         {
           name: "Singkat",
           tweets: "#CeramahPendek #Shorts #Video #YouTube",
@@ -108,7 +108,7 @@ export default {
         },
       ],
       // arrays: Ustadz
-      arraysUstadz: [
+      arrsUstadz: [
         {
           name: "Dr. Firanda Andirja, Lc., M.A.",
           tweets: "#UstadzFirandaAndirja #FirandaAndirja",
@@ -146,6 +146,17 @@ export default {
           completed: false,
         },
       ],
+
+      // TODO: config.json
+      // tweets: e.q
+      //  [0] => "#CeramahPendek #Shorts #Video #YouTube"
+      //  [1] => "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu"
+      //  ...
+      arrStartCermTweets: [0],
+      // tweets: e.q
+      //  [0] => "#UstadzFirandaAndirja #FirandaAndirja"
+      //  ...
+      arrStartUstTweets: [],
 
       // string: judul
       judulText: "",
@@ -207,10 +218,10 @@ export default {
       }
 
       if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
-        this.arraysCeramahSI.forEach((element) => {
+        this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
-        this.arraysUstadz.forEach((element) => {
+        this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
       } else {
@@ -218,10 +229,10 @@ export default {
       }
 
       if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
-        this.arraysCeramahSI.forEach((element) => {
+        this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
-        this.arraysUstadz.forEach((element) => {
+        this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
       } else {
@@ -342,54 +353,15 @@ export default {
           });
         }
 
-        let ceramahSIText = "";
         if (judulText != "") {
-          // TODO: config.json
-          let startCeramahSITweets = [0];
-          let arraysStartCeramahSITweets = [];
-
-          for (let i = 0; i < this.arraysCeramahSI.length; i++) {
-            const element = this.arraysCeramahSI.at(i);
-            // [i] =>
-            // .at(i) => i | undefined
-            if (startCeramahSITweets.at(i) !== undefined) {
-              const tweetSplit = element.tweets.split(" ");
-              if (tweetSplit.length === 0) {
-                console.log("alert: tweetSplit = []");
-                return;
-              }
-
-              // tweetSplit.length !== 0
-              tweetSplit.forEach((jElement) => {
-                const tweetRegex = new RegExp(
-                  // e.q: tweetSplit.at(index).toLowerCase(),
-                  jElement.toLowerCase(),
-                  "i"
-                );
-
-                // true: !true (false)
-                //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-                // false: !false (true)
-                //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-                const isTweet = tweetRegex.test(judulText.toLowerCase());
-                if (!isTweet) {
-                  arraysStartCeramahSITweets.push(jElement);
-                }
-              });
-              // [i].completed => true
-              // array: arrayCeramahSI: Singkat => true
-              element.completed = true;
-              this.allCheckboxesEnabled++;
-            }
-
-            ceramahSIText = arraysStartCeramahSITweets.join(" ");
-          }
+          // => ceramahsi ustadz
+          let cermAndUstText = this.startTweetsFunc(judulText);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
 
           // textarea youtube.com ke youtu.be
-          results = `${judulText} ${ceramahSIText}\n\n${this.youtubeVideo}`;
+          results = `${judulText} ${cermAndUstText}\n\n${this.youtubeVideo}`;
           this.isResultsSuccess(results.length);
         }
 
@@ -402,15 +374,105 @@ export default {
         this.isResultsError();
       }
     },
+
+    // startTweetsFunc("...") => "..."
+    // startTweetsFunc() => alert
+    //
+    // e.q
+    // Start Ceramah SI and Ustadz Tweets:
+    // startTweetsFunc("Test One")
+    startTweetsFunc(judulText = "") {
+      // prevDone
+
+      // ceramahSI
+      let arrStartTweets = [];
+      for (let i = 0; i < this.arrsCeramahSI.length; i++) {
+        console.log("cerm:", this.arrStartCermTweets);
+        const currCeramahSI = this.arrsCeramahSI.at(i);
+        // [i] => i |
+        // .at(i) => i | undefined
+        if (this.arrStartCermTweets.at(i) !== undefined) {
+          const tweetSplit = currCeramahSI.tweets.split(" ");
+          if (tweetSplit.length === 0) {
+            console.log("alert: this.arrsCeramahSI is tweetSplit = []");
+            return;
+          }
+
+          // tweetSplit.length !== 0
+          tweetSplit.forEach((tweet) => {
+            const tweetRegex = new RegExp(
+              // e.q: tweetSplit.at(index).toLowerCase(),
+              tweet.toLowerCase(),
+              "i"
+            );
+
+            // true: !true (false)
+            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+            // false: !false (true)
+            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+            const isTweet = tweetRegex.test(judulText.toLowerCase());
+            if (!isTweet) {
+              arrStartTweets.push(tweet);
+            }
+          });
+          // [i].completed => true
+          // array: arrayCeramahSI: Singkat => true
+          currCeramahSI.completed = true;
+          this.allCheckboxesEnabled++;
+        }
+      }
+
+      // Ustadz
+      for (let i = 0; i < this.arrsUstadz.length; i++) {
+        const currUstadz = this.arrsUstadz.at(i);
+        // [i] => i |
+        // .at(i) => i | undefined
+        console.log("ust:", this.arrStartUstTweets);
+        if (this.arrStartUstTweets.at(i) !== undefined) {
+          const tweetsSplit = currUstadz.tweets.split(" ");
+          if (tweetsSplit.length === 0) {
+            console.log("alert: this.arrsUstadz is tweetSplit = []");
+            return;
+          }
+
+          // tweetSplit.length !== 0
+          tweetsSplit.forEach((tweet) => {
+            const tweetRegex = new RegExp(
+              // e.q: tweetSplit.at(index).toLowerCase(),
+              tweet.toLowerCase(),
+              "i"
+            );
+
+            // true: !true (false)
+            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+            // false: !false (true)
+            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+            const isTweet = tweetRegex.test(judulText.toLowerCase());
+            if (!isTweet) {
+              arrStartTweets.push(tweet);
+            }
+          });
+          // [i].completed => true
+          // array: arrayCeramahSI: Singkat => true
+          currUstadz.completed = true;
+          this.allCheckboxesEnabled++;
+        }
+      }
+
+      console.log("p>", arrStartTweets);
+
+      return arrStartTweets.join(" ");
+    },
+
     // button: reset, copy dan tweet
     btnReset() {
       this.ceramahSingkatIslam = "";
       // autofocus
       this.$refs.ceramahSingkatIslam.focus();
-      this.arraysCeramahSI.forEach((element) => {
+      this.arrsCeramahSI.forEach((element) => {
         element.completed = false;
       });
-      this.arraysUstadz.forEach((element) => {
+      this.arrsCeramahSI.forEach((element) => {
         element.completed = false;
       });
       this.isNotResults();
@@ -454,10 +516,10 @@ export default {
         // TODO: config.json
 
         // Singkat
-        let ceramahSIText = this.arraysCeramahSI.at(0).tweets;
-        this.arraysCeramahSI.at(0).completed = true;
+        let ceramahSIText = this.arrsCeramahSI.at(0).tweets;
+        this.arrsCeramahSI.at(0).completed = true;
 
-        this.arraysUstadz.forEach((element) => {
+        this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
 
@@ -471,10 +533,10 @@ export default {
 
         this.selectCheckBoxAll = false;
       } else {
-        this.arraysCeramahSI.forEach((val, index) => {
-          this.arraysCeramahSI[index].completed = false;
+        this.arrsCeramahSI.forEach((val, index) => {
+          this.arrsCeramahSI[index].completed = false;
         });
-        this.arraysUstadz.forEach((element) => {
+        this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
 
@@ -487,27 +549,27 @@ export default {
 
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
-    ceramahAndUstChanged(event, index, isArray) {
+    cermAndUstChanged(event, index, isArray) {
       // e.q: tweet = "Test One";
       let tweet = "";
-      let arrayCeramahSI = [];
+      let arrsCeramahSI = [];
       // arrays: Ustadz
-      let arraysUstadz = [];
+      let arrsUstadz = [];
 
       // array: caramah dan Ustadz
       let alphaArray = [];
       let betaArray = [];
 
       if (isArray === "ceramahSI") {
-        tweet = this.arraysCeramahSI.at(index).tweets;
+        tweet = this.arrsCeramahSI.at(index).tweets;
 
-        alphaArray = this.arraysCeramahSI;
-        betaArray = this.arraysUstadz;
+        alphaArray = this.arrsCeramahSI;
+        betaArray = this.arrsCeramahSI;
       } else if (isArray === "ustadz") {
-        tweet = this.arraysUstadz.at(index).tweets;
+        tweet = this.arrsCeramahSI.at(index).tweets;
 
-        alphaArray = this.arraysUstadz;
-        betaArray = this.arraysCeramahSI;
+        alphaArray = this.arrsCeramahSI;
+        betaArray = this.arrsCeramahSI;
       } else {
         alert(
           "ceramahAndUstChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'"
@@ -531,12 +593,12 @@ export default {
         //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
         const isTweet = tweetRegex.test(this.results.toLowerCase());
         if (!isTweet) {
-          arrayCeramahSI.push(element);
+          arrsCeramahSI.push(element);
         }
       });
 
-      let ceramahSIText = arrayCeramahSI.join(" ");
-      this.objCeramahSITweets[index] = ceramahSIText;
+      let ceramahSIText = arrsCeramahSI.join(" ");
+      // this.objCeramahSITweets.push(index) = ceramahSIText;
 
       console.log("tweetSplit:", tweetSplit);
       console.log("this.objCeramahSITweets:", this.objCeramahSITweets);
@@ -555,14 +617,14 @@ export default {
               console.log("jTweet:", iTweet);
               console.log("checked:", alpha.tweets);
               if (tweetSplit.at(i).toLocaleLowerCase() === iTweet.toLowerCase())
-                arrayCeramahSI.push(iTweet);
+                arrsCeramahSI.push(iTweet);
             }
           }
 
           for (let j = 0; j < betaArray.length; j++) {
             // true == !false
             if (betaArray.at(j).completed !== false) {
-              arraysUstadz.push(betaArray.at(j).tweets);
+              arrsUstadz.push(betaArray.at(j).tweets);
             }
           }
 
@@ -654,10 +716,10 @@ export default {
       this.counts = 280;
       this.selectCopy = false;
       this.selectTweet = false;
-      this.arraysCeramahSI.forEach((val, index) => {
-        this.arraysCeramahSI[index].completed = false;
+      this.arrsCeramahSI.forEach((val, index) => {
+        this.arrsCeramahSI[index].completed = false;
       });
-      this.arraysUstadz.forEach((element) => {
+      this.arrsCeramahSI.forEach((element) => {
         element.completed = false;
       });
       this.allCheckboxesEnabled = 0;
@@ -740,11 +802,11 @@ https://youtu.be/peUj47yc1xo"
     <div v-if="true">
       <h4 style="margin-top: 0px; margin-bottom: 5px">Tag Singkat Islam:</h4>
       <div
-        v-for="(ceramahSI, index) in arraysCeramahSI"
+        v-for="(ceramahSI, index) in arrsCeramahSI"
         :key="ceramahSI.name"
         data-test="array-ceramahSI"
         :class="[ceramahSI.completed ? 'completed' : '']"
-        @change="ceramahAndUstChanged($event, index, 'ceramahSI')"
+        @change="cermAndUstChanged($event, index, 'ceramahSI')"
       >
         <input
           type="checkbox"
@@ -762,11 +824,11 @@ https://youtu.be/peUj47yc1xo"
 
       <h4 style="margin-top: 10px; margin-bottom: 5px">Tag Ustadz:</h4>
       <div
-        v-for="(ustadz, index) in arraysUstadz"
+        v-for="(ustadz, index) in arrsUstadz"
         :key="ustadz.name"
         data-test="array-ustadz"
         :class="[ustadz.completed ? 'completed' : '']"
-        @change="ceramahAndUstChanged($event, index, 'ustadz')"
+        @change="cermAndUstChanged($event, index, 'ustadz')"
       >
         <input
           type="checkbox"

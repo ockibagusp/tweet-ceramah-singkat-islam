@@ -1,0 +1,6 @@
+{
+    # arrayCeramahSI[i].tweets
+    # e.q: [0] => "#CeramahPendek #Shorts #Video #YouTube"
+    #      [1] => "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu"
+    "arraysStartCeramahSI": [0],
+}
