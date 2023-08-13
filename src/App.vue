@@ -387,14 +387,13 @@ export default {
       // ceramahSI
       let arrStartTweets = [];
       for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-        console.log("cerm:", this.arrStartCermTweets);
         const currCeramahSI = this.arrsCeramahSI.at(i);
         // [i] => i |
         // .at(i) => i | undefined
         if (this.arrStartCermTweets.at(i) !== undefined) {
           const tweetSplit = currCeramahSI.tweets.split(" ");
           if (tweetSplit.length === 0) {
-            console.log("alert: this.arrsCeramahSI is tweetSplit = []");
+            console.log("alert: this.arrStartCermTweets is tweetSplit = []");
             return;
           }
 
@@ -427,11 +426,10 @@ export default {
         const currUstadz = this.arrsUstadz.at(i);
         // [i] => i |
         // .at(i) => i | undefined
-        console.log("ust:", this.arrStartUstTweets);
         if (this.arrStartUstTweets.at(i) !== undefined) {
           const tweetsSplit = currUstadz.tweets.split(" ");
           if (tweetsSplit.length === 0) {
-            console.log("alert: this.arrsUstadz is tweetSplit = []");
+            console.log("alert: this.arrStartUstTweets is tweetSplit = []");
             return;
           }
 
@@ -458,8 +456,6 @@ export default {
           this.allCheckboxesEnabled++;
         }
       }
-
-      console.log("p>", arrStartTweets);
 
       return arrStartTweets.join(" ");
     },
