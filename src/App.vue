@@ -354,7 +354,7 @@ export default {
         }
 
         if (judulText != "") {
-          // => ceramahsi ustadz
+          // => ceramahsi dan ustadz
           let cermAndUstText = this.startTweetsFunc(judulText);
 
           this.judulText = judulText;
@@ -511,17 +511,12 @@ export default {
       if (this.selectCheckBoxAll === true) {
         // TODO: config.json
 
-        // Singkat
-        let ceramahSIText = this.arrsCeramahSI.at(0).tweets;
-        this.arrsCeramahSI.at(0).completed = true;
+        // => ceramahsi dan ustadz
+        let cermAndUstText = this.startTweetsFunc(this.judulText);
 
-        this.arrsCeramahSI.forEach((element) => {
-          element.completed = false;
-        });
-
-        this.results = `${this.judulText} ${ceramahSIText}\n\n${this.youtubeVideo}`;
+        // textarea youtube.com ke youtu.be
+        this.results = `${this.judulText} ${cermAndUstText}\n\n${this.youtubeVideo}`;
         this.isResultsSuccess(this.results.length);
-        this.allCheckboxesEnabled = 1;
 
         this.selectResults = true;
         this.selectCopy = true;
@@ -530,10 +525,10 @@ export default {
         this.selectCheckBoxAll = false;
       } else {
         this.arrsCeramahSI.forEach((val, index) => {
-          this.arrsCeramahSI[index].completed = false;
+          this.arrsCeramahSI.at(index).completed = false;
         });
-        this.arrsCeramahSI.forEach((element) => {
-          element.completed = false;
+        this.arrsCeramahSI.forEach((ceramahSI) => {
+          ceramahSI.completed = false;
         });
 
         this.results = `${this.judulText}\n\n${this.youtubeVideo}`;
