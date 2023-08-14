@@ -417,7 +417,7 @@ export default {
             }
           });
           // [i].completed => true
-          // array: arrayCeramahSI: Singkat => true
+          // arrays: arrsCeramahSI: Singkat => true
           currCeramahSI.completed = true;
           this.allCheckboxesEnabled++;
         }
@@ -455,7 +455,7 @@ export default {
             }
           });
           // [i].completed => true
-          // array: arrayCeramahSI: Singkat => true
+          // arrays: arrsUstadz: "Dr. Firanda Andirja, Lc., M.A." => true
           currUstadz.completed = true;
           this.allCheckboxesEnabled++;
         }
@@ -593,7 +593,7 @@ export default {
         let newArrayAlphaTweets = "";
 
         if (isArray === "ceramahSI") {
-          // arrayCeramahSI
+          // arrsCeramahSI
           // !false === true
           if (alpha.completed === true) {
             for (let i = 0; i < tweetTagsSplit.length; i++) {
