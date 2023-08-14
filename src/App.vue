@@ -429,8 +429,8 @@ export default {
         // [i] => i |
         // .at(i) => i | undefined
         if (this.arrStartUstTweets.at(i) !== undefined) {
-          const tweetsSplit = currUstadz.tweets.split(" ");
-          if (tweetsSplit.length === 0) {
+          const tweetTagsSplit = currUstadz.tweets.split(" ");
+          if (tweetTagsSplit.length === 0) {
             alert(
               "(method) startTweetsTagsFunc => this.arrStartUstTweets is tweetTagsSplit = []"
             );
@@ -438,7 +438,7 @@ export default {
           }
 
           // tweetTagsSplit.length !== 0
-          tweetsSplit.forEach((tweet) => {
+          tweetTagsSplit.forEach((tweet) => {
             const tweetTagRegex = new RegExp(
               // e.q: tweetTagsSplit.at(index).toLowerCase(),
               tweet.toLowerCase(),
