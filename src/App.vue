@@ -355,7 +355,7 @@ export default {
 
         if (judulText != "") {
           // => ceramahsi dan ustadz
-          let cermAndUstText = this.startTweetsFunc(judulText);
+          let cermAndUstText = this.startTweetsTagsFunc(judulText);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
@@ -381,7 +381,7 @@ export default {
     // e.q
     // Start Ceramah SI and Ustadz Tweets:
     // startTweetsFunc("Test One")
-    startTweetsFunc(judulText = "") {
+    startTweetsTagsFunc(judulText = "") {
       // prevDone
 
       // ceramahSI
@@ -512,7 +512,7 @@ export default {
         // TODO: config.json
 
         // => ceramahsi dan ustadz
-        let cermAndUstText = this.startTweetsFunc(this.judulText);
+        let cermAndUstText = this.startTweetsTagsFunc(this.judulText);
 
         // textarea youtube.com ke youtu.be
         this.results = `${this.judulText} ${cermAndUstText}\n\n${this.youtubeVideo}`;
@@ -540,7 +540,7 @@ export default {
 
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
-    cermAndUstChanged(event, index, isArray) {
+    tweetsTagsChanged(event, index, isArray) {
       // e.q: tweet = "Test One";
       let tweet = "";
       let arrsCeramahSI = [];
@@ -797,7 +797,7 @@ https://youtu.be/peUj47yc1xo"
         :key="ceramahSI.name"
         data-test="array-ceramahSI"
         :class="[ceramahSI.completed ? 'completed' : '']"
-        @change="cermAndUstChanged($event, index, 'ceramahSI')"
+        @change="tweetsTagsChanged($event, index, 'ceramahSI')"
       >
         <input
           type="checkbox"
@@ -819,7 +819,7 @@ https://youtu.be/peUj47yc1xo"
         :key="ustadz.name"
         data-test="array-ustadz"
         :class="[ustadz.completed ? 'completed' : '']"
-        @change="cermAndUstChanged($event, index, 'ustadz')"
+        @change="tweetsTagsChanged($event, index, 'ustadz')"
       >
         <input
           type="checkbox"
