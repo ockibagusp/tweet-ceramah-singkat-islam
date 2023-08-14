@@ -360,7 +360,7 @@ export default {
         }
 
         if (judulText != "") {
-          // tweets tag: ceramahsi dan ustadz
+          // tag tweets: ceramahsi dan ustadz
           let tweetsTags = this.startTweetTagsFunc(judulText);
 
           this.judulText = judulText;
@@ -521,7 +521,7 @@ export default {
       if (this.selectCheckBoxAll === true) {
         // TODO: config.json
 
-        // => tweets tag: ceramahsi dan ustadz
+        // => tag tweets: ceramahsi dan ustadz
         let tweetsTags = this.startTweetTagsFunc(this.judulText);
 
         // textarea youtube.com ke youtu.be
