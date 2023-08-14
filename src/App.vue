@@ -53,6 +53,12 @@ export default {
           completed: false,
         },
         {
+          name: "Al-Qur'an",
+          tweets: "#AlQuran #Quran",
+          url: "https://twitter.com/search?q=%23AlQuran",
+          completed: false,
+        },
+        {
           name: "Sedekah",
           tweets: "#Sedekah",
           url: "https://twitter.com/search?q=%23Sedekah",
@@ -545,7 +551,7 @@ export default {
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     tweetsTagsChanged(event, index, isArray) {
-      // e.q: tweetTag = "Test One";
+      // e.q: tweetTag = "#TestOne" dan "#AuthorOne";
       let tweetTag = "";
       // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
       let arrsTweetsTags = [];
@@ -566,10 +572,11 @@ export default {
         return;
       }
 
+      let arrTweetTagsIndexes = [];
       // tweetTagsSplit.length !== 0
-      tweetTagsSplit.forEach((element, index) => {
+      tweetTagsSplit.forEach((tweet, index) => {
         // "i": a A => a
-        const tweetTagRegex = new RegExp(element.toLowerCase(), "i");
+        const tweetTagRegex = new RegExp(tweet.toLowerCase(), "i");
 
         // true: !true (false)
         //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
@@ -577,24 +584,23 @@ export default {
         //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
         const isTweet = tweetTagRegex.test(this.results.toLowerCase());
         if (!isTweet) {
-          arrsTweetsTags.push(element);
+          arrTweetTagsIndexes.push(index);
         }
       });
 
-      let ceramahSIText = arrsTweetsTags.join(" ");
-      // this.objCeramahSITweets.push(index) = ceramahSIText;
-
-      console.log("tweetTagsSplit:", tweetTagsSplit);
-      console.log("this.objCeramahSITweets:", this.objCeramahSITweets);
-
       // ObjCeramahSITweets === undefined
       if (event.target.checked) {
-        // ???
-        let newArrayAlphaTweets = "";
+        // arrsCeramahSI
+        for (let i = 0; i < this.arrsCeramahSI.length; i++) {
+          const currCeramahSI = this.arrsCeramahSI.at(i);
+          // true: !true (false)
+          if (currCeramahSI.completed !== false) {
+            arrsTweetsTags.push(currCeramahSI.tweets)
+          }
 
-        if (isArray === "ceramahSI") {
-          // arrsCeramahSI
-          // !false === true
+          // ????????
+
+        }
           if (alpha.completed === true) {
             for (let i = 0; i < tweetTagsSplit.length; i++) {
               const iTweet = tweetTagsSplit.at(i);
@@ -607,16 +613,13 @@ export default {
                 arrsTweetsTags.push(iTweet);
             }
           }
-
           for (let j = 0; j < betaArray.length; j++) {
             // true == !false
             if (betaArray.at(j).completed !== false) {
               arrsUstadz.push(betaArray.at(j).tweets);
             }
           }
-
           this.objCeramahSITweets.join(" ");
-
           newArrayAlphaTweets = newArrayAlphaTweets.substring(
             0,
             newArrayAlphaTweets.length - 1
@@ -627,25 +630,21 @@ export default {
               newArrayAlphaTweets += `${betaArray.at(i).tweets} `;
             }
           }
-
           for (let j = 0; j < alphaArray.length; j++) {
             if (alphaArray.at(j).completed !== false) {
               newArrayAlphaTweets += `${alphaArray.at(j).tweets} `;
             }
           }
-
           newArrayAlphaTweets = newArrayAlphaTweets.substring(
             0,
             newArrayAlphaTweets.length - 1
           );
         }
-
         this.results = `${this.judulText} ${newArrayAlphaTweets}\n\n${this.youtubeVideo}`;
         if (this.results.length > 280) {
           this.isResultsError();
           return;
         }
-
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled++;
       } else {
