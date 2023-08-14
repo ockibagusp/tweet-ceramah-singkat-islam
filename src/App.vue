@@ -360,14 +360,14 @@ export default {
         }
 
         if (judulText != "") {
-          // => ceramahsi dan ustadz
-          let cermAndUstText = this.startTweetTagsFunc(judulText);
+          // tweets tag: ceramahsi dan ustadz
+          let tweetsTags = this.startTweetTagsFunc(judulText);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
 
           // textarea youtube.com ke youtu.be
-          results = `${judulText} ${cermAndUstText}\n\n${this.youtubeVideo}`;
+          results = `${judulText} ${tweetsTags}\n\n${this.youtubeVideo}`;
           this.isResultsSuccess(results.length);
         }
 
@@ -521,11 +521,11 @@ export default {
       if (this.selectCheckBoxAll === true) {
         // TODO: config.json
 
-        // => ceramahsi dan ustadz
-        let cermAndUstText = this.startTweetTagsFunc(this.judulText);
+        // => tweets tag: ceramahsi dan ustadz
+        let tweetsTags = this.startTweetTagsFunc(this.judulText);
 
         // textarea youtube.com ke youtu.be
-        this.results = `${this.judulText} ${cermAndUstText}\n\n${this.youtubeVideo}`;
+        this.results = `${this.judulText} ${tweetsTags}\n\n${this.youtubeVideo}`;
         this.isResultsSuccess(this.results.length);
 
         this.selectResults = true;
