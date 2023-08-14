@@ -355,7 +355,7 @@ export default {
 
         if (judulText != "") {
           // => ceramahsi dan ustadz
-          let cermAndUstText = this.startTweetsTagsFunc(judulText);
+          let cermAndUstText = this.startTweetTagsFunc(judulText);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
@@ -375,32 +375,34 @@ export default {
       }
     },
 
-    // startTweetsFunc("...") => "..."
-    // startTweetsFunc() => alert
+    // startTweetTagsFunc("...") => "..."
+    // startTweetTagsFunc() => alert
     //
     // e.q
     // Start Ceramah SI and Ustadz Tweets:
-    // startTweetsFunc("Test One")
-    startTweetsTagsFunc(judulText = "") {
+    // startTweetTagsFunc("Test One")
+    startTweetTagsFunc(judulText = "") {
       // prevDone
 
-      // ceramahSI
-      let arrStartTweets = [];
+      // tag ceramahSI
+      let arrStartTweetsTags = [];
       for (let i = 0; i < this.arrsCeramahSI.length; i++) {
         const currCeramahSI = this.arrsCeramahSI.at(i);
         // [i] => i |
         // .at(i) => i | undefined
         if (this.arrStartCermTweets.at(i) !== undefined) {
-          const tweetSplit = currCeramahSI.tweets.split(" ");
-          if (tweetSplit.length === 0) {
-            console.log("alert: this.arrStartCermTweets is tweetSplit = []");
+          const tweetTagsSplit = currCeramahSI.tweets.split(" ");
+          if (tweetTagsSplit.length === 0) {
+            alert(
+              "(method) startTweetsTagsFunc => this.arrStartCermTweets is tweetTagsSplit = []"
+            );
             return;
           }
 
-          // tweetSplit.length !== 0
-          tweetSplit.forEach((tweet) => {
-            const tweetRegex = new RegExp(
-              // e.q: tweetSplit.at(index).toLowerCase(),
+          // tweetTagsSplit.length !== 0
+          tweetTagsSplit.forEach((tweet) => {
+            const tweetTagRegex = new RegExp(
+              // e.q: tweetTagsSplit.at(index).toLowerCase(),
               tweet.toLowerCase(),
               "i"
             );
@@ -409,9 +411,9 @@ export default {
             //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
             // false: !false (true)
             //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            const isTweet = tweetRegex.test(judulText.toLowerCase());
+            const isTweet = tweetTagRegex.test(judulText.toLowerCase());
             if (!isTweet) {
-              arrStartTweets.push(tweet);
+              arrStartTweetsTags.push(tweet);
             }
           });
           // [i].completed => true
@@ -421,7 +423,7 @@ export default {
         }
       }
 
-      // Ustadz
+      // tag Ustadz
       for (let i = 0; i < this.arrsUstadz.length; i++) {
         const currUstadz = this.arrsUstadz.at(i);
         // [i] => i |
@@ -429,14 +431,16 @@ export default {
         if (this.arrStartUstTweets.at(i) !== undefined) {
           const tweetsSplit = currUstadz.tweets.split(" ");
           if (tweetsSplit.length === 0) {
-            console.log("alert: this.arrStartUstTweets is tweetSplit = []");
+            alert(
+              "(method) startTweetsTagsFunc => this.arrStartUstTweets is tweetTagsSplit = []"
+            );
             return;
           }
 
-          // tweetSplit.length !== 0
+          // tweetTagsSplit.length !== 0
           tweetsSplit.forEach((tweet) => {
-            const tweetRegex = new RegExp(
-              // e.q: tweetSplit.at(index).toLowerCase(),
+            const tweetTagRegex = new RegExp(
+              // e.q: tweetTagsSplit.at(index).toLowerCase(),
               tweet.toLowerCase(),
               "i"
             );
@@ -445,9 +449,9 @@ export default {
             //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
             // false: !false (true)
             //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            const isTweet = tweetRegex.test(judulText.toLowerCase());
+            const isTweet = tweetTagRegex.test(judulText.toLowerCase());
             if (!isTweet) {
-              arrStartTweets.push(tweet);
+              arrStartTweetsTags.push(tweet);
             }
           });
           // [i].completed => true
@@ -457,7 +461,7 @@ export default {
         }
       }
 
-      return arrStartTweets.join(" ");
+      return arrStartTweetsTags.join(" ");
     },
 
     // button: reset, copy dan tweet
@@ -512,7 +516,7 @@ export default {
         // TODO: config.json
 
         // => ceramahsi dan ustadz
-        let cermAndUstText = this.startTweetsTagsFunc(this.judulText);
+        let cermAndUstText = this.startTweetTagsFunc(this.judulText);
 
         // textarea youtube.com ke youtu.be
         this.results = `${this.judulText} ${cermAndUstText}\n\n${this.youtubeVideo}`;
@@ -541,57 +545,46 @@ export default {
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     tweetsTagsChanged(event, index, isArray) {
-      // e.q: tweet = "Test One";
-      let tweet = "";
-      let arrsCeramahSI = [];
-      // arrays: Ustadz
-      let arrsUstadz = [];
+      // e.q: tweetTag = "Test One";
+      let tweetTag = "";
+      // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
+      let arrsTweetsTags = [];
 
-      // array: caramah dan Ustadz
-      let alphaArray = [];
-      let betaArray = [];
-
-      if (isArray === "ceramahSI") {
-        tweet = this.arrsCeramahSI.at(index).tweets;
-
-        alphaArray = this.arrsCeramahSI;
-        betaArray = this.arrsCeramahSI;
-      } else if (isArray === "ustadz") {
-        tweet = this.arrsCeramahSI.at(index).tweets;
-
-        alphaArray = this.arrsCeramahSI;
-        betaArray = this.arrsCeramahSI;
+      if (isArray.toLowerCase() === "ceramahsi") {
+        tweetTag = this.arrsCeramahSI.at(index).tweets;
+      } else if (isArray.toLowerCase() === "ustadz") {
+        tweetTag = this.arrsUstadz.at(index).tweets;
       } else {
         alert(
-          "ceramahAndUstChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'"
+          "(method) tweetsTagsChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'"
         );
       }
 
-      const tweetSplit = tweet.split(" ");
-      if (tweetSplit.length === 0) {
-        console.log("alert: tweetSplit = []");
+      const tweetTagsSplit = tweetTag.split(" ");
+      if (tweetTagsSplit.length === 0) {
+        alert("(method) tweetsTagsChanged => tweetTagsSplit = []");
         return;
       }
 
-      // tweetSplit.length !== 0
-      tweetSplit.forEach((element, index) => {
+      // tweetTagsSplit.length !== 0
+      tweetTagsSplit.forEach((element, index) => {
         // "i": a A => a
-        const tweetRegex = new RegExp(element.toLowerCase(), "i");
+        const tweetTagRegex = new RegExp(element.toLowerCase(), "i");
 
         // true: !true (false)
         //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
         // false: !false (true)
         //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-        const isTweet = tweetRegex.test(this.results.toLowerCase());
+        const isTweet = tweetTagRegex.test(this.results.toLowerCase());
         if (!isTweet) {
-          arrsCeramahSI.push(element);
+          arrsTweetsTags.push(element);
         }
       });
 
-      let ceramahSIText = arrsCeramahSI.join(" ");
+      let ceramahSIText = arrsTweetsTags.join(" ");
       // this.objCeramahSITweets.push(index) = ceramahSIText;
 
-      console.log("tweetSplit:", tweetSplit);
+      console.log("tweetTagsSplit:", tweetTagsSplit);
       console.log("this.objCeramahSITweets:", this.objCeramahSITweets);
 
       // ObjCeramahSITweets === undefined
@@ -603,12 +596,15 @@ export default {
           // arrayCeramahSI
           // !false === true
           if (alpha.completed === true) {
-            for (let i = 0; i < tweetSplit.length; i++) {
-              const iTweet = tweetSplit.at(i);
+            for (let i = 0; i < tweetTagsSplit.length; i++) {
+              const iTweet = tweetTagsSplit.at(i);
               console.log("jTweet:", iTweet);
               console.log("checked:", alpha.tweets);
-              if (tweetSplit.at(i).toLocaleLowerCase() === iTweet.toLowerCase())
-                arrsCeramahSI.push(iTweet);
+              if (
+                tweetTagsSplit.at(i).toLocaleLowerCase() ===
+                iTweet.toLowerCase()
+              )
+                arrsTweetsTags.push(iTweet);
             }
           }
 
@@ -653,9 +649,9 @@ export default {
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled++;
       } else {
-        const rightComma = `${tweet} `;
-        const leftComma = ` ${tweet}`;
-        const bothComma = ` ${tweet} `;
+        const rightComma = `${tweetTag} `;
+        const leftComma = ` ${tweetTag}`;
+        const bothComma = ` ${tweetTag} `;
 
         let release = "";
         if (this.results.includes(rightComma)) {
