@@ -483,6 +483,7 @@ export default {
       });
       this.isNotResults();
     },
+
     btnCopy() {
       if (this.results == "") {
         return;
