@@ -9,7 +9,7 @@ import axios from 'axios'
 //                                                  -------
 // Link: https://www.youtube.com/shorts/sqY-2c96UrI
 
-// Judul #2: DOSA - Ustadz Dr. Firanda Andirja, MA                                
+// Judul #2: DOSA - Ustadz Dr. Firanda Andirja, MA
 // Link: https://www.youtube.com/shorts/peUj47yc1xo
 
 const wrapper = mount(App, {
@@ -175,7 +175,7 @@ describe('App js: reset tweet youtube video', async () => {
 
     // // default all arrayCemahaSI and all arrayUstadz: false
     //
-    // // example: 
+    // // example:
     // this.arrayCeramahSI.forEach(element => {
     //  element.completed = false
     // })
@@ -755,7 +755,7 @@ describe('App js: untuk ceramah dan Ustadz: #Shots (#shots, dll) satu aja', asyn
 
   it('button tweet youtube video', async () => {
     const UTF8Hash = 'Test One - Author One #TestZero\n\nyoutu.be/1111'
-      .replaceAll('\/', '%2F')
+      .replaceAll('/', '%2F')
       .replaceAll(':', '%3A')
       .replaceAll(' #', '%20%23')
       .replaceAll('|', '%7C')

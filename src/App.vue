@@ -210,8 +210,6 @@ export default {
   methods: {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async carry() {
-      this.allCheckboxesEnabled = 1;
-
       let judulText = "";
       let results = "";
 
@@ -319,10 +317,8 @@ export default {
         ) {
           this.isResultsError();
           return;
-        } else if (res.status == 404) {
-          this.isResultsError();
-          return;
         } else if (
+          res.status == 404 ||
           res.data.search(`This video isn't available anymore`) !== -1
         ) {
           this.isResultsError();
@@ -408,8 +404,9 @@ export default {
           // tweetTagsSplit.length !== 0
           tweetTagsSplit.forEach((tweet) => {
             const tweetTagRegex = new RegExp(
+              // case-insenitive match "i": (a,A) => a
               // e.q: tweetTagsSplit.at(index).toLowerCase(),
-              tweet.toLowerCase(),
+              tweet,
               "i"
             );
 
@@ -446,8 +443,9 @@ export default {
           // tweetTagsSplit.length !== 0
           tweetTagsSplit.forEach((tweet) => {
             const tweetTagRegex = new RegExp(
+              // case-insenitive match "i": (a,A) => a
               // e.q: tweetTagsSplit.at(index).toLowerCase(),
-              tweet.toLowerCase(),
+              tweet,
               "i"
             );
 
@@ -503,7 +501,7 @@ export default {
       }
       const UTF8Hash = this.results
         .replaceAll(":", "%3A")
-        .replaceAll("\/", "%2F")
+        .replaceAll("/", "%2F")
         .replaceAll("|", "%7C")
         .replaceAll(" #", "%20%23")
         .replaceAll(" # ", "%20%23%20")
@@ -551,23 +549,28 @@ export default {
 
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
-    tweetsTagsChanged(event, index, isArray) {
-      // e.q: tweetTag = "#TestOne" dan "#AuthorOne";
-      let tweetTag = "";
-      // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
-      let arrsTweetsTags = [];
+    tweetsTagsChanged(event, index, isArray = "") {
+      // e.q: Tag Tweets = "#TestOne" dan "#AuthorOne";
+      /**
 
       if (isArray.toLowerCase() === "ceramahsi") {
-        tweetTag = this.arrsCeramahSI.at(index).tweets;
+        cermTweetsTags = this.arrsCeramahSI.at(index).tweets;
       } else if (isArray.toLowerCase() === "ustadz") {
-        tweetTag = this.arrsUstadz.at(index).tweets;
+        ustadzTweetsTags = this.arrsUstadz.at(index).tweets;
       } else {
         alert(
           "(method) tweetsTagsChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'"
         );
       }
 
-      const tweetTagsSplit = tweetTag.split(" ");
+      */
+      let tweetsTags =
+        this.arrsCeramahSI.at(index).tweets || this.arrsUstadz.at(index).tweets;
+      console.log("> tweetsTags", tweetsTags);
+      // arrays: tweet tag => Ceramah Singkat Islam atau Ustadz
+      let tweetTagsSplit = tweetsTags.split(" ");
+      console.log("> tweetTagsSplit", tweetTagsSplit);
+
       if (tweetTagsSplit.length === 0) {
         alert("(method) tweetsTagsChanged => tweetTagsSplit = []");
         return;
@@ -576,8 +579,8 @@ export default {
       let arrTweetTagsIndexes = [];
       // tweetTagsSplit.length !== 0
       tweetTagsSplit.forEach((tweet, index) => {
-        // "i": a A => a
-        const tweetTagRegex = new RegExp(tweet.toLowerCase(), "i");
+        // case-insenitive match "i": (a,A) => a
+        const tweetTagRegex = new RegExp(tweet, "i");
 
         // true: !true (false)
         //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
@@ -591,57 +594,42 @@ export default {
 
       // ObjCeramahSITweets === undefined
       if (event.target.checked) {
+        // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
+        let arrsTweetsTags = [];
+
         // arrsCeramahSI
         for (let i = 0; i < this.arrsCeramahSI.length; i++) {
           const currCeramahSI = this.arrsCeramahSI.at(i);
+          if (
+            tweetsTags.toLowerCase() === currCeramahSI.tweets.toLowerCase() &&
+            arrTweetTagsIndexes.at(i)
+          ) {
+            arrsTweetsTags.push(currCeramahSI.tweets);
+          }
           // true: !true (false)
-          if (currCeramahSI.completed !== false) {
-            arrsTweetsTags.push(currCeramahSI.tweets)
+          else if (currCeramahSI.completed !== false) {
+            arrsTweetsTags.push(currCeramahSI.tweets);
           }
-
-          // ????????
-
         }
-          if (alpha.completed === true) {
-            for (let i = 0; i < tweetTagsSplit.length; i++) {
-              const iTweet = tweetTagsSplit.at(i);
-              console.log("jTweet:", iTweet);
-              console.log("checked:", alpha.tweets);
-              if (
-                tweetTagsSplit.at(i).toLocaleLowerCase() ===
-                iTweet.toLowerCase()
-              )
-                arrsTweetsTags.push(iTweet);
-            }
+
+        // arrsUstadz
+        for (let j = 0; j < this.arrsUstadz.length; j++) {
+          const currUstadz = this.arrsCeramahSI.at(j);
+          if (
+            tweetsTags.toLowerCase() === currUstadz.tweets.toLowerCase() &&
+            arrTweetTagsIndexes.at(j)
+          ) {
+            arrsTweetsTags.push(currUstadz.tweets);
           }
-          for (let j = 0; j < betaArray.length; j++) {
-            // true == !false
-            if (betaArray.at(j).completed !== false) {
-              arrsUstadz.push(betaArray.at(j).tweets);
-            }
+          // true: !false (true)
+          else if (currUstadz.completed === true) {
+            arrsTweetsTags.push(currUstadz.tweets);
           }
-          this.objCeramahSITweets.join(" ");
-          newArrayAlphaTweets = newArrayAlphaTweets.substring(
-            0,
-            newArrayAlphaTweets.length - 1
-          );
-        } else if (isArray === "ustadz") {
-          for (let i = 0; i < betaArray.length; i++) {
-            if (betaArray.at(i).completed !== false) {
-              newArrayAlphaTweets += `${betaArray.at(i).tweets} `;
-            }
-          }
-          for (let j = 0; j < alphaArray.length; j++) {
-            if (alphaArray.at(j).completed !== false) {
-              newArrayAlphaTweets += `${alphaArray.at(j).tweets} `;
-            }
-          }
-          newArrayAlphaTweets = newArrayAlphaTweets.substring(
-            0,
-            newArrayAlphaTweets.length - 1
-          );
         }
-        this.results = `${this.judulText} ${newArrayAlphaTweets}\n\n${this.youtubeVideo}`;
+
+        this.results = `${this.judulText} ${arrsTweetsTags.join(" ")}\n\n${
+          this.youtubeVideo
+        }`;
         if (this.results.length > 280) {
           this.isResultsError();
           return;
@@ -649,9 +637,9 @@ export default {
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled++;
       } else {
-        const rightComma = `${tweetTag} `;
-        const leftComma = ` ${tweetTag}`;
-        const bothComma = ` ${tweetTag} `;
+        const rightComma = `${tweetsTags} `;
+        const leftComma = ` ${tweetsTags}`;
+        const bothComma = ` ${tweetsTags} `;
 
         let release = "";
         if (this.results.includes(rightComma)) {
