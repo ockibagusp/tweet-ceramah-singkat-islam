@@ -158,7 +158,7 @@ export default {
       //  [0] => "#CeramahPendek #Shorts #Video #YouTube"
       //  [1] => "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu"
       //  ...
-      arrStartCermTweets: [0],
+      arrStartCermTweets: [0, 1, 2],
       // tweets: e.q
       //  [0] => "#UstadzFirandaAndirja #FirandaAndirja"
       //  ...
@@ -225,18 +225,7 @@ export default {
         this.arrsCeramahSI.forEach((element) => {
           element.completed = false;
         });
-        this.arrsCeramahSI.forEach((element) => {
-          element.completed = false;
-        });
-      } else {
-        this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam;
-      }
-
-      if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
-        this.arrsCeramahSI.forEach((element) => {
-          element.completed = false;
-        });
-        this.arrsCeramahSI.forEach((element) => {
+        this.arrsUstadz.forEach((element) => {
           element.completed = false;
         });
       } else {
@@ -427,11 +416,11 @@ export default {
       }
 
       // tag Ustadz
-      for (let i = 0; i < this.arrsUstadz.length; i++) {
-        const currUstadz = this.arrsUstadz.at(i);
+      for (let j = 0; j < this.arrsUstadz.length; j++) {
+        const currUstadz = this.arrsUstadz.at(j);
         // [i] => i |
         // .at(i) => i | undefined
-        if (this.arrStartUstTweets.at(i) !== undefined) {
+        if (this.arrStartUstTweets.at(j) !== undefined) {
           const tweetTagsSplit = currUstadz.tweets.split(" ");
           if (tweetTagsSplit.length === 0) {
             alert(
@@ -476,7 +465,7 @@ export default {
       this.arrsCeramahSI.forEach((element) => {
         element.completed = false;
       });
-      this.arrsCeramahSI.forEach((element) => {
+      this.arrsUstadz.forEach((element) => {
         element.completed = false;
       });
       this.isNotResults();
@@ -536,8 +525,8 @@ export default {
         this.arrsCeramahSI.forEach((val, index) => {
           this.arrsCeramahSI.at(index).completed = false;
         });
-        this.arrsCeramahSI.forEach((ceramahSI) => {
-          ceramahSI.completed = false;
+        this.arrsUstadz.forEach((ustadz) => {
+          ustadz.completed = false;
         });
 
         this.results = `${this.judulText}\n\n${this.youtubeVideo}`;
@@ -551,8 +540,8 @@ export default {
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     tweetsTagsChanged(event, index, isArray = "") {
       // e.q: Tag Tweets = "#TestOne" dan "#AuthorOne";
-      /**
-
+      let cermTweetsTags,
+        ustadzTweetsTags = undefined;
       if (isArray.toLowerCase() === "ceramahsi") {
         cermTweetsTags = this.arrsCeramahSI.at(index).tweets;
       } else if (isArray.toLowerCase() === "ustadz") {
@@ -561,73 +550,103 @@ export default {
         alert(
           "(method) tweetsTagsChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'"
         );
-      }
-
-      */
-      let tweetsTags =
-        this.arrsCeramahSI.at(index).tweets || this.arrsUstadz.at(index).tweets;
-      console.log("> tweetsTags", tweetsTags);
-      // arrays: tweet tag => Ceramah Singkat Islam atau Ustadz
-      let tweetTagsSplit = tweetsTags.split(" ");
-      console.log("> tweetTagsSplit", tweetTagsSplit);
-
-      if (tweetTagsSplit.length === 0) {
-        alert("(method) tweetsTagsChanged => tweetTagsSplit = []");
         return;
       }
-
-      let arrTweetTagsIndexes = [];
-      // tweetTagsSplit.length !== 0
-      tweetTagsSplit.forEach((tweet, index) => {
-        // case-insenitive match "i": (a,A) => a
-        const tweetTagRegex = new RegExp(tweet, "i");
-
-        // true: !true (false)
-        //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-        // false: !false (true)
-        //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-        const isTweet = tweetTagRegex.test(this.results.toLowerCase());
-        if (!isTweet) {
-          arrTweetTagsIndexes.push(index);
-        }
-      });
 
       // ObjCeramahSITweets === undefined
       if (event.target.checked) {
         // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
-        let arrsTweetsTags = [];
+        let arrsNewTweetsTags = [];
 
-        // arrsCeramahSI
-        for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-          const currCeramahSI = this.arrsCeramahSI.at(i);
-          if (
-            tweetsTags.toLowerCase() === currCeramahSI.tweets.toLowerCase() &&
-            arrTweetTagsIndexes.at(i)
-          ) {
-            arrsTweetsTags.push(currCeramahSI.tweets);
+        /**
+         * 1. arrsCeramahSI
+         * */
+        if (cermTweetsTags !== undefined) {
+          // arrsCeramahSI
+          for (let i = 0; i < this.arrsCeramahSI.length; i++) {
+            const currCeramahSI = this.arrsCeramahSI.at(i);
+            if (
+              cermTweetsTags.toLowerCase() ===
+              currCeramahSI.tweets.toLowerCase()
+            ) {
+              let arrsCermSplit = cermTweetsTags.split(" ");
+
+              // tweetTagsSplit.length !== 0
+              arrsCermSplit.forEach((tweet) => {
+                // case-insenitive match "i": (a,A) => a
+                const tweetTagRegex = new RegExp(tweet, "i");
+
+                const isTweet = tweetTagRegex.test(
+                  this.results.toLowerCase() + arrsNewTweetsTags.join(" ")
+                );
+                // true: !true (false)
+                //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+                // false: !false (true)
+                //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+                if (!isTweet) {
+                  arrsNewTweetsTags.push(tweet);
+                }
+              });
+            }
+            // true: !true (false)
+            else if (currCeramahSI.completed !== false) {
+              arrsNewTweetsTags.push(currCeramahSI.tweets);
+            }
           }
-          // true: !true (false)
-          else if (currCeramahSI.completed !== false) {
-            arrsTweetsTags.push(currCeramahSI.tweets);
+        } else {
+          for (let i = 0; i < this.arrsCeramahSI.length; i++) {
+            const currCeramahSI = this.arrsCeramahSI.at(i);
+            // true: !false (true)
+            if (currCeramahSI.completed !== false) {
+              arrsNewTweetsTags.push(currCeramahSI.tweets);
+            }
           }
         }
 
-        // arrsUstadz
-        for (let j = 0; j < this.arrsUstadz.length; j++) {
-          const currUstadz = this.arrsCeramahSI.at(j);
-          if (
-            tweetsTags.toLowerCase() === currUstadz.tweets.toLowerCase() &&
-            arrTweetTagsIndexes.at(j)
-          ) {
-            arrsTweetsTags.push(currUstadz.tweets);
+        /**
+         * 2. arrsUstadz
+         * */
+        if (ustadzTweetsTags !== undefined) {
+          // arrsUstadz
+          for (let j = 0; j < this.arrsUstadz.length; j++) {
+            const currUstadz = this.arrsUstadz.at(j);
+            if (
+              ustadzTweetsTags.toLowerCase() === currUstadz.tweets.toLowerCase()
+            ) {
+              let arrsUstadzSplit = ustadzTweetsTags.split(" ");
+              // arrSplitIndexes.length = 1 atau n+1
+              arrsUstadzSplit.forEach((tweet) => {
+                // case-insenitive match "i": (a,A) => a
+                const tweetTagRegex = new RegExp(tweet, "i");
+
+                const isTweet = tweetTagRegex.test(
+                  this.results.toLowerCase() + arrsNewTweetsTags.join(" ")
+                );
+                // true: !true (false)
+                //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+                // false: !false (true)
+                //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+                if (!isTweet) {
+                  arrsNewTweetsTags.push(tweet);
+                }
+              });
+            }
+            // true: true
+            else if (currUstadz.completed === true) {
+              arrsNewTweetsTags.push(currUstadz.tweets);
+            }
           }
-          // true: !false (true)
-          else if (currUstadz.completed === true) {
-            arrsTweetsTags.push(currUstadz.tweets);
+        } else {
+          for (let j = 0; j < this.arrsUstadz.length; j++) {
+            const currUstadz = this.arrsUstadz.at(j);
+            // true: !false (true)
+            if (currUstadz.completed !== false) {
+              arrsNewTweetsTags.push(currUstadz.tweets);
+            }
           }
         }
 
-        this.results = `${this.judulText} ${arrsTweetsTags.join(" ")}\n\n${
+        this.results = `${this.judulText} ${arrsNewTweetsTags.join(" ")}\n\n${
           this.youtubeVideo
         }`;
         if (this.results.length > 280) {
@@ -637,9 +656,9 @@ export default {
         this.isResultsSuccess(this.results.length);
         this.allCheckboxesEnabled++;
       } else {
-        const rightComma = `${tweetsTags} `;
-        const leftComma = ` ${tweetsTags}`;
-        const bothComma = ` ${tweetsTags} `;
+        const rightComma = `${cermTweetsTags || ustadzTweetsTags} `;
+        const leftComma = ` ${cermTweetsTags || ustadzTweetsTags}`;
+        const bothComma = ` ${cermTweetsTags || ustadzTweetsTags} `;
 
         let release = "";
         if (this.results.includes(rightComma)) {
@@ -691,10 +710,10 @@ export default {
       this.counts = 280;
       this.selectCopy = false;
       this.selectTweet = false;
-      this.arrsCeramahSI.forEach((val, index) => {
-        this.arrsCeramahSI[index].completed = false;
+      this.arrsUstadz.forEach((val, index) => {
+        this.arrsUstadz[index].completed = false;
       });
-      this.arrsCeramahSI.forEach((element) => {
+      this.arrsUstadz.forEach((element) => {
         element.completed = false;
       });
       this.allCheckboxesEnabled = 0;
@@ -750,8 +769,7 @@ https://youtu.be/peUj47yc1xo"
     </button>
     <br />
 
-    <!-- <h4 v-if="resultsBool">
-      Kotak Centang: -->
+    <!-- <h4 v-if="resultsBool"> -->
     <h4 v-if="true">
       Kotak Centang:
       <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
