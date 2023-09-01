@@ -28,127 +28,390 @@ export default {
       // arrays: ceramah singkat Islam
       arrsCeramahSI: [
         {
+          id: 0,
           name: "Singkat",
-          tweets: "#CeramahPendek #Shorts #Video #YouTube",
-          url: "#",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#CeramahPendek",
+                urlChild: "https://twitter.com/search?q=%23CeramahPendek",
+                titleExists: false,
+              },
+              {
+                trend: "#Shorts",
+                urlChild: "https://twitter.com/search?q=%23Shorts",
+                titleExists: false,
+              },
+              {
+                trend: "#Video",
+                urlChild: "https://twitter.com/search?q=%23Video",
+                titleExists: false,
+              },
+              {
+                trend: "#YouTube",
+                urlChild: "https://twitter.com/search?q=%23YouTube",
+                titleExists: false,
+              },
+            ],
+          },
           completed: false,
         },
         {
+          id: 1,
           name: "Islam",
-          tweets:
-            "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu",
-          url: "#",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#KajianIslam",
+                urlChild: "https://twitter.com/search?q=%23KajianIslam",
+                titleExists: false,
+              },
+              {
+                trend: "#Islam",
+                urlChild: "https://twitter.com/search?q=%23Islam",
+                titleExists: false,
+              },
+              {
+                trend: "#Muslim",
+                urlChild: "https://twitter.com/search?q=%23Muslim",
+                titleExists: false,
+              },
+              {
+                trend: "#Hikmah",
+                urlChild: "https://twitter.com/search?q=%23Hikmah",
+                titleExists: false,
+              },
+              {
+                trend: "#IslamItuIndah",
+                urlChild: "https://twitter.com/search?q=%23IslamItuIndah",
+                titleExists: false,
+              },
+              {
+                trend: "#IslamAgamaKu",
+                urlChild: "https://twitter.com/search?q=%23IslamAgamaKu",
+                titleExists: false,
+              },
+            ],
+          },
           completed: false,
         },
         {
+          id: 2,
           name: "Pengajian",
-          tweets: "#Pengajian",
-          url: "https://twitter.com/search?q=%23Pengajian",
+          tweetsTags: "#Pengajian",
+          urlRoot: "https://twitter.com/search?q=%23Pengajian",
           completed: false,
         },
         {
+          id: 3,
           name: "Sholat",
-          tweets: "#Sholat",
-          url: "https://twitter.com/search?q=%23Sholat",
+          tweetsTags: "#Sholat",
+          urlRoot: "https://twitter.com/search?q=%23Sholat",
           completed: false,
         },
         {
+          id: 4,
           name: "Al-Qur'an",
-          tweets: "#AlQuran #Quran",
-          url: "https://twitter.com/search?q=%23AlQuran",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#AlQuran",
+                urlChild: "https://twitter.com/search?q=%23AlQuran",
+                titleExists: false,
+              },
+              {
+                trend: "#Quran",
+                urlChild: "https://twitter.com/search?q=%23Quran",
+                titleExists: false,
+              },
+            ],
+          },
           completed: false,
         },
         {
+          id: 5,
           name: "Sedekah",
-          tweets: "#Sedekah",
-          url: "https://twitter.com/search?q=%23Sedekah",
+          tweetsTags: "#Sedekah",
+          urlRoot: "https://twitter.com/search?q=%23Sedekah",
           completed: false,
         },
         {
+          id: 6,
           name: "Mualaf",
-          tweets: "#Mualaf",
-          url: "https://twitter.com/search?q=%23Mualaf",
+          tweetsTags: "#Mualaf",
+          urlRoot: "https://twitter.com/search?q=%23Mualaf",
           completed: false,
         },
         {
+          id: 7,
           name: "Musibah",
-          tweets: "#Musibah",
-          url: "https://twitter.com/search?q=%23Musibah",
+          tweetsTags: "#Musibah",
+          urlRoot: "https://twitter.com/search?q=%23Musibah",
           completed: false,
         },
         {
+          id: 8,
           name: "Taubat",
-          tweets: "#Taubat #TaubatNasuha #TaubatSebelumTerlambat",
-          url: "https://twitter.com/search?q=%23Taubat",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#Taubat",
+                urlChild: "https://twitter.com/search?q=%23Taubat",
+                titleExists: false,
+              },
+              {
+                trend: "#TaubatNasuha",
+                urlChild: "https://twitter.com/search?q=%23TaubatNasuha",
+                titleExists: false,
+              },
+              {
+                trend: "#TaubatSebelumTerlambat",
+                urlChild:
+                  "https://twitter.com/search?q=%23TaubatSebelumTerlambat",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://twitter.com/search?q=%23Taubat",
           completed: false,
         },
         {
+          id: 9,
           name: "Dosa",
-          tweets: "#Dosa",
-          url: "https://twitter.com/search?q=%23Dosa",
+          tweetsTags: "#Dosa",
+          urlRoot: "https://twitter.com/search?q=%23Dosa",
           completed: false,
         },
         {
+          id: 10,
+          name: "Musik",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#Musik",
+                urlChild: "https://twitter.com/search?q=%23Musik",
+                titleExists: false,
+              },
+              {
+                trend: "#MusikHaram",
+                urlChild: "https://twitter.com/search?q=%23MusikHaram",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://twitter.com/search?q=%23MusikHaram",
+          completed: false,
+        },
+        {
+          id: 11,
+          name: "Aib",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#Aib",
+                urlChild: "https://twitter.com/search?q=%23Aib",
+                titleExists: false,
+              },
+              {
+                trend: "#AibKu",
+                urlChild: "https://twitter.com/search?q=%23AibKu",
+                titleExists: false,
+              },
+              {
+                trend: "#AibOrangLain",
+                urlChild: "https://twitter.com/search?q=%23AibOrangLain",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://twitter.com/search?q=%23Aib",
+          completed: false,
+        },
+        {
+          id: 11,
           name: "Utang",
-          tweets: "#Utang",
-          url: "https://twitter.com/search?q=%23Utang",
+          tweetsTags: "#Utang",
+          urlRoot: "https://twitter.com/search?q=%23Utang",
           completed: false,
         },
         {
+          id: 12,
           name: "RIBA",
-          tweets: "#RIBA",
-          url: "https://twitter.com/search?q=%23RIBA",
+          tweetsTags: "#RIBA",
+          urlRoot: "https://twitter.com/search?q=%23RIBA",
           completed: false,
         },
         {
+          id: 13,
           name: "Azab",
-          tweets: "#Azab",
-          url: "https://twitter.com/search?q=%23Azab",
+          tweetsTags: "#Azab",
+          urlRoot: "https://twitter.com/search?q=%23Azab",
           completed: false,
         },
         {
+          id: 14,
           name: "Zina",
-          tweets: "#Zina",
-          url: "https://twitter.com/search?q=%23Zina",
+          tweetsTags: "#Zina",
+          urlRoot: "https://twitter.com/search?q=%23Zina",
+          completed: false,
+        },
+        {
+          id: 15,
+          name: "Dzikir",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#Dzikir",
+                urlChild: "https://twitter.com/search?q=%23Dzikir",
+                titleExists: false,
+              },
+              {
+                trend: "#Zikir",
+                urlChild: "https://twitter.com/search?q=%23Zikir",
+                titleExists: false,
+              },
+              {
+                trend: "#Istighfar",
+                urlChild: "https://twitter.com/search?q=%23Istighfar",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://twitter.com/search?q=%23Zikir",
           completed: false,
         },
       ],
       // arrays: Ustadz
       arrsUstadz: [
         {
+          id: 0,
           name: "Dr. Firanda Andirja, Lc., M.A.",
-          tweets: "#UstadzFirandaAndirja #FirandaAndirja",
-          url: "https://id.wikipedia.org/wiki/Firanda_Andirja",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#UstadzFirandaAndirja",
+                urlChild:
+                  "https://twitter.com/search?q=%23UstadzFirandaAndirja",
+                titleExists: false,
+              },
+              {
+                trend: "#FirandaAndirja",
+                urlChild: "https://twitter.com/search?q=%23FirandaAndirja",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://id.wikipedia.org/wiki/Firanda_Andirja",
           completed: false,
         },
         {
+          id: 1,
           name: "Dr. Khalid Basalamah, Lc., M.A.",
-          tweets: "#UstadzKhalidBasalamah #KhalidBasalamah",
-          url: "https://id.wikipedia.org/wiki/Khalid_Basalamah",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#UstadzKhalidBasalamah",
+                urlChild:
+                  "https://twitter.com/search?q=%23UstadzKhalidBasalamah",
+                titleExists: false,
+              },
+              {
+                trend: "#KhalidBasalamah",
+                urlChild: "https://twitter.com/search?q=%23KhalidBasalamah",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://id.wikipedia.org/wiki/Khalid_Basalamah",
           completed: false,
         },
         {
+          id: 2,
           name: "Dr. Syafiq Riza Basalamah, Lc., M.A.",
-          tweets: "#UstadzSyafiqBasalamah #SyafiqRizaBasalamah",
-          url: "https://id.wikipedia.org/wiki/Syafiq_Riza_Basalamah",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#UstadzSyafiqBasalamah",
+                urlChild:
+                  "https://twitter.com/search?q=%23UstadzSyafiqBasalamah",
+                titleExists: false,
+              },
+              {
+                trend: "#SyafiqRizaBasalamah",
+                urlChild: "https://twitter.com/search?q=%23SyafiqRizaBasalamah",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://id.wikipedia.org/wiki/Syafiq_Riza_Basalamah",
           completed: false,
         },
         {
+          id: 3,
           name: "Dr. (H.C.) Adi Hidayat, Lc., M.A.",
-          tweets: "#UstadzAdiHidayat #UAH",
-          url: "https://id.wikipedia.org/wiki/Adi_Hidayat",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#UstadzAdiHidayat",
+                urlChild: "https://twitter.com/search?q=%23UstadzAdiHidayat",
+                titleExists: false,
+              },
+              {
+                trend: "#UAH",
+                urlChild: "https://twitter.com/search?q=%23UAH",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://id.wikipedia.org/wiki/Adi_Hidayat",
           completed: false,
         },
         {
+          id: 4,
           name: "Prof. Abdul Somad, Lc., D.E.S.A., Ph.D.",
-          tweets: "#UstadzAbdulSomad #UAS",
-          url: "https://id.wikipedia.org/wiki/Abdul_Somad",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#UstadzAbdulSomad",
+                urlChild: "https://twitter.com/search?q=%23UstadzAbdulSomad",
+                titleExists: false,
+              },
+              {
+                trend: "#UAS",
+                urlChild: "https://twitter.com/search?q=%23UAS",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://id.wikipedia.org/wiki/Abdul_Somad",
           completed: false,
         },
         {
+          id: 5,
           name: "(Abu Yahya) Badrusalam, Lc",
-          tweets: "#UstadzBadrusalam",
-          url: "https://id.wikipedia.org/wiki/Badrusalam",
+          tweetsTags: {
+            isTitleAll: false,
+            tags: [
+              {
+                trend: "#UstadzBadrusalam",
+                urlChild: "https://twitter.com/search?q=%23UstadzBadrusalam",
+                titleExists: false,
+              },
+            ],
+          },
+          urlRoot: "https://id.wikipedia.org/wiki/Badrusalam",
           completed: false,
         },
       ],
@@ -166,34 +429,60 @@ export default {
 
       // string: judul
       judulText: "",
-      // string: Youtube video
+      // string: Youtube dan y2mate video
       youtubeVideo: "",
+      y2mateVideo: "",
+
+      // pilih button mengatur ulang dan semua tulisan: true atau false
+      selectReset: false,
+      selectSelectAll: false,
 
       // pilih button salinan dan tweet: true atau false
       selectResults: false,
       selectCopy: false,
       selectTweet: false,
+      selectYoutube: false,
+      selectY2mate: false,
+      selectTweetCreate: false,
 
       // pilih `semua kotak centang`: true atau false
       selectCheckBoxAll: false,
 
       // `semua kotak centang` diaktifkan
       allCheckboxesEnabled: 0,
+
+      copyVitestErrors: 1,
     };
   },
   mounted() {
     this.$refs.ceramahSingkatIslam.focus();
   },
   computed: {
-    // adalah hasil dan button copy: true atau false
+    // adalah button mengatur ulang dan semua tulisan: true atau false
+    isReset: function () {
+      return !this.selectReset;
+    },
+    isSelectAll: function () {
+      return !this.selectSelectAll;
+    },
+    // adalah hasil, button copy dan button Tweet: true atau false
     isResults: function () {
       return !this.selectResults;
     },
     isCopy: function () {
       return !this.selectCopy;
     },
+    isYoutube: function () {
+      return !this.selectYoutube;
+    },
     isTweet: function () {
       return !this.selectTweet;
+    },
+    isY2mate: function () {
+      return !this.selectY2mate;
+    },
+    isTweetCreate: function () {
+      return !this.selectTweetCreate;
     },
     // adalah button `semua kotak centang`: true atau false
     isCheckBoxAll: function () {
@@ -206,6 +495,13 @@ export default {
       // vue methods: memuat
       this.carry();
     },
+
+    // textarea: hasil, tanpa ceramahSingkatIslam
+    results() {
+      if (this.ceramahSingkatIslam === "" && this.results !== "") {
+        this.results = "";
+      }
+    },
   },
   methods: {
     // dibuat: dari textarea ceramahSingkatIslam ini
@@ -215,19 +511,12 @@ export default {
 
       // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
       if (this.ceramahSingkatIslam === "") {
-        this.results = "";
-        this.ceramahSingkatIslamCopy = "";
-        this.isResultsDefault();
+        this.isNotResults();
         return;
       }
 
       if (this.ceramahSingkatIslam !== this.ceramahSingkatIslamCopy) {
-        this.arrsCeramahSI.forEach((element) => {
-          element.completed = false;
-        });
-        this.arrsUstadz.forEach((element) => {
-          element.completed = false;
-        });
+        this.isArraysCermUstFalse();
       } else {
         this.ceramahSingkatIslamCopy = this.ceramahSingkatIslam;
       }
@@ -299,14 +588,10 @@ export default {
       try {
         const res = await axios.get(ceramahSingkatIslam);
         if (
-          res.status == 200 &&
-          (ceramahSingkatSlice == "/shorts/" ||
-            ceramahSingkatSlice == "/shorts" ||
-            ceramahSingkatSlice == "/watch?v=")
-        ) {
-          this.isResultsError();
-          return;
-        } else if (
+          (res.status == 200 &&
+            (ceramahSingkatSlice == "/shorts/" ||
+              ceramahSingkatSlice == "/shorts" ||
+              ceramahSingkatSlice == "/watch?v=")) ||
           res.status == 404 ||
           res.data.search(`This video isn't available anymore`) !== -1
         ) {
@@ -344,15 +629,18 @@ export default {
           });
         }
 
-        if (judulText != "") {
+        if (judulText !== "") {
           // tag tweets: ceramahsi dan ustadz
           let tweetsTags = this.startTweetTagsFunc(judulText);
 
           this.judulText = judulText;
           this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
+          this.y2mateVideo = this.y2mateComFunc(ceramahSingkatSlice);
 
           // textarea youtube.com ke youtu.be
-          results = `${judulText} ${tweetsTags}\n\n${this.youtubeVideo}`;
+          if (tweetsTags !== "")
+            results = `${judulText} ${tweetsTags}\n\n${this.youtubeVideo}`;
+          else results = `${judulText}\n\n${this.youtubeVideo}`;
           this.isResultsSuccess(results.length);
         }
 
@@ -361,6 +649,14 @@ export default {
           this.isResultsDefault();
         }
         this.results = results;
+
+        // Copy!
+        setTimeout(
+          () =>
+            // Why? hmmm
+            this.btnCopy(),
+          this.copyVitestErrors
+        );
       } catch {
         this.isResultsError();
       }
@@ -374,6 +670,14 @@ export default {
     // startTweetTagsFunc("Test One")
     startTweetTagsFunc(judulText = "") {
       // prevDone
+      if (judulText === "") {
+        alert(
+          "(method) startTweetTagsFunc(judulText = /" /
+            "). judulText: Ceramah SI or Ustadz Tweets"
+        );
+        this.isResultsError();
+        return;
+      }
 
       // tag ceramahSI
       let arrStartTweetsTags = [];
@@ -381,38 +685,46 @@ export default {
         const currCeramahSI = this.arrsCeramahSI.at(i);
         // [i] => i |
         // .at(i) => i | undefined
-        if (this.arrStartCermTweets.at(i) !== undefined) {
-          const tweetTagsSplit = currCeramahSI.tweets.split(" ");
-          if (tweetTagsSplit.length === 0) {
-            alert(
-              "(method) startTweetsTagsFunc => this.arrStartCermTweets is tweetTagsSplit = []"
-            );
-            return;
-          }
+        this.arrStartCermTweets.forEach((startCerm) => {
+          if (i === startCerm) {
+            if (this.typeString(currCeramahSI.tweetsTags)) {
+              const cermTagRegex = new RegExp(
+                // case-insenitive match "i": (a,A) => a
+                // e.q: tweetTag.toLowerCase()
+                currCeramahSI.tweetsTags,
+                "i"
+              );
 
-          // tweetTagsSplit.length !== 0
-          tweetTagsSplit.forEach((tweet) => {
-            const tweetTagRegex = new RegExp(
-              // case-insenitive match "i": (a,A) => a
-              // e.q: tweetTagsSplit.at(index).toLowerCase(),
-              tweet,
-              "i"
-            );
+              const isTweet = cermTagRegex.test(judulText.toLowerCase());
+              if (!isTweet) arrStartTweetsTags.push(currCeramahSI.tweetsTags);
+            } else {
+              // if (this.typeObject(currCeramahSI.tweetsTags)) {...}
+              currCeramahSI.tweetsTags.isTitleAll = true;
 
-            // true: !true (false)
-            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-            // false: !false (true)
-            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            const isTweet = tweetTagRegex.test(judulText.toLowerCase());
-            if (!isTweet) {
-              arrStartTweetsTags.push(tweet);
+              const currCermTag = currCeramahSI.tweetsTags.tags;
+              // typeof currCermTag === 'object' && currCermTag !== null
+              for (let j = 0; j < currCermTag.length; j++) {
+                const currTweetTag = currCermTag.at(j);
+
+                const cermTrendRegex = new RegExp(
+                  // case-insenitive match "i": (a,A) => a
+                  // e.q: tweetTag.toLowerCase()
+                  currTweetTag.trend,
+                  "i"
+                );
+
+                const isTweet = cermTrendRegex.test(judulText.toLowerCase());
+                if (isTweet) currTweetTag.titleExists = true;
+                else arrStartTweetsTags.push(currTweetTag.trend);
+              }
             }
-          });
-          // [i].completed => true
-          // arrays: arrsCeramahSI: Singkat => true
-          currCeramahSI.completed = true;
-          this.allCheckboxesEnabled++;
-        }
+
+            // [i].completed => true
+            // arrays: arrsCeramahSI: Singkat => true
+            currCeramahSI.completed = true;
+            this.allCheckboxesEnabled++;
+          }
+        });
       }
 
       // tag Ustadz
@@ -420,55 +732,65 @@ export default {
         const currUstadz = this.arrsUstadz.at(j);
         // [i] => i |
         // .at(i) => i | undefined
-        if (this.arrStartUstTweets.at(j) !== undefined) {
-          const tweetTagsSplit = currUstadz.tweets.split(" ");
-          if (tweetTagsSplit.length === 0) {
-            alert(
-              "(method) startTweetsTagsFunc => this.arrStartUstTweets is tweetTagsSplit = []"
-            );
-            return;
-          }
+        this.arrStartUstTweets.forEach((startUst) => {
+          if (j === startUst) {
+            if (typeof currUstadz.tweetsTags === "string") {
+              const ustTagRegex = new RegExp(
+                // case-insenitive match "i": (a,A) => a
+                // e.q: tweetTag.toLowerCase()
+                currUstadz.tweetsTags,
+                "i"
+              );
 
-          // tweetTagsSplit.length !== 0
-          tweetTagsSplit.forEach((tweet) => {
-            const tweetTagRegex = new RegExp(
-              // case-insenitive match "i": (a,A) => a
-              // e.q: tweetTagsSplit.at(index).toLowerCase(),
-              tweet,
-              "i"
-            );
+              // true: !true (false)
+              //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+              // false: !false (true)
+              //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+              const isTweet = ustTagRegex.test(judulText.toLowerCase());
+              if (!isTweet) arrStartTweetsTags.push(currUstadz.tweetsTags);
+            } else {
+              currUstadz.tweetsTags.isTitleAll = true;
+              // Array.isArray(ceramahSI.tweetsTags)
+              for (let m = 0; m < currUstadz.tweetsTags.length; m++) {
+                const currTweetTag = currUstadz.tweetsTags.at(m);
 
-            // true: !true (false)
-            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-            // false: !false (true)
-            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            const isTweet = tweetTagRegex.test(judulText.toLowerCase());
-            if (!isTweet) {
-              arrStartTweetsTags.push(tweet);
+                const ustTrendRegex = new RegExp(
+                  // case-insenitive match "i": (a,A) => a
+                  // e.q: tweetTag.toLowerCase()
+                  currTweetTag.trend,
+                  "i"
+                );
+
+                const isTweet = ustTrendRegex.test(judulText.toLowerCase());
+                if (isTweet) currTweetTag.titleExists = true;
+                else arrStartTweetsTags.push(currTweetTag.trend);
+              }
+
+              currUstadz.completed = true;
+              this.allCheckboxesEnabled++;
             }
-          });
-          // [i].completed => true
-          // arrays: arrsUstadz: "Dr. Firanda Andirja, Lc., M.A." => true
-          currUstadz.completed = true;
-          this.allCheckboxesEnabled++;
-        }
+          }
+        });
       }
 
       return arrStartTweetsTags.join(" ");
     },
 
-    // button: reset, copy dan tweet
+    // button: reset, semua tulisan, copy dan tweet
     btnReset() {
       this.ceramahSingkatIslam = "";
       // autofocus
       this.$refs.ceramahSingkatIslam.focus();
-      this.arrsCeramahSI.forEach((element) => {
-        element.completed = false;
-      });
-      this.arrsUstadz.forEach((element) => {
-        element.completed = false;
-      });
+      this.isArraysCermUstFalse();
       this.isNotResults();
+    },
+
+    btnSelectAll() {
+      this.$refs.ceramahSingkatIslam.select();
+      // Untuk perangkat seluler
+      this.$refs.ceramahSingkatIslam.setSelectionRange(0, 99999);
+
+      navigator.clipboard.writeText(this.ceramahSingkatIslam);
     },
 
     btnCopy() {
@@ -481,6 +803,18 @@ export default {
       this.$refs.results.setSelectionRange(0, 99999);
 
       navigator.clipboard.writeText(this.results);
+    },
+
+    btnYoutube() {
+      window.open("https://" + this.youtubeVideo, "_blank");
+    },
+
+    btnY2mate() {
+      window.open(this.y2mateVideo, "_blank");
+    },
+
+    btnTweetCreate() {
+      window.open("https://twitter.com/compose/tweet", "_blank");
     },
 
     btnTweet() {
@@ -522,12 +856,7 @@ export default {
 
         this.selectCheckBoxAll = false;
       } else {
-        this.arrsCeramahSI.forEach((val, index) => {
-          this.arrsCeramahSI.at(index).completed = false;
-        });
-        this.arrsUstadz.forEach((ustadz) => {
-          ustadz.completed = false;
-        });
+        this.isArraysCermUstFalse();
 
         this.results = `${this.judulText}\n\n${this.youtubeVideo}`;
         this.isResultsSuccess(this.results.length);
@@ -539,141 +868,222 @@ export default {
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
     tweetsTagsChanged(event, index, isArray = "") {
-      // e.q: Tag Tweets = "#TestOne" dan "#AuthorOne";
-      let cermTweetsTags,
-        ustadzTweetsTags = undefined;
-      if (isArray.toLowerCase() === "ceramahsi") {
-        cermTweetsTags = this.arrsCeramahSI.at(index).tweets;
-      } else if (isArray.toLowerCase() === "ustadz") {
-        ustadzTweetsTags = this.arrsUstadz.at(index).tweets;
-      } else {
-        alert(
-          "(method) tweetsTagsChanged(event, index, isArray). isArray: 'ceramahSI' or 'ustadz'"
+      const targetChecked = event.target.checked;
+      let _checked = false;
+
+      // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
+      let arrsNewTweetsTags = [];
+
+      const currCermTagStrFunc = (_tweetsTags) => {
+        const cermTagRegex = new RegExp(
+          // case-insenitive match "i": (a,A) => a
+          // e.q: tweetTag.toLowerCase()
+          _tweetsTags,
+          "i"
         );
+
+        const isTweet = cermTagRegex.test(this.judulText.toLowerCase());
+        if (!isTweet) return _tweetsTags;
+
+        return "";
+      };
+
+      const currCermTagObjFunc = (_currCermTag) => {
+        let _arrsNewTweetsTags = [];
+
+        // typeof currCermTag === 'object' && currCermTag !== null
+        for (let j = 0; j < _currCermTag.length; j++) {
+          const currTweetTag = _currCermTag.at(j);
+
+          const cermTrendRegex = new RegExp(
+            // case-insenitive match "i": (a,A) => a
+            // e.q: tweetTag.toLowerCase()
+            currTweetTag.trend,
+            "i"
+          );
+
+          const isTweet = cermTrendRegex.test(this.judulText.toLowerCase());
+
+          if (!isTweet) _arrsNewTweetsTags.push(currTweetTag.trend);
+        }
+
+        return _arrsNewTweetsTags;
+      };
+
+      /**
+       * 1. arrsCeramahSI
+       * */
+      for (let i = 0; i < this.arrsCeramahSI.length; i++) {
+        const currCeramahSI = this.arrsCeramahSI.at(i);
+        // ?
+        if (currCeramahSI.completed) console.log(i, currCeramahSI.completed);
+
+        if (currCeramahSI.completed === true) {
+          console.log("check", currCeramahSI.completed, currCeramahSI.name);
+
+          if (this.typeString(currCeramahSI.tweetsTags)) {
+            let newTweetsTags = currCermTagStrFunc(currCeramahSI.tweetsTags);
+
+            if (newTweetsTags !== "") {
+              arrsNewTweetsTags.push(newTweetsTags);
+              _checked = true;
+            }
+          } else if (this.typeObject(currCeramahSI.tweetsTags)) {
+            const currCermTag = currCeramahSI.tweetsTags.tags;
+
+            currCeramahSI.tweetsTags.isTitleAll = true;
+            const _arrsNewTweetsTags = currCermTagObjFunc(currCermTag);
+            console.log("currCermTagFunc: true", _arrsNewTweetsTags);
+
+            arrsNewTweetsTags.push(..._arrsNewTweetsTags);
+            _checked = true;
+
+            //currCeramahSI.completed = true;
+          }
+        } else if (currCeramahSI.completed === false) {
+          if (this.typeString(currCeramahSI.tweetsTags)) {
+            console.log("uncheck", false, currCeramahSI.name);
+            const cermTagRegex = new RegExp(
+              // case-insenitive match "i": (a,A) => a
+              // e.q: tweetTag.toLowerCase()
+              currCeramahSI.tweetsTags,
+              "i"
+            );
+
+            const isTweet = cermTagRegex.test(this.judulText.toLowerCase());
+            if (isTweet) currCeramahSI.completed = true;
+            else {
+              // this.allCheckboxesEnabled--;
+            }
+          }
+        }
+      }
+
+      /**
+       * 2. arrsUstadz
+       * */
+      for (let j = 0; j < this.arrsUstadz.length; j++) {
+        const currUstadz = this.arrsUstadz.at(j);
+        // true: !false (true)
+        if (currUstadz.completed !== false) {
+          if (typeof currUstadz.tweetsTags === "string") {
+            const ustTagRegex = new RegExp(
+              // case-insenitive match "i": (a,A) => a
+              // e.q: tweetTag.toLowerCase()
+              currUstadz.tweetsTags,
+              "i"
+            );
+
+            // true: !true (false)
+            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+            // false: !false (true)
+            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+            const isTweet = ustTagRegex.test(this.judulText.toLowerCase());
+            if (!isTweet) arrsNewTweetsTags.push(currUstadz.tweetsTags);
+          }
+          // true: !false (true)
+          else {
+            const currUstTag = currUstadz.tweetsTags.tags;
+            currUstTag.forEach((tweetTag, index) => {
+              // case-insenitive match "i": (a,A) => a
+              const ustTagRegex = new RegExp(tweetTag, "i");
+
+              const isTweet = ustTagRegex.test(this.judulText.toLowerCase());
+              // true: !true (false)
+              //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
+              // false: !false (true)
+              //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
+              if (!isTweet) arrsNewTweetsTags.push(tweetTag);
+              else currUstadz.tweetsTags.isTitleAll = true;
+            });
+          }
+        }
+      }
+
+      this.results = `${this.judulText} ${arrsNewTweetsTags.join(" ")}\n\n${
+        this.youtubeVideo
+      }`;
+
+      console.log("diaktifkan:", this.allCheckboxesEnabled);
+      console.log("sukses:", this.results);
+      if (this.results.length > 280) {
+        this.isResultsError();
         return;
       }
+      this.isResultsSuccess(this.results.length);
 
-      // ObjCeramahSITweets === undefined
-      if (event.target.checked) {
-        // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
-        let arrsNewTweetsTags = [];
+      if (_checked) this.allCheckboxesEnabled++;
+      // } else {
+      //   /**
+      //    * checked
+      //    */
+      //   // e.q: Tag Tweets = "#TestOne" dan "#AuthorOne";
+      //   let arrsNewTweetsTags = [];
 
-        /**
-         * 1. arrsCeramahSI
-         * */
-        if (cermTweetsTags !== undefined) {
-          // arrsCeramahSI
-          for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-            const currCeramahSI = this.arrsCeramahSI.at(i);
-            if (
-              cermTweetsTags.toLowerCase() ===
-              currCeramahSI.tweets.toLowerCase()
-            ) {
-              let arrsCermSplit = cermTweetsTags.split(" ");
+      //   console.log("uncheck ceramahsi");
+      //   if (isArray.toLowerCase() === "ceramahsi") {
+      //     // // ???
+      //     for (let i = 0; i < this.arrsCeramahSI.length; i++) {
+      //       const currCeramahSI = this.arrsCeramahSI.at(i);
+      //       if (currCeramahSI.completed === true) {
+      //         if (this.typeString(currCeramahSI.tweetsTags)) {
+      //           const cermTagRegex = new RegExp(
+      //             // case-insenitive match "i": (a,A) => a
+      //             // e.q: tweetTag.toLowerCase()
+      //             currCeramahSI.tweetsTags,
+      //             "i"
+      //           );
 
-              // tweetTagsSplit.length !== 0
-              arrsCermSplit.forEach((tweet) => {
-                // case-insenitive match "i": (a,A) => a
-                const tweetTagRegex = new RegExp(tweet, "i");
+      //           const isTweet = cermTagRegex.test(this.judulText.toLowerCase());
+      //           if (!isTweet) arrsNewTweetsTags.push(currCeramahSI.tweetsTags);
+      //         } else {
+      //           const currCermTag = currCeramahSI.tweetsTags.tags;
+      //           currCeramahSI.tweetsTags.isTitleAll = true;
 
-                const isTweet = tweetTagRegex.test(
-                  this.results.toLowerCase() + arrsNewTweetsTags.join(" ")
-                );
-                // true: !true (false)
-                //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-                // false: !false (true)
-                //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-                if (!isTweet) {
-                  arrsNewTweetsTags.push(tweet);
-                }
-              });
-            }
-            // true: !true (false)
-            else if (currCeramahSI.completed !== false) {
-              arrsNewTweetsTags.push(currCeramahSI.tweets);
-            }
-          }
-        } else {
-          for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-            const currCeramahSI = this.arrsCeramahSI.at(i);
-            // true: !false (true)
-            if (currCeramahSI.completed !== false) {
-              arrsNewTweetsTags.push(currCeramahSI.tweets);
-            }
-          }
-        }
+      //           // typeof currCermTag === 'object' && currCermTag !== null
+      //           for (let j = 0; j < currCermTag.length; j++) {
+      //             const currTweetTag = currCermTag.at(j);
 
-        /**
-         * 2. arrsUstadz
-         * */
-        if (ustadzTweetsTags !== undefined) {
-          // arrsUstadz
-          for (let j = 0; j < this.arrsUstadz.length; j++) {
-            const currUstadz = this.arrsUstadz.at(j);
-            if (
-              ustadzTweetsTags.toLowerCase() === currUstadz.tweets.toLowerCase()
-            ) {
-              let arrsUstadzSplit = ustadzTweetsTags.split(" ");
-              // arrSplitIndexes.length = 1 atau n+1
-              arrsUstadzSplit.forEach((tweet) => {
-                // case-insenitive match "i": (a,A) => a
-                const tweetTagRegex = new RegExp(tweet, "i");
+      //             const cermTrendRegex = new RegExp(
+      //               // case-insenitive match "i": (a,A) => a
+      //               // e.q: tweetTag.toLowerCase()
+      //               currTweetTag.trend,
+      //               "i"
+      //             );
 
-                const isTweet = tweetTagRegex.test(
-                  this.results.toLowerCase() + arrsNewTweetsTags.join(" ")
-                );
-                // true: !true (false)
-                //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-                // false: !false (true)
-                //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-                if (!isTweet) {
-                  arrsNewTweetsTags.push(tweet);
-                }
-              });
-            }
-            // true: true
-            else if (currUstadz.completed === true) {
-              arrsNewTweetsTags.push(currUstadz.tweets);
-            }
-          }
-        } else {
-          for (let j = 0; j < this.arrsUstadz.length; j++) {
-            const currUstadz = this.arrsUstadz.at(j);
-            // true: !false (true)
-            if (currUstadz.completed !== false) {
-              arrsNewTweetsTags.push(currUstadz.tweets);
-            }
-          }
-        }
+      //             const isTweet = cermTrendRegex.test(
+      //               this.judulText.toLowerCase()
+      //             );
+      //             if (!isTweet) arrsNewTweetsTags.push(currTweetTag.trend);
+      //             //else currCeramahSI.tweetsTags.isTitleAll = true;
+      //           }
+      //         }
+      //       }
+      //     }
+      //     this.results = `${this.judulText} ${arrsNewTweetsTags.join(" ")}\n\n${
+      //       this.youtubeVideo
+      //     }`;
+      //     if (this.results.length > 280) {
+      //       this.isResultsError();
+      //       return;
+      //     }
+      //     this.isResultsSuccess(this.results.length);
+      //     this.allCheckboxesEnabled--;
+      //   }
+      //}
 
-        this.results = `${this.judulText} ${arrsNewTweetsTags.join(" ")}\n\n${
-          this.youtubeVideo
-        }`;
-        if (this.results.length > 280) {
-          this.isResultsError();
-          return;
-        }
-        this.isResultsSuccess(this.results.length);
-        this.allCheckboxesEnabled++;
-      } else {
-        const rightComma = `${cermTweetsTags || ustadzTweetsTags} `;
-        const leftComma = ` ${cermTweetsTags || ustadzTweetsTags}`;
-        const bothComma = ` ${cermTweetsTags || ustadzTweetsTags} `;
-
-        let release = "";
-        if (this.results.includes(rightComma)) {
-          release = rightComma;
-        } else if (this.results.includes(leftComma)) {
-          release = leftComma;
-        } else if (this.results.includes(bothComma)) {
-          release = bothComma;
-        }
-
-        this.results = this.results.replace(release, "");
-        this.isResultsSuccess(this.results.length);
-        this.allCheckboxesEnabled--;
-      }
+      console.log("------");
     },
+
+    // type of at 'object' or 'string'
+    typeObject(value) {
+      return typeof value === "object" && value !== null;
+    },
+
+    typeString(value) {
+      return typeof value === "string";
+    },
+
     // adalah textarea youtube.com ke youtu.be
     isYoutubeComToYoutube(link) {
       // memotong pada youtube atau youtu ke '': misalnya,
@@ -693,36 +1103,76 @@ export default {
           .replace("/", "")
           .replace("?feature=share", "")
           // e.q. https://www.youtube.com/watch?v=012345...&t=1s
-          .replace("&t=1s", "")
-          .replace(/&list=WL&index=\d{1,}/, "")
+          .replace(/[?|&]t=\d{1,}s/, "")
+          .replace(/([?|&]list=WL&index=\d{1,})|([?|&]ab_channel=\w+)/, "")
       );
     },
+
+    y2mateComFunc(link) {
+      // memotong pada youtube atau youtu ke '': misalnya,
+      //  '/shorts/peUj47yc1xo' ke '/peUj47yc1xo'
+      let ceramahSingkatSlice = link
+        .replace("/shorts", "")
+        .replace("/watch?v=", "")
+        .replace("/shorts/", "")
+        .replace("/", "")
+        .replace("?feature=share", "")
+        // e.q. https://www.youtube.com/watch?v=012345...&t=1s
+        .replace(/[?|&]t=\d{1,}s/, "")
+        .replace(/[?|&]list=WL&index=\d{1,}/, "")
+        .replace(/[?|&]ab_channel=\w+/, "");
+
+      return "https://www.y2mate.com/youtube/" + ceramahSingkatSlice;
+    },
+
+    isArraysCermUstFalse() {
+      this.arrsCeramahSI.forEach((ceramahSI) => {
+        ceramahSI.completed = false;
+      });
+      this.arrsUstadz.forEach((ustadz) => {
+        ustadz.completed = false;
+      });
+    },
+
     isNotResults() {
       this.results = "";
+      this.selectReset = false;
+      this.selectSelectAll = false;
+      this.selectYoutube = false;
+      this.selectY2mate = false;
+      this.selectTweetCreate = false;
       this.isResultsDefault();
     },
+
     isResultsError() {
       this.results = "Tidak ada hasil";
+      this.selectReset = true;
+      this.selectSelectAll = false;
+      this.selectYoutube = false;
+      this.selectY2mate = false;
+      this.selectTweetCreate = false;
       this.isResultsDefault();
     },
+
     isResultsDefault() {
       this.resultsBool = false;
       this.counts = 280;
       this.selectCopy = false;
       this.selectTweet = false;
-      this.arrsUstadz.forEach((val, index) => {
-        this.arrsUstadz[index].completed = false;
-      });
-      this.arrsUstadz.forEach((element) => {
-        element.completed = false;
-      });
+      this.isArraysCermUstFalse();
       this.allCheckboxesEnabled = 0;
     },
+
     isResultsSuccess(videoLength) {
       this.resultsBool = true;
+      this.selectReset = true;
+      this.selectSelectAll = true;
       this.selectResults = true;
       this.selectCopy = true;
+      this.selectYoutube = true;
       this.selectTweet = true;
+      this.selectY2mate = true;
+      this.selectTweetCreate = true;
       this.counts = 280 - videoLength;
     },
   },
@@ -742,8 +1192,21 @@ export default {
       data-test="ceramah-singkat-islam"
     />
     <br />
-    <button style="margin-top: 4px" @click="btnReset" data-test="btn-reset">
+    https://www.youtube.com/shorts/sqY-2c96UrI
+    <button
+      style="margin-top: 4px"
+      @click="btnReset"
+      :disabled="isReset"
+      data-test="btn-reset"
+    >
       Reset
+    </button>
+    <button
+      style="margin-left: 2px; margin-top: 4px"
+      @click="btnSelectAll"
+      :disabled="isSelectAll"
+    >
+      Copy
     </button>
     <br />
     <h3 style="margin-top: 10px; margin-bottom: -15px">Hasil:</h3>
@@ -763,76 +1226,112 @@ https://youtu.be/peUj47yc1xo"
     <button @click="btnCopy" :disabled="isCopy" data-test="btn-copy">
       Copy
     </button>
+    <button @click="btnYoutube" :disabled="isYoutube">YouTube Video</button>
+    <button @click="btnY2mate" :disabled="isY2mate">Y2mate Video</button>
+    <button @click="btnTweetCreate" :disabled="isTweetCreate">
+      Tweet Create
+    </button>
     <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">
       Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small>
       {{ counts }}
     </button>
     <br />
 
-    <!-- <h4 v-if="resultsBool"> -->
-    <h4 v-if="true">
-      Kotak Centang:
-      <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
-        {{ !isCheckBoxAll ? "diaktifkan" : "tidak diaktifkan" }}
-      </button>
-    </h4>
+    <!-- <template v-if="resultsBool"> -->
+    <template v-if="true">
+      <h4>
+        Kotak Centang:
+        <button @click="btnCheckBoxAll()" data-test="btn-checkbox-all">
+          {{ !isCheckBoxAll ? "diaktifkan" : "tidak diaktifkan" }}
+        </button>
+      </h4>
 
-    <!-- <p
-      v-if="resultsBool"
-      style="margin-top: -20px; margin-bottom: 10px"
-      data-test="all-checkboxes-enabled"
-    > -->
-    <p
-      v-if="true"
-      style="margin-top: -20px; margin-bottom: 10px"
-      data-test="all-checkboxes-enabled"
-    >
-      diaktifkan: {{ allCheckboxesEnabled }}
-    </p>
-
-    {{ resultsBool ? "📌" : "" }}
-    <!-- <div v-if="resultsBool"> -->
-    <div v-if="true">
-      <h4 style="margin-top: 0px; margin-bottom: 5px">Tag Singkat Islam:</h4>
-      <div
-        v-for="(ceramahSI, index) in arrsCeramahSI"
-        :key="ceramahSI.name"
-        data-test="array-ceramahSI"
-        :class="[ceramahSI.completed ? 'completed' : '']"
-        @change="tweetsTagsChanged($event, index, 'ceramahSI')"
+      <p
+        style="margin-top: -20px; margin-bottom: 10px"
+        data-test="all-checkboxes-enabled"
       >
-        <input
-          type="checkbox"
-          v-model="ceramahSI.completed"
-          data-test="ceramahSI-checkbox"
-        />
-        <a :href="ceramahSI.url" v-if="ceramahSI.url !== '#'" target="_blank">{{
-          ceramahSI.name
-        }}</a>
-        <a v-else>{{ ceramahSI.name }}</a>
-        <div style="margin-left: 20px">
-          <small>{{ ceramahSI.tweets }}</small>
+        diaktifkan: {{ allCheckboxesEnabled }}
+      </p>
+
+      <div>
+        <h4 style="margin-top: 0px; margin-bottom: 5px">
+          📌 Tag Singkat Islam:
+        </h4>
+        <div
+          v-for="(ceramahSI, index) in arrsCeramahSI"
+          :key="ceramahSI.id"
+          data-test="array-ceramahSI"
+          :class="[ceramahSI.completed ? 'completed' : '']"
+          @change="tweetsTagsChanged($event, index, 'ceramahSI')"
+        >
+          <input
+            type="checkbox"
+            v-model="ceramahSI.completed"
+            data-test="ceramahSI-checkbox"
+          />
+          <a
+            v-if="ceramahSI.urlRoot !== '#'"
+            :href="ceramahSI.urlRoot"
+            target="_blank"
+            >{{ ceramahSI.name }}</a
+          >
+          <a v-else :href="ceramahSI.urlRoot">{{ ceramahSI.name }}</a>
+          <div style="margin-left: 20px">
+            <template v-if="typeof ceramahSI.tweetsTags === 'string'">
+              <small> {{ ceramahSI.tweetsTags }} </small>
+            </template>
+            <template v-else>
+              <small
+                v-for="tweet in ceramahSI.tweetsTags.tags"
+                :key="tweet.trend"
+              >
+                <a :href="tweet.urlChild" target="_blank">
+                  <template
+                    v-if="!ceramahSI.tweetsTags.isTitleAll && tweet.titleExists"
+                    >➠</template
+                  >
+                  {{ tweet.trend }}
+                </a>
+                {{ " " }}
+              </small>
+            </template>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 10px; margin-bottom: 5px">📌 Tag Ustadz:</h4>
+        <div
+          v-for="(ustadz, index) in arrsUstadz"
+          :key="ustadz.id"
+          data-test="array-ustadz"
+          :class="[ustadz.completed ? 'completed' : '']"
+          @change="tweetsTagsChanged($event, index, 'ustadz')"
+        >
+          <input
+            type="checkbox"
+            v-model="ustadz.completed"
+            data-test="ustadz-checkbox"
+          />
+
+          <a :href="ustadz.urlRoot" target="_blank">{{ ustadz.name }}</a>
+          <div style="margin-left: 20px">
+            <template
+              v-if="
+                typeof ustadz.tweetsTags === 'object' &&
+                ustadz.tweetsTags !== null
+              "
+            >
+              <small v-for="tweet in ustadz.tweetsTags.tags" :key="tweet.trend">
+                <a :href="tweet.urlChild" target="_blank">{{ tweet.trend }}</a>
+                {{ " " }}
+              </small>
+            </template>
+
+            <template v-else>
+              <small> {{ ustadz.tweetsTags }} </small>
+            </template>
+          </div>
         </div>
       </div>
-
-      <h4 style="margin-top: 10px; margin-bottom: 5px">Tag Ustadz:</h4>
-      <div
-        v-for="(ustadz, index) in arrsUstadz"
-        :key="ustadz.name"
-        data-test="array-ustadz"
-        :class="[ustadz.completed ? 'completed' : '']"
-        @change="tweetsTagsChanged($event, index, 'ustadz')"
-      >
-        <input
-          type="checkbox"
-          v-model="ustadz.completed"
-          data-test="ustadz-checkbox"
-        />
-        <a :href="ustadz.url" target="_blank">{{ ustadz.name }}</a>
-        <div style="margin-left: 20px">
-          <small>{{ ustadz.tweets }}</small>
-        </div>
-      </div>
-    </div>
+    </template>
   </main>
 </template>
