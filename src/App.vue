@@ -2,14 +2,10 @@
 
 <script>
 const REDIRCETURL = "http://localhost:3000/video";
-const YOUTUBEVIDURLS = [
-  "https://www.youtube.com",
-  "www.youtube.com",
-  "youtube.com",
-  "https://youtu.be",
-  "youtu.be",
-  "https://",
-];
+const STRTWEETS = {
+  CERAMAHSI: "ceramahSI",
+  USTADZ: "ustadz",
+};
 
 import axios from "axios";
 
@@ -102,6 +98,7 @@ export default {
           name: "Pengajian",
           tweetsTags: "#Pengajian",
           urlRoot: "https://twitter.com/search?q=%23Pengajian",
+          titleExists: false,
           completed: false,
         },
         {
@@ -109,6 +106,7 @@ export default {
           name: "Sholat",
           tweetsTags: "#Sholat",
           urlRoot: "https://twitter.com/search?q=%23Sholat",
+          titleExists: false,
           completed: false,
         },
         {
@@ -136,6 +134,7 @@ export default {
           name: "Sedekah",
           tweetsTags: "#Sedekah",
           urlRoot: "https://twitter.com/search?q=%23Sedekah",
+          titleExists: false,
           completed: false,
         },
         {
@@ -143,6 +142,7 @@ export default {
           name: "Mualaf",
           tweetsTags: "#Mualaf",
           urlRoot: "https://twitter.com/search?q=%23Mualaf",
+          titleExists: false,
           completed: false,
         },
         {
@@ -150,6 +150,7 @@ export default {
           name: "Musibah",
           tweetsTags: "#Musibah",
           urlRoot: "https://twitter.com/search?q=%23Musibah",
+          titleExists: false,
           completed: false,
         },
         {
@@ -184,6 +185,7 @@ export default {
           name: "Dosa",
           tweetsTags: "#Dosa",
           urlRoot: "https://twitter.com/search?q=%23Dosa",
+          titleExists: false,
           completed: false,
         },
         {
@@ -238,6 +240,7 @@ export default {
           name: "Utang",
           tweetsTags: "#Utang",
           urlRoot: "https://twitter.com/search?q=%23Utang",
+          titleExists: false,
           completed: false,
         },
         {
@@ -245,6 +248,7 @@ export default {
           name: "RIBA",
           tweetsTags: "#RIBA",
           urlRoot: "https://twitter.com/search?q=%23RIBA",
+          titleExists: false,
           completed: false,
         },
         {
@@ -252,6 +256,7 @@ export default {
           name: "Azab",
           tweetsTags: "#Azab",
           urlRoot: "https://twitter.com/search?q=%23Azab",
+          titleExists: false,
           completed: false,
         },
         {
@@ -259,6 +264,7 @@ export default {
           name: "Zina",
           tweetsTags: "#Zina",
           urlRoot: "https://twitter.com/search?q=%23Zina",
+          titleExists: false,
           completed: false,
         },
         {
@@ -418,14 +424,32 @@ export default {
 
       // TODO: config.json
       // tweets: e.q
-      //  [0] => "#CeramahPendek #Shorts #Video #YouTube"
-      //  [1] => "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu"
-      //  ...
-      arrStartCermTweets: [0, 1, 2],
-      // tweets: e.q
-      //  [0] => "#UstadzFirandaAndirja #FirandaAndirja"
-      //  ...
-      arrStartUstTweets: [],
+      //  {
+      //    "ceramahSI":
+      //      [0] => "#CeramahPendek #Shorts #Video #YouTube"
+      //      [1] => "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu"
+      //      ...,
+      //    "ustadz"
+      //      [0] => "#UstadzFirandaAndirja #FirandaAndirja"
+      //      ...
+      //  }
+      objStartTweets: {
+        ceramahSI: [0, 1, 2],
+        ustadz: [],
+      },
+
+      /**
+       * object completed Ceramah Singat Islam dan Ustadz
+       * tweets: e.q
+       *  {
+       *    0 => "#CeramahPendek #Shorts #Video #YouTube"
+       *    ...
+       *  }
+       */
+      objComplTweets: {
+        ceramahSI: {},
+        ustadz: {},
+      },
 
       // string: judul
       judulText: "",
@@ -507,6 +531,7 @@ export default {
     // dibuat: dari textarea ceramahSingkatIslam ini
     async carry() {
       let judulText = "";
+      let videoText = "";
       let results = "";
 
       // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
@@ -523,10 +548,17 @@ export default {
 
       // why? textarea this.ceramahSingkatIslam = '#', '?', etc.
       const regex =
-        /(https:\/\/)?(www\.|m\.)?(youtube\.com|youtu\.be)\/(watch\?v=|shorts\/)?([\w\-]+)([^\r\n\t\f\v \?&]+)?/gm;
+        /(?:https:\/\/)?(?:www\.|m\.)?(?:youtube\.com|youtu\.be\/)(?:\/?watch\?v=)?(?:\/?shorts\/)?([\w-]{1,12})/gm;
+
+      /**
+       * TODO:
+       *    let ceramahSingkatRegex = regex.exec(this.ceramahSingkatIslam)
+       *      --> ceramahSingkatRegex.at(0) => 'https://www.youtube.com/shorts/0000',
+       *      --> ceramahSingkatRegex.at(1) => '0000',
+       */
 
       // Alternative syntax using RegExp constructor
-      // const regex = new RegExp('(https:\\/\\/)?(www\\.|m\\.)?(youtube\\.com|youtu\\.be)\\/(watch\\?v=|shorts\\/)?([\\w\\-]+)(\\S+)?', 'gm')
+      // const regex = new RegExp('(?:https:\/\/)?(?:www\.|m\.)?(?:youtube\.com|youtu\.be\/)(?:\/?watch\?v=)?(?:\/?shorts\/)?([\w-]{1,12})', 'gm')
       let m;
 
       let quit = false;
@@ -544,15 +576,10 @@ export default {
             }
           }
 
-          if (groupIndex === 5) {
+          if (groupIndex === 1) {
             if (match !== undefined) {
-              // e.g.: youtube.com/watch?v=0123... or youtube.com/shorts/0123...
-              if (
-                match.search("watch") === -1 &&
-                match.search("shorts") === -1
-              ) {
-                quit = true;
-              }
+              videoText = match;
+              quit = true;
             }
           }
         });
@@ -560,25 +587,11 @@ export default {
 
       if (!quit) return this.isResultsError();
 
-      // memotong pada youtube atau youtu ke '': misalnya,
-      //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
-      let ceramahSingkatSlice = judulText
-        .replace(YOUTUBEVIDURLS.at(0), "")
-        .replace(YOUTUBEVIDURLS.at(1), "")
-        .replace(YOUTUBEVIDURLS.at(2), "")
-        .replace(YOUTUBEVIDURLS.at(3), "")
-        .replace(YOUTUBEVIDURLS.at(4), "")
-        .replace(YOUTUBEVIDURLS.at(5), "");
+      let ceramahSingkatSlice = videoText;
 
       // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
       //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
-      if (
-        ceramahSingkatSlice.search("/watch") === -1 &&
-        ceramahSingkatSlice.search("/shorts") === -1
-      ) {
-        ceramahSingkatSlice =
-          "/watch?v=" + ceramahSingkatSlice.replace("/", "");
-      }
+      ceramahSingkatSlice = "/watch?v=" + ceramahSingkatSlice;
 
       let ceramahSingkatIslam = REDIRCETURL + ceramahSingkatSlice;
 
@@ -588,10 +601,6 @@ export default {
       try {
         const res = await axios.get(ceramahSingkatIslam);
         if (
-          (res.status == 200 &&
-            (ceramahSingkatSlice == "/shorts/" ||
-              ceramahSingkatSlice == "/shorts" ||
-              ceramahSingkatSlice == "/watch?v=")) ||
           res.status == 404 ||
           res.data.search(`This video isn't available anymore`) !== -1
         ) {
@@ -630,12 +639,12 @@ export default {
         }
 
         if (judulText !== "") {
+          this.judulText = judulText;
+
           // tag tweets: ceramahsi dan ustadz
           let tweetsTags = this.startTweetTagsFunc(judulText);
-
-          this.judulText = judulText;
-          this.youtubeVideo = this.isYoutubeComToYoutube(ceramahSingkatSlice);
-          this.y2mateVideo = this.y2mateComFunc(ceramahSingkatSlice);
+          this.youtubeVideo = this.isYoutubeComToYoutube(videoText);
+          this.y2mateVideo = this.y2mateComFunc(videoText);
 
           // textarea youtube.com ke youtu.be
           if (tweetsTags !== "")
@@ -680,100 +689,85 @@ export default {
       }
 
       // tag ceramahSI
-      let arrStartTweetsTags = [];
-      for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-        const currCeramahSI = this.arrsCeramahSI.at(i);
-        // [i] => i |
-        // .at(i) => i | undefined
-        this.arrStartCermTweets.forEach((startCerm) => {
-          if (i === startCerm) {
-            if (this.typeString(currCeramahSI.tweetsTags)) {
-              const cermTagRegex = new RegExp(
-                // case-insenitive match "i": (a,A) => a
-                // e.q: tweetTag.toLowerCase()
-                currCeramahSI.tweetsTags,
-                "i"
-              );
+      this.objStartTweets.ceramahSI.forEach((startCerm) => {
+        const currCerm = this.arrsCeramahSI.at(startCerm);
 
-              const isTweet = cermTagRegex.test(judulText.toLowerCase());
-              if (!isTweet) arrStartTweetsTags.push(currCeramahSI.tweetsTags);
-            } else {
-              // if (this.typeObject(currCeramahSI.tweetsTags)) {...}
-              currCeramahSI.tweetsTags.isTitleAll = true;
-
-              const currCermTag = currCeramahSI.tweetsTags.tags;
-              // typeof currCermTag === 'object' && currCermTag !== null
-              for (let j = 0; j < currCermTag.length; j++) {
-                const currTweetTag = currCermTag.at(j);
-
-                const cermTrendRegex = new RegExp(
-                  // case-insenitive match "i": (a,A) => a
-                  // e.q: tweetTag.toLowerCase()
-                  currTweetTag.trend,
-                  "i"
-                );
-
-                const isTweet = cermTrendRegex.test(judulText.toLowerCase());
-                if (isTweet) currTweetTag.titleExists = true;
-                else arrStartTweetsTags.push(currTweetTag.trend);
-              }
-            }
-
-            // [i].completed => true
-            // arrays: arrsCeramahSI: Singkat => true
-            currCeramahSI.completed = true;
-            this.allCheckboxesEnabled++;
+        if (this.typeString(currCerm.tweetsTags)) {
+          const isTweet = this.tagRegexes(currCerm.tweetsTags);
+          if (!isTweet)
+            this.objComplTweets.ceramahSI[startCerm] = currCerm.tweetsTags;
+          else if (isTweet) {
+            this.objComplTweets.ceramahSI[startCerm] = "";
+            currCerm.titleExists = true;
           }
-        });
-      }
+        } else {
+          // if (this.typeObject(currCeramahSI.tweetsTags)) {...}
+          currCerm.tweetsTags.isTitleAll = true;
+          const currCermTag = currCerm.tweetsTags.tags;
+
+          let arrTweetTags = [];
+          // typeof currCermTag === 'object' && currCermTag !== null
+          for (let j = 0; j < currCermTag.length; j++) {
+            const isTweet = this.tagRegexes(currCermTag.at(j).trend);
+            if (isTweet) currCermTag.at(j).titleExists = true;
+            else arrTweetTags.push(currCermTag.at(j).trend);
+          }
+
+          this.objComplTweets.ceramahSI[startCerm] = arrTweetTags.join(" ");
+        }
+
+        // [i].completed => true
+        // arrays: arrsCeramahSI: Singkat => true
+        currCerm.completed = true;
+        this.allCheckboxesEnabled++;
+      });
 
       // tag Ustadz
-      for (let j = 0; j < this.arrsUstadz.length; j++) {
-        const currUstadz = this.arrsUstadz.at(j);
-        // [i] => i |
-        // .at(i) => i | undefined
-        this.arrStartUstTweets.forEach((startUst) => {
-          if (j === startUst) {
-            if (typeof currUstadz.tweetsTags === "string") {
-              const ustTagRegex = new RegExp(
-                // case-insenitive match "i": (a,A) => a
-                // e.q: tweetTag.toLowerCase()
-                currUstadz.tweetsTags,
-                "i"
-              );
+      this.objStartTweets.ustadz.forEach((startUst) => {
+        const currUst = this.arrsUstadz.at(startUst);
 
-              // true: !true (false)
-              //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-              // false: !false (true)
-              //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-              const isTweet = ustTagRegex.test(judulText.toLowerCase());
-              if (!isTweet) arrStartTweetsTags.push(currUstadz.tweetsTags);
-            } else {
-              currUstadz.tweetsTags.isTitleAll = true;
-              // Array.isArray(ceramahSI.tweetsTags)
-              for (let m = 0; m < currUstadz.tweetsTags.length; m++) {
-                const currTweetTag = currUstadz.tweetsTags.at(m);
-
-                const ustTrendRegex = new RegExp(
-                  // case-insenitive match "i": (a,A) => a
-                  // e.q: tweetTag.toLowerCase()
-                  currTweetTag.trend,
-                  "i"
-                );
-
-                const isTweet = ustTrendRegex.test(judulText.toLowerCase());
-                if (isTweet) currTweetTag.titleExists = true;
-                else arrStartTweetsTags.push(currTweetTag.trend);
-              }
-
-              currUstadz.completed = true;
-              this.allCheckboxesEnabled++;
-            }
+        if (this.typeString(currUst.tweetsTags)) {
+          const isTweet = this.tagRegexes(currUst.tweetsTags);
+          if (!isTweet)
+            this.objComplTweets.ustadz[startUst] = currUst.tweetsTags;
+          else if (isTweet) {
+            this.objComplTweets.ustadz[startCerm] = "";
+            currCerm.titleExists = true;
           }
-        });
+        } else {
+          // if (this.typeObject(currUstadz.tweetsTags)) {...}
+          currUst.tweetsTags.isTitleAll = true;
+          const currUstTag = currUst.tweetsTags.tags;
+
+          let arrTweetTags = [];
+          // typeof currCermTag === 'object' && currCermTag !== null
+          for (let j = 0; j < currUstTag.length; j++) {
+            const isTweet = this.tagRegexes(currUstTag.at(j).trend);
+            if (isTweet) currUstTag.at(j).titleExists = true;
+            else arrTweetTags.push(currUstTag.at(j).trend);
+          }
+
+          this.objComplTweets.ustadz[startUst] = arrTweetTags.join(" ");
+        }
+
+        // [i].completed => true
+        // arrays: arrsUstadz: Singkat => true
+        currUst.completed = true;
+        this.allCheckboxesEnabled++;
+      });
+
+      let arrTweetTags = [];
+      for (const cerm in this.objComplTweets.ceramahSI) {
+        const currCerm = this.objComplTweets.ceramahSI[cerm];
+        if (currCerm !== "") arrTweetTags.push(currCerm);
       }
 
-      return arrStartTweetsTags.join(" ");
+      for (const ust in this.objComplTweets.ustadz) {
+        const currUst = this.objComplTweets.ustadz[ust];
+        if (currUst !== "") arrTweetTags.push(currUst);
+      }
+
+      return arrTweetTags.join(" ");
     },
 
     // button: reset, semua tulisan, copy dan tweet
@@ -867,212 +861,153 @@ export default {
 
     // html: Tag Singkat Islam dan Tag Ustadz
     // berubah dalam array untuk ceramah Singkat Islam dan Ustadz
-    tweetsTagsChanged(event, index, isArray = "") {
+    tweetsTagsChanged(event, index, strChangeTweets = "") {
       const targetChecked = event.target.checked;
-      let _checked = false;
+      let [isTitleExists, isNotChecked] = [false, false];
 
-      // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
-      let arrsNewTweetsTags = [];
+      const currCermTagStrFunc = (
+        _currTagsObj,
+        _targetChecked,
+        _index,
+        _strChangeTweets
+      ) => {
+        let _objTweets = {};
+        if (_strChangeTweets === STRTWEETS.CERAMAHSI)
+          _objTweets = this.objComplTweets.ceramahSI;
+        else if (_strChangeTweets === STRTWEETS.USTADZ)
+          _objTweets = this.objComplTweets.ustadz;
+        else {
+          alert(
+            "(const) currCermTagStrFunc(..., ..., strChangeTweets). strChangeTweets: 'ceramahSI' or 'ustadz'"
+          );
+        }
 
-      const currCermTagStrFunc = (_tweetsTags) => {
-        const cermTagRegex = new RegExp(
-          // case-insenitive match "i": (a,A) => a
-          // e.q: tweetTag.toLowerCase()
-          _tweetsTags,
-          "i"
-        );
+        let [_isTitleExists, _isNotChecked] = [false, false];
+        const isTweet = this.tagRegexes(_currTagsObj.tweetsTags);
+        if (isTweet) _currTagsObj.completed = true;
+        else if (!isTweet && _targetChecked) {
+          _objTweets[_index] = _currTagsObj.tweetsTags;
+          _isTitleExists = true;
+        } else if (!isTweet && _targetChecked === false) {
+          delete _objTweets[_index];
+          _isNotChecked = true;
+        }
 
-        const isTweet = cermTagRegex.test(this.judulText.toLowerCase());
-        if (!isTweet) return _tweetsTags;
-
-        return "";
+        return [_isTitleExists, _isNotChecked];
       };
 
-      const currCermTagObjFunc = (_currCermTag) => {
-        let _arrsNewTweetsTags = [];
+      const currCermTagObjFunc = (
+        _currTagsObj,
+        _targetChecked,
+        _index,
+        _strChangeTweets
+      ) => {
+        let _objTweets = {};
+        if (_strChangeTweets === STRTWEETS.CERAMAHSI)
+          _objTweets = this.objComplTweets.ceramahSI;
+        else if (_strChangeTweets === STRTWEETS.USTADZ)
+          _objTweets = this.objComplTweets.ustadz;
+        else
+          alert(
+            "(const) currCermTagObjFunc(..., ..., strChangeTweets). strChangeTweets: 'ceramahSI' or 'ustadz'"
+          );
+
+        _currTagsObj.tweetsTags.isTitleAll = true;
+
+        const _currCermTag = _currTagsObj.tweetsTags.tags;
+        let [_isTitleExists, _isNotChecked] = [false, false];
+        let _arrTweetTags = [];
+        let _tweetTags = "";
 
         // typeof currCermTag === 'object' && currCermTag !== null
         for (let j = 0; j < _currCermTag.length; j++) {
-          const currTweetTag = _currCermTag.at(j);
+          const isTweet = this.tagRegexes(_currCermTag.at(j).trend);
+          if (isTweet && !_targetChecked) {
+            _currTagsObj.tweetsTags.isTitleAll = false;
+            _tweetTags = _currCermTag.at(j).trend;
 
-          const cermTrendRegex = new RegExp(
-            // case-insenitive match "i": (a,A) => a
-            // e.q: tweetTag.toLowerCase()
-            currTweetTag.trend,
-            "i"
-          );
-
-          const isTweet = cermTrendRegex.test(this.judulText.toLowerCase());
-
-          if (!isTweet) _arrsNewTweetsTags.push(currTweetTag.trend);
+            _currTagsObj.completed = true;
+          } else if (!isTweet && _targetChecked) {
+            _arrTweetTags.push(_currCermTag.at(j).trend);
+            _isTitleExists = true;
+          } else if (!isTweet && !_targetChecked) {
+            _isNotChecked = true;
+          }
         }
+        if (_tweetTags) _objTweets[_index] = "";
+        else if (!_tweetTags) _objTweets[_index] = _arrTweetTags.join(" ");
 
-        return _arrsNewTweetsTags;
+        return [_isTitleExists, _isNotChecked];
       };
 
-      /**
-       * 1. arrsCeramahSI
-       * */
-      for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-        const currCeramahSI = this.arrsCeramahSI.at(i);
-        // ?
-        if (currCeramahSI.completed) console.log(i, currCeramahSI.completed);
-
-        if (currCeramahSI.completed === true) {
-          console.log("check", currCeramahSI.completed, currCeramahSI.name);
-
-          if (this.typeString(currCeramahSI.tweetsTags)) {
-            let newTweetsTags = currCermTagStrFunc(currCeramahSI.tweetsTags);
-
-            if (newTweetsTags !== "") {
-              arrsNewTweetsTags.push(newTweetsTags);
-              _checked = true;
-            }
-          } else if (this.typeObject(currCeramahSI.tweetsTags)) {
-            const currCermTag = currCeramahSI.tweetsTags.tags;
-
-            currCeramahSI.tweetsTags.isTitleAll = true;
-            const _arrsNewTweetsTags = currCermTagObjFunc(currCermTag);
-            console.log("currCermTagFunc: true", _arrsNewTweetsTags);
-
-            arrsNewTweetsTags.push(..._arrsNewTweetsTags);
-            _checked = true;
-
-            //currCeramahSI.completed = true;
-          }
-        } else if (currCeramahSI.completed === false) {
-          if (this.typeString(currCeramahSI.tweetsTags)) {
-            console.log("uncheck", false, currCeramahSI.name);
-            const cermTagRegex = new RegExp(
-              // case-insenitive match "i": (a,A) => a
-              // e.q: tweetTag.toLowerCase()
-              currCeramahSI.tweetsTags,
-              "i"
-            );
-
-            const isTweet = cermTagRegex.test(this.judulText.toLowerCase());
-            if (isTweet) currCeramahSI.completed = true;
-            else {
-              // this.allCheckboxesEnabled--;
-            }
-          }
+      if (strChangeTweets === STRTWEETS.CERAMAHSI) {
+        /**
+         * 1. arrsCeramahSI
+         * */
+        let currCermTagsObj = this.arrsCeramahSI.at(index);
+        if (this.typeString(currCermTagsObj.tweetsTags)) {
+          [isTitleExists, isNotChecked] = currCermTagStrFunc(
+            currCermTagsObj,
+            targetChecked,
+            index,
+            strChangeTweets
+          );
+        } else {
+          // if (this.typeObject(currCeramahSI.tweetsTags)) {...}
+          [isTitleExists, isNotChecked] = currCermTagObjFunc(
+            currCermTagsObj,
+            targetChecked,
+            index,
+            strChangeTweets
+          );
+        }
+      } else if (strChangeTweets === STRTWEETS.USTADZ) {
+        /**
+         * 2. arrsUstadz
+         * */
+        let currUstTagsObj = this.arrsUstadz.at(index);
+        if (this.typeString(currUstTagsObj.tweetsTags)) {
+          [isTitleExists, isNotChecked] = currCermTagStrFunc(
+            currUstTagsObj,
+            targetChecked,
+            index,
+            strChangeTweets
+          );
+        } else {
+          // if (this.typeObject(currustadz.tweetsTags)) {...}
+          [isTitleExists, isNotChecked] = currCermTagObjFunc(
+            currUstTagsObj,
+            targetChecked,
+            index,
+            strChangeTweets
+          );
         }
       }
 
-      /**
-       * 2. arrsUstadz
-       * */
-      for (let j = 0; j < this.arrsUstadz.length; j++) {
-        const currUstadz = this.arrsUstadz.at(j);
-        // true: !false (true)
-        if (currUstadz.completed !== false) {
-          if (typeof currUstadz.tweetsTags === "string") {
-            const ustTagRegex = new RegExp(
-              // case-insenitive match "i": (a,A) => a
-              // e.q: tweetTag.toLowerCase()
-              currUstadz.tweetsTags,
-              "i"
-            );
+      if (isTitleExists) this.allCheckboxesEnabled++;
+      if (isNotChecked) this.allCheckboxesEnabled--;
 
-            // true: !true (false)
-            //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-            // false: !false (true)
-            //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-            const isTweet = ustTagRegex.test(this.judulText.toLowerCase());
-            if (!isTweet) arrsNewTweetsTags.push(currUstadz.tweetsTags);
-          }
-          // true: !false (true)
-          else {
-            const currUstTag = currUstadz.tweetsTags.tags;
-            currUstTag.forEach((tweetTag, index) => {
-              // case-insenitive match "i": (a,A) => a
-              const ustTagRegex = new RegExp(tweetTag, "i");
-
-              const isTweet = ustTagRegex.test(this.judulText.toLowerCase());
-              // true: !true (false)
-              //  eq. "#TestOne #1" => "#TestOne" (!true -> false)
-              // false: !false (true)
-              //  eq. "#TestFour #4 #Test4 #Four" => "#TestOne" (!false -> true)
-              if (!isTweet) arrsNewTweetsTags.push(tweetTag);
-              else currUstadz.tweetsTags.isTitleAll = true;
-            });
-          }
-        }
+      // arrays: tweet tag => Ceramah Singkat Islam dan Ustadz
+      let arrTweetTags = [];
+      for (const cerm in this.objComplTweets.ceramahSI) {
+        const currCerm = this.objComplTweets.ceramahSI[cerm];
+        if (currCerm !== "") arrTweetTags.push(currCerm);
       }
 
-      this.results = `${this.judulText} ${arrsNewTweetsTags.join(" ")}\n\n${
+      for (const ust in this.objComplTweets.ustadz) {
+        const currUerm = this.objComplTweets.ustadz[ust];
+        if (currUerm !== "") arrTweetTags.push(currUerm);
+      }
+
+      this.results = `${this.judulText} ${arrTweetTags.join(" ")}\n\n${
         this.youtubeVideo
       }`;
 
-      console.log("diaktifkan:", this.allCheckboxesEnabled);
-      console.log("sukses:", this.results);
       if (this.results.length > 280) {
         this.isResultsError();
         return;
       }
       this.isResultsSuccess(this.results.length);
-
-      if (_checked) this.allCheckboxesEnabled++;
-      // } else {
-      //   /**
-      //    * checked
-      //    */
-      //   // e.q: Tag Tweets = "#TestOne" dan "#AuthorOne";
-      //   let arrsNewTweetsTags = [];
-
-      //   console.log("uncheck ceramahsi");
-      //   if (isArray.toLowerCase() === "ceramahsi") {
-      //     // // ???
-      //     for (let i = 0; i < this.arrsCeramahSI.length; i++) {
-      //       const currCeramahSI = this.arrsCeramahSI.at(i);
-      //       if (currCeramahSI.completed === true) {
-      //         if (this.typeString(currCeramahSI.tweetsTags)) {
-      //           const cermTagRegex = new RegExp(
-      //             // case-insenitive match "i": (a,A) => a
-      //             // e.q: tweetTag.toLowerCase()
-      //             currCeramahSI.tweetsTags,
-      //             "i"
-      //           );
-
-      //           const isTweet = cermTagRegex.test(this.judulText.toLowerCase());
-      //           if (!isTweet) arrsNewTweetsTags.push(currCeramahSI.tweetsTags);
-      //         } else {
-      //           const currCermTag = currCeramahSI.tweetsTags.tags;
-      //           currCeramahSI.tweetsTags.isTitleAll = true;
-
-      //           // typeof currCermTag === 'object' && currCermTag !== null
-      //           for (let j = 0; j < currCermTag.length; j++) {
-      //             const currTweetTag = currCermTag.at(j);
-
-      //             const cermTrendRegex = new RegExp(
-      //               // case-insenitive match "i": (a,A) => a
-      //               // e.q: tweetTag.toLowerCase()
-      //               currTweetTag.trend,
-      //               "i"
-      //             );
-
-      //             const isTweet = cermTrendRegex.test(
-      //               this.judulText.toLowerCase()
-      //             );
-      //             if (!isTweet) arrsNewTweetsTags.push(currTweetTag.trend);
-      //             //else currCeramahSI.tweetsTags.isTitleAll = true;
-      //           }
-      //         }
-      //       }
-      //     }
-      //     this.results = `${this.judulText} ${arrsNewTweetsTags.join(" ")}\n\n${
-      //       this.youtubeVideo
-      //     }`;
-      //     if (this.results.length > 280) {
-      //       this.isResultsError();
-      //       return;
-      //     }
-      //     this.isResultsSuccess(this.results.length);
-      //     this.allCheckboxesEnabled--;
-      //   }
-      //}
-
-      console.log("------");
     },
 
     // type of at 'object' or 'string'
@@ -1084,45 +1019,26 @@ export default {
       return typeof value === "string";
     },
 
+    // tag regexes: isTweet (true, false)
+    tagRegexes(tweetsTags) {
+      const tagRegex = new RegExp(
+        // case-insenitive match "i": (a,A) => a
+        // e.q: tweetTag.toLowerCase()
+        tweetsTags,
+        "i"
+      );
+
+      const isTweet = tagRegex.test(this.judulText.toLowerCase());
+      return isTweet;
+    },
+
     // adalah textarea youtube.com ke youtu.be
     isYoutubeComToYoutube(link) {
-      // memotong pada youtube atau youtu ke '': misalnya,
-      //  'https://www.youtube.com/shorts/peUj47yc1xo' ke '/shorts/peUj47yc1xo'
-      let ceramahSingkatSlice = link
-        .replace(YOUTUBEVIDURLS.at(0), "")
-        .replace(YOUTUBEVIDURLS.at(1), "")
-        .replace(YOUTUBEVIDURLS.at(2), "")
-        .replace(YOUTUBEVIDURLS.at(3), "")
-        .replace(YOUTUBEVIDURLS.at(4), "");
-
-      return (
-        "youtu.be/" +
-        ceramahSingkatSlice
-          .replace("/watch?v=", "")
-          .replace("/shorts/", "")
-          .replace("/", "")
-          .replace("?feature=share", "")
-          // e.q. https://www.youtube.com/watch?v=012345...&t=1s
-          .replace(/[?|&]t=\d{1,}s/, "")
-          .replace(/([?|&]list=WL&index=\d{1,})|([?|&]ab_channel=\w+)/, "")
-      );
+      return "youtu.be/" + link;
     },
 
     y2mateComFunc(link) {
-      // memotong pada youtube atau youtu ke '': misalnya,
-      //  '/shorts/peUj47yc1xo' ke '/peUj47yc1xo'
-      let ceramahSingkatSlice = link
-        .replace("/shorts", "")
-        .replace("/watch?v=", "")
-        .replace("/shorts/", "")
-        .replace("/", "")
-        .replace("?feature=share", "")
-        // e.q. https://www.youtube.com/watch?v=012345...&t=1s
-        .replace(/[?|&]t=\d{1,}s/, "")
-        .replace(/[?|&]list=WL&index=\d{1,}/, "")
-        .replace(/[?|&]ab_channel=\w+/, "");
-
-      return "https://www.y2mate.com/youtube/" + ceramahSingkatSlice;
+      return "https://www.y2mate.com/youtube/" + link;
     },
 
     isArraysCermUstFalse() {
