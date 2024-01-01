@@ -1,5 +1,6 @@
 App js: textarea `hasil` untuk array untuk ceramah dan Ustadz
 
+Udah:
 - ceramahSingkatIslam: 'https://www.youtube.com/shorts/peUj47yc1xo'
 - trigger 'change'
 - results.element.value: `Tidak ada hasil'
@@ -24,7 +25,7 @@ AssertionError: expected 'Tidak ada hasil' to deeply equal 'DOSA - Ustadz Dr. Fi
     278|     // textarea hasil: test youtube.com
     279|     expect(results.element.value).toEqual(`DOSA - Ustadz Dr. Firanda Andirja, MA #CeramahPendek #Shorts #Video #YouTube
        |                                   ^
-    280| 
+    280|
     281| https://www.youtube.com/shorts/peUj47yc1xo`)
 
   - Expected  - 0
@@ -35,4 +36,21 @@ AssertionError: expected 'Tidak ada hasil' to deeply equal 'DOSA - Ustadz Dr. Fi
   - https://www.youtube.com/shorts/peUj47yc1xo`
   + `Tidak ada hasil
 
-  
+- [x] https://www.w3schools.com/jsref/met_win_close.asp
+
+Belum, isyaallah:
+- ke-click dua tab: y2mate dan twitter post
+
+misalnya:
+1. https://www.y2mate.com/youtube/sqY-2c96UrI
+2. https://twitter.com/compose/tweet
+
+- copy ke-check tags (ceramah atau ust.) tambah atau kurang
+
+- filter mencari tags ceramah singat Islam
+1. default (bawaan) check CeramahSI and Ustadz
+2. satu filter aja
+3. 'tidak ada'. tambah tags baru
+
+- satu App.vue di Options API pindah ke beberapa di Composition API
+

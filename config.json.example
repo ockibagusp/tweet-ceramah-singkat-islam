@@ -1,0 +1,28 @@
+{
+  "arrsCeramahSI": [
+    {
+      id: 0,
+      name: "Singkat",
+      tweetsTags: ["#CeramahPendek", "#Shorts", "#Video", "#YouTube"],
+    },
+    # ...
+    {
+      id: n+1,
+      name: "Pengajian",
+      url: "https://twitter.com/search?q=%23Pengajian",
+    },
+  ],
+  "arrsUstadz": [
+    {
+      id: 0,
+      name: "Dr. Firanda Andirja, Lc., M.A.",
+      tweetsTags: ["#UstadzFirandaAndirja", "#FirandaAndirja"],
+      url: "https://id.wikipedia.org/wiki/Firanda_Andirja",
+    },
+  ],
+  # arrayCeramahSI[i].tweets
+  # e.q: [0] => "#CeramahPendek #Shorts #Video #YouTube"
+  #      [1] => "#KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu"
+  "arrStartCermTweets": [0, 1, 2],
+  "arrStartUstTweets": []
+}
