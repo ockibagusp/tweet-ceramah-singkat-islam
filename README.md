@@ -79,5 +79,7 @@ $ ./js_youtube_web.sh
 VITE v4.3.9 ready in 235 ms
 
 ➜ Local: http://localhost:3000/
+
 ➜ Network: use --host to expose
+
 ➜ press h to show help
