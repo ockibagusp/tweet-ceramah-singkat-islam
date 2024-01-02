@@ -873,7 +873,6 @@ describe('App js: textarea `hasil` di array untuk ceramah dan Ustadz', () => {
 
 describe('App js: tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', async () => {
 
-
   it('tweet youtube video query delimiter: te.st/one?foo and te.st/one?foo&bar', async () => {
     // test cases
     const testCases = [
