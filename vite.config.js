@@ -12,6 +12,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   }, // options...
+  test: {
+    globals: true,
+    environment: "jsdom",
+  },
   server: {
     proxy: {
       '/video': {
