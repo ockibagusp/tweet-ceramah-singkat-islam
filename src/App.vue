@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted, watch, reactive } from "vue";
 import axios from "axios";
 import {
   arrsCeramahSI,
@@ -11,32 +11,17 @@ import {
 } from "./utils";
 
 /**
- * reactive state
+ * ceramah Singkat Islam
  */
 // textarea: ceramahSingkatIslam
 const ceramahSingkatIslam = ref("");
-// textarea: hasil
-const results = ref("");
-// tweet dihasil maks. 280 karakter
-const counts = ref(280);
-
-// string: judul
-const judulText = ref("");
-// string: Youtube dan y2mate video
-const youtubeVideo = ref("");
-const y2mateVideo = ref("");
 
 // pilih button mengatur ulang dan semua tulisan: true atau false
-const selectReset = ref(false);
 const selectSelectAll = ref(false);
 
-// pilih button salinan dan tweet: true atau false
-const selectResults = ref(false);
-const selectCopy = ref(false);
-const selectTweet = ref(false);
-const selectYoutube = ref(false);
-const selectY2mate = ref(false);
-const selectTweetCreate = ref(false);
+// select: Copy, Tweet, Youtube, Y2mate and Tweet Create
+const selectTweetObj = ref(false);
+const isTweetObj = computed(() => !selectTweetObj.value);
 
 // pilih `semua kotak centang`: true atau false
 const selectCheckBoxAll = ref(false);
@@ -59,7 +44,6 @@ async function carry() {
 
   // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
 
-  // why? textarea ceramahSingkatIslam = '#', '?', etc.
   const regex =
     /(?:https:\/\/)?(?:www\.|m\.)?(?:youtube\.com|youtu\.be\/)(?:\/?watch\?v=)?(?:\/?shorts\/)?([\w-]{1,})/gm;
 
@@ -171,6 +155,29 @@ async function carry() {
   }
 }
 
+/**
+ * results
+ */
+const results = ref("");
+const selectResults = ref(false);
+const isResults = computed(() => !selectResults.value);
+// tweet dihasil maks. 280 karakter
+const counts = ref(280);
+
+// string: judul, Youtube dan y2mate video
+const tweetObj = reactive({
+  judulText: "",
+  youtubeVideo: "",
+  y2mateVideo: "",
+});
+
+// pilih button mengatur ulang dan semua tulisan: true atau false
+const selectReset = ref(false);
+const isReset = ref(false);
+const isResets = ref(false);
+
+const isCopy = computed(() => !selectCopy);
+
 // startTweetTagsFunc("...") => "..."
 // startTweetTagsFunc() => alert
 //
@@ -188,16 +195,15 @@ function startTweetTagsFunc(judulText = "") {
     return;
   }
 
-  console.log(">>>", objStartTweets.value);
+  console.log(">>>", objStartTweets);
   // tag ceramahSI
-  objStartTweets.value.ceramahSI.forEach((startCerm) => {
+  objStartTweets.ceramahSI.forEach((startCerm) => {
     const currCerm = arrsCeramahSI.value.at(startCerm);
     if (typeString(currCerm.tweetsTags)) {
       const isTweet = tagRegexes(currCerm.tweetsTags);
-      if (!isTweet)
-        objComplTweets.value.ceramahSI[startCerm] = currCerm.tweetsTags;
+      if (!isTweet) objComplTweets.ceramahSI[startCerm] = currCerm.tweetsTags;
       else if (isTweet) {
-        objComplTweets.value.ceramahSI[startCerm] = "";
+        objComplTweets.ceramahSI[startCerm] = "";
         currCerm.titleExists = true;
       }
     } else {
@@ -213,7 +219,7 @@ function startTweetTagsFunc(judulText = "") {
         else arrTweetTags.push(currCermTag.at(j).trend);
       }
 
-      objComplTweets.value.ceramahSI[startCerm] = arrTweetTags.join(" ");
+      objComplTweets.ceramahSI[startCerm] = arrTweetTags.join(" ");
     }
 
     // [i].completed => true
@@ -223,14 +229,14 @@ function startTweetTagsFunc(judulText = "") {
   });
 
   // tag Ustadz
-  objStartTweets.value.ustadz.forEach((startUst) => {
+  objStartTweets.ustadz.forEach((startUst) => {
     const currUst = arrsUstadz.value.at(startUst);
 
     if (typeString(currUst.tweetsTags)) {
       const isTweet = tagRegexes(currUst.tweetsTags);
-      if (!isTweet) objComplTweets.value.ustadz[startUst] = currUst.tweetsTags;
+      if (!isTweet) objComplTweets.ustadz[startUst] = currUst.tweetsTags;
       else if (isTweet) {
-        objComplTweets.value.ustadz[startCerm] = "";
+        objComplTweets.ustadz[startCerm] = "";
         currCerm.titleExists = true;
       }
     } else {
@@ -246,7 +252,7 @@ function startTweetTagsFunc(judulText = "") {
         else arrTweetTags.push(currUstTag.at(j).trend);
       }
 
-      objComplTweets.value.ustadz[startUst] = arrTweetTags.join(" ");
+      objComplTweets.ustadz[startUst] = arrTweetTags.join(" ");
     }
 
     // [i].completed => true
@@ -559,9 +565,7 @@ function isNotResults() {
   results.value = "";
   selectReset.value = false;
   selectSelectAll.value = false;
-  selectYoutube.value = false;
-  selectY2mate.value = false;
-  selectTweetCreate.value = false;
+  selectTweetObj.value = false;
   isResultsDefault();
 }
 
@@ -569,16 +573,13 @@ function isResultsError() {
   results.value = "Tidak ada hasil";
   selectReset.value = true;
   selectSelectAll.value = false;
-  selectYoutube.value = false;
-  selectY2mate.value = false;
-  selectTweetCreate.value = false;
+  selectTweetObj.value = false;
   isResultsDefault();
 }
 
 function isResultsDefault() {
   counts.value = 280;
-  selectCopy.value = false;
-  selectTweet.value = false;
+  selectTweetObj.value = false;
   isArraysCermUstFalse();
   allCheckboxesEnabled.value = 0;
 }
@@ -587,11 +588,7 @@ function isResultsSuccess(videoLength) {
   selectReset.value = true;
   selectSelectAll.value = true;
   selectResults.value = true;
-  selectCopy.value = true;
-  selectYoutube.value = true;
-  selectTweet.value = true;
-  selectY2mate.value = true;
-  selectTweetCreate.value = true;
+  selectTweetObj.value = true;
   counts.value = 280 - videoLength;
 }
 
@@ -608,13 +605,8 @@ onMounted(() => {
  * computed
  */
 
-// adalah button mengatur ulang dan semua tulisan: true atau false
-const isReset = computed(() => !selectReset);
-
 const isSelectAll = computed(() => !selectSelectAll);
 // adalah hasil, button copy dan button Tweet: true atau false
-const isResults = computed(() => !selectResults);
-const isCopy = computed(() => !selectCopy);
 const isYoutube = computed(() => !selectYoutube);
 const isTweet = computed(() => !selectTweet);
 const isY2mate = computed(() => !selectY2mate);
@@ -678,17 +670,34 @@ https://youtu.be/peUj47yc1xo"
       rows="3"
       id="results"
       data-test="results"
+      :disabled="isResults"
     ></textarea>
     <br />
-    <button @click="btnCopy" :disabled="isCopy" data-test="btn-copy">
+    <button @click="btnCopy" :disabled="isTweetObj" data-test="btn-copy">
       Copy
     </button>
-    <button @click="btnYoutube" :disabled="isYoutube">YouTube Video</button>
-    <button @click="btnY2mate" :disabled="isY2mate">Y2mate Video</button>
-    <button @click="btnTweetCreate" :disabled="isTweetCreate">
+    <button
+      @click="btnYoutube"
+      :disabled="isTweetObj"
+      data-test="btn-youtube-vid"
+    >
+      YouTube Video
+    </button>
+    <button
+      @click="btnY2mate"
+      :disabled="isTweetObj"
+      data-test="btn-y2mate-vid"
+    >
+      Y2mate Video
+    </button>
+    <button
+      @click="btnTweetCreate"
+      :disabled="isTweetObj"
+      data-test="btn-tweet-create"
+    >
       Tweet Create
     </button>
-    <button @click="btnTweet" :disabled="isTweet" data-test="btn-tweet">
+    <button @click="btnTweet" :disabled="isTweetObj" data-test="btn-tweet">
       Tweet is: <small v-if="ceramahSingkatIslam.length < 280">+</small>
       {{ counts }}
     </button>

@@ -1,5 +1,5 @@
 <script>
-import { ref } from "vue";
+import { reactive } from "vue";
 
 // TODO: config.json
 // tweets: e.q
@@ -12,7 +12,7 @@ import { ref } from "vue";
 //      [0] => "#UstadzFirandaAndirja #FirandaAndirja"
 //      ...
 //  }
-export const objStartTweets = ref({
+export const objStartTweets = reactive({
   ceramahSI: [0, 1, 2],
   ustadz: [],
 });
@@ -25,7 +25,7 @@ export const objStartTweets = ref({
  *    ...
  *  }
  */
-export const objComplTweets = ref({
+export const objComplTweets = reactive({
   ceramahSI: {},
   ustadz: {},
 });

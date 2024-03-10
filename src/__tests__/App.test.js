@@ -38,8 +38,9 @@ describe('App js: start tweet youtube video', () => {
   // button: btnReset dan btnCopy
   const btnReset = wrapper.get('[data-test="btn-reset"]')
   const btnCopy = wrapper.get('[data-test="btn-copy"]')
-
-  // button: btnTweet
+  const btnYoutubeVid = wrapper.get('[data-test="btn-youtube-vid"]')
+  const btnY2mateVid = wrapper.get('[data-test="btn-y2mate-vid"]')
+  const btnTweetCreate = wrapper.get('[data-test="btn-tweet-create"]')
   const btnTweet = wrapper.get('[data-test="btn-tweet"]')
 
   // button: btnCheckBoxAll diaktifkan atau tidak diaktifkan semua kotak centang
@@ -48,16 +49,19 @@ describe('App js: start tweet youtube video', () => {
   // `semua kotak centang` diaktifkan
   const allCheckboxesEnabled = wrapper.find('[data-test="all-checkboxes-enabled"]')
 
-  assert.exists(App)
-
+  expect(App).toBeTruthy()
   it('init', () => {
-    assert.isEmpty(ceramahSingkatIslam.element.value)
-    assert.equal(ceramahSingkatIslam.element.focus(), undefined)
+    expect(ceramahSingkatIslam.element.value).toEqual('')
+    expect(ceramahSingkatIslam.element.focus()).toEqual(undefined)
+    expect(btnReset.attributes().disabled).toEqual(undefined)
 
-    assert.isEmpty(results.element.value)
-    assert.equal(btnReset.attributes().disabled, undefined)
-    assert.equal(btnCopy.attributes().disabled, undefined)
-    assert.equal(btnTweet.attributes().disabled, undefined)
+    expect(results.element.value).toBeFalsy()
+    expect(results.attributes().disabled).toEqual('')
+    expect(btnCopy.attributes().disabled).toEqual('')
+    expect(btnYoutubeVid.attributes().disabled).toEqual('')
+    expect(btnY2mateVid.attributes().disabled).toEqual('')
+    expect(btnTweetCreate.attributes().disabled).toEqual('')
+    expect(btnTweet.attributes().disabled).toEqual('')
   })
 
   it('start tweet youtube video', async () => {
@@ -66,8 +70,6 @@ describe('App js: start tweet youtube video', () => {
       data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
       status: 200
     })
-
-    console.log(arrayCeramahSI);
 
     // expect(wrapper.vm.arrsUstadz[1]).toBe("y")
     // await wrapper.setData(property)
