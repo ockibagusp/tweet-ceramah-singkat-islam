@@ -1,7 +1,7 @@
 <script>
-import { ref } from "vue";
+import { reactive } from "vue";
 
-export const arrsUstadz = ref([
+export const arrsUstadz = reactive([
   {
     id: 0,
     name: "Dr. Firanda Andirja, Lc., M.A.",

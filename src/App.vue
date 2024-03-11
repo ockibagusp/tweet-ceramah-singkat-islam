@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch, reactive } from "vue";
+import { ref, reactive, computed, onMounted, watch } from "vue";
 import axios from "axios";
 import {
   arrsCeramahSI,
@@ -38,8 +38,8 @@ async function carry() {
   results.value = "Loading...";
 
   let ceramahsi = ceramahSingkatIslam.value;
-  let _judulText = "";
-  let _videoText = "";
+  let judulText = "";
+  let videoText = "";
   let _results = "";
 
   // "https://www.youtube.com/shorts/peUj47yc1xo" => "https://youtu.be/-mD93UwO_40" ?
@@ -69,13 +69,13 @@ async function carry() {
     m.forEach((match, groupIndex) => {
       if (groupIndex === 0) {
         if (match !== undefined) {
-          _judulText = match;
+          judulText = match;
         }
       }
 
       if (groupIndex === 1) {
         if (match !== undefined) {
-          _videoText = match;
+          videoText = match;
           quit = true;
         }
       }
@@ -84,8 +84,7 @@ async function carry() {
 
   if (!quit) return isResultsError();
 
-  let ceramahSingkatSlice = _videoText;
-
+  let ceramahSingkatSlice = videoText;
   // https://youtu.be/-s0o6o5_ApU -> Tidak ada hasil
   //  => Kenapa Nabi Melarang Duduk di Pinggir Jalan? - Ustadz Dr. Firanda Andirja, Lc, MA ...
   ceramahSingkatSlice = "/watch?v=" + ceramahSingkatSlice;
@@ -123,25 +122,24 @@ async function carry() {
             .replace(/&#39;/g, "'");
 
           if (unescapeHtml !== undefined) {
-            _judulText = unescapeHtml;
+            judulText = unescapeHtml;
             return;
           }
         }
       });
     }
 
-    if (_judulText !== "") {
-      judulText.value = _judulText;
+    if (judulText !== "") {
+      tweetObj.judulText = judulText;
+      tweetObj.youtubeVideo = isYoutubeComToYoutubeFunc(videoText);
+      tweetObj.y2mateVideo = y2mateComFunc(videoText);
 
       // tag tweets: ceramahsi dan ustadz
-      let tweetsTags = startTweetTagsFunc(_judulText);
-      youtubeVideo.value = isYoutubeComToYoutube(_videoText);
-      y2mateVideo.value = y2mateComFunc(_videoText);
-
+      let tweetsTags = startTweetTagsFunc(tweetObj.judulText);
       // textarea youtube.com ke youtu.be
       if (tweetsTags !== "")
-        _results = `${_judulText} ${tweetsTags}\n\n${youtubeVideo.value}`;
-      else _results = `${_judulText}\n\n${youtubeVideo.value}`;
+        _results = `${tweetObj.judulText} ${tweetsTags}\n\n${tweetObj.youtubeVideo}`;
+      else _results = `${tweetObj.judulText}\n\n${tweetObj.youtubeVideo}`;
       isResultsSuccess(_results.length);
     }
 
@@ -195,10 +193,9 @@ function startTweetTagsFunc(judulText = "") {
     return;
   }
 
-  console.log(">>>", objStartTweets);
   // tag ceramahSI
   objStartTweets.ceramahSI.forEach((startCerm) => {
-    const currCerm = arrsCeramahSI.value.at(startCerm);
+    const currCerm = arrsCeramahSI.at(startCerm);
     if (typeString(currCerm.tweetsTags)) {
       const isTweet = tagRegexes(currCerm.tweetsTags);
       if (!isTweet) objComplTweets.ceramahSI[startCerm] = currCerm.tweetsTags;
@@ -230,8 +227,7 @@ function startTweetTagsFunc(judulText = "") {
 
   // tag Ustadz
   objStartTweets.ustadz.forEach((startUst) => {
-    const currUst = arrsUstadz.value.at(startUst);
-
+    const currUst = arrsUstadz.at(startUst);
     if (typeString(currUst.tweetsTags)) {
       const isTweet = tagRegexes(currUst.tweetsTags);
       if (!isTweet) objComplTweets.ustadz[startUst] = currUst.tweetsTags;
@@ -262,13 +258,13 @@ function startTweetTagsFunc(judulText = "") {
   });
 
   let arrTweetTags = [];
-  for (const cerm in objComplTweets.value.ceramahSI) {
-    const currCerm = objComplTweets.value.ceramahSI[cerm];
+  for (const cerm in objComplTweets.ceramahSI) {
+    const currCerm = objComplTweets.ceramahSI[cerm];
     if (currCerm !== "") arrTweetTags.push(currCerm);
   }
 
-  for (const ust in objComplTweets.value.ustadz) {
-    const currUst = objComplTweets.value.ustadz[ust];
+  for (const ust in objComplTweets.ustadz) {
+    const currUst = objComplTweets.ustadz[ust];
     if (currUst !== "") arrTweetTags.push(currUst);
   }
 
@@ -324,7 +320,7 @@ function btnTweetCreate() {
 
 function btnTweet() {
   if (results.value.length > 280) {
-    selectTweet.value = false;
+    selectTweetObj.value = false;
     return;
   }
   const UTF8Hash = results
@@ -356,8 +352,7 @@ function btnCheckBoxAll() {
     isResultsSuccess(results.value.length);
 
     selectResults.value = true;
-    selectCopy.value = true;
-    selectTweet.value = true;
+    selectTweetObj.value = true;
 
     selectCheckBoxAll.value = false;
   } else {
@@ -539,12 +534,12 @@ function tagRegexes(tweetsTags) {
     "i"
   );
 
-  const isTweet = tagRegex.test(judulText.value.toLowerCase());
+  const isTweet = tagRegex.test(tweetObj.judulText.toLowerCase());
   return isTweet;
 }
 
 // adalah textarea youtube.com ke youtu.be
-function isYoutubeComToYoutube(link) {
+function isYoutubeComToYoutubeFunc(link) {
   return "youtu.be/" + link;
 }
 
@@ -553,10 +548,10 @@ function y2mateComFunc(link) {
 }
 
 function isArraysCermUstFalse() {
-  arrsCeramahSI.value.forEach((ceramahSI) => {
+  arrsCeramahSI.forEach((ceramahSI) => {
     ceramahSI.completed = false;
   });
-  arrsUstadz.value.forEach((ustadz) => {
+  arrsUstadz.forEach((ustadz) => {
     ustadz.completed = false;
   });
 }
@@ -606,11 +601,6 @@ onMounted(() => {
  */
 
 const isSelectAll = computed(() => !selectSelectAll);
-// adalah hasil, button copy dan button Tweet: true atau false
-const isYoutube = computed(() => !selectYoutube);
-const isTweet = computed(() => !selectTweet);
-const isY2mate = computed(() => !selectY2mate);
-const isTweetCreate = computed(() => !selectTweetCreate);
 // adalah button `semua kotak centang`: true atau false
 const isCheckBoxAll = computed(() => !selectCheckBoxAll);
 

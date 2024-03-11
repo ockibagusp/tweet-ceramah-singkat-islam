@@ -1,7 +1,7 @@
 <script>
-import { ref } from "vue";
+import { reactive } from "vue";
 
-export const arrsCeramahSI = ref([
+export const arrsCeramahSI = reactive([
   {
     id: 0,
     name: "Singkat",

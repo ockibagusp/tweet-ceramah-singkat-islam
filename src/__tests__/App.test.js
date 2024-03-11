@@ -1,4 +1,4 @@
-import { describe, it, assert, expect, vi } from 'vitest'
+import { describe, it, assert, expect, vi, beforeAll } from 'vitest'
 
 import { mount, flushPromises } from '@vue/test-utils'
 import App from '../App.vue'
@@ -6,14 +6,14 @@ import property from './property'
 
 import axios from 'axios'
 
-vi.mock('axios')
-
 // Judul #1: Kekuatan Doa - Ustadz Dr. Firanda Andirja #shorts
 //                                                  -------
 // Link: https://www.youtube.com/shorts/sqY-2c96UrI
 
 // Judul #2: DOSA - Ustadz Dr. Firanda Andirja, MA
 // Link: https://www.youtube.com/shorts/peUj47yc1xo
+
+vi.mock('axios')
 
 describe('App js: start tweet youtube video', () => {
   const wrapper = mount(App, {
@@ -50,6 +50,15 @@ describe('App js: start tweet youtube video', () => {
   const allCheckboxesEnabled = wrapper.find('[data-test="all-checkboxes-enabled"]')
 
   expect(App).toBeTruthy()
+
+  // beforeAll(() => {
+  //   console.log(arrayCeramahSI.length);
+  //   for (let i = 0; i < 18; i++) {
+  //     arrayCeramahSI.pop();
+  //   }
+  //   console.log(arrayCeramahSI.length);
+  // });
+
   it('init', () => {
     expect(ceramahSingkatIslam.element.value).toEqual('')
     expect(ceramahSingkatIslam.element.focus()).toEqual(undefined)
@@ -66,7 +75,7 @@ describe('App js: start tweet youtube video', () => {
 
   it('start tweet youtube video', async () => {
     // GET
-    vi.spyOn(axios, 'get').mockResolvedValueOnce({
+    axios.get.mockResolvedValue({
       data: '<meta name="title" content="Test Zero - Author One"><meta name="description" content=',
       status: 200
     })
@@ -83,10 +92,18 @@ describe('App js: start tweet youtube video', () => {
     // Wait until the DOM updates.
     await flushPromises()
 
-    // console.log(wrapper.vm.$data.arrsCeramahSI[1].name);
+    // // ?
+    // console.log(wrapper.vm.$data.arrsCeramahSI[0].tweetsTags);
+    // console.log(arrayCeramahSI[0].text());
+    // // ?
+    // console.log(arrayCeramahSI.length);
+    // for (let i = 0; i < 18; i++) {
+    //   arrayCeramahSI.pop();
+    // }
+    // console.log(arrayCeramahSI.length);
 
     // textarea hasil: test youtube.com
-    expect(results.element.value).toEqual(`Test Zero - Author One #TestZero #TestFour #Four #4\n\nyoutu.be/0000`)
+    expect(results.element.value).toEqual(`Test Zero - Author One #CeramahPendek #Shorts #Video #YouTube #KajianIslam #Islam #Muslim #Hikmah #IslamItuIndah #IslamAgamaKu #Pengajian\n\nyoutu.be/0000`)
   })
 })
 

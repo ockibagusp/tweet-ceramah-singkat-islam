@@ -188,7 +188,7 @@ export default {
   ],
   objStartTweets: {
     ceramahSI: [0],
-    ustadz: [],
+    ustadz: [5],
   },
   objComplTweets: {
     ceramahSI: {},
